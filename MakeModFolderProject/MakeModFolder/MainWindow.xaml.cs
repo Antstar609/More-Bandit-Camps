@@ -1,8 +1,10 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.IO;
 using System.IO.Compression;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Xml;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace MakeModFolder
@@ -32,6 +34,7 @@ namespace MakeModFolder
 		}
 
 		private string _repositoryPath;
+
 		public string RepositoryPath
 		{
 			get => _repositoryPath;
@@ -48,7 +51,7 @@ namespace MakeModFolder
 
 		private void MakeModFolder()
 		{
-			var modPath = "../" + _modName;
+			var modPath = "../" + ModName;
 
 			// Create the mod folder
 			Directory.CreateDirectory(modPath);
@@ -56,19 +59,22 @@ namespace MakeModFolder
 			// Create the data folder
 			Directory.CreateDirectory(modPath + "/data");
 
-			// Copy the mod.manifest and modding_eula.txt
-			var files = Directory.GetFiles(_repositoryPath);
+			// Copy the modding_eula.txt
+			var files = Directory.GetFiles(RepositoryPath);
 			foreach (var file in files)
 			{
-				if (file.Contains("mod.manifest") || file.Contains("modding_eula.txt"))
+				if (file.Contains("modding_eula.txt"))
 				{
 					File.Copy(file, modPath + "/" + Path.GetFileName(file));
 				}
 			}
 
+			//Create the mod.manifest file
+			WriteModManifest();
+
 			// Copy the data folder and zip it
 			var dataPath = "";
-			var directories = Directory.GetDirectories(_repositoryPath);
+			var directories = Directory.GetDirectories(RepositoryPath);
 			foreach (var directory in directories)
 			{
 				if (directory.Contains("data"))
@@ -97,21 +103,17 @@ namespace MakeModFolder
 			{
 				// if in the folder there is a mod.manifest file and a modding_eula.txt file, then it's the right folder
 				var files = Directory.GetFiles(openFileDialog.FileName);
-				var modManifestFound = false;
-				var moddingEulaFound = false;
+				var isRepository = false;
 				foreach (var file in files)
 				{
-					if (file.Contains("mod.manifest"))
-						modManifestFound = true;
 					if (file.Contains("modding_eula.txt"))
-						moddingEulaFound = true;
+					{
+						isRepository = true;
+						RepositoryPath = openFileDialog.FileName;
+					}
 				}
 
-				if (moddingEulaFound && modManifestFound)
-				{
-					RepositoryPath = openFileDialog.FileName;
-				}
-				else
+				if (!isRepository)
 				{
 					MessageBox.Show("The selected folder is not a valid repository", "Warning", MessageBoxButton.OK,
 						MessageBoxImage.Warning);
@@ -121,7 +123,7 @@ namespace MakeModFolder
 
 		private void Run_Button_Click(object _sender, RoutedEventArgs _e)
 		{
-			if (!string.IsNullOrEmpty(_modName) && !string.IsNullOrEmpty(_repositoryPath))
+			if (!string.IsNullOrEmpty(ModName) && !string.IsNullOrEmpty(RepositoryPath))
 			{
 				MakeModFolder();
 			}
@@ -130,6 +132,46 @@ namespace MakeModFolder
 				MessageBox.Show("Please enter a mod name and select a repository path", "Warning", MessageBoxButton.OK,
 					MessageBoxImage.Warning);
 			}
+		}
+
+		private void WriteModManifest()
+		{
+			XmlWriterSettings settings = new()
+			{
+				Indent = true,
+				IndentChars = "\t",
+				NewLineOnAttributes = true
+			};
+
+			using XmlWriter writer = XmlWriter.Create("../" + ModName + "/mod.manifest", settings);
+
+			writer.WriteStartDocument();
+			writer.WriteStartElement("kcd_mod"); // kcd_mod
+			writer.WriteStartElement("info"); // info
+			writer.WriteStartElement("name"); // name
+			writer.WriteValue(ModName);
+			writer.WriteEndElement(); // /name
+			writer.WriteStartElement("modid"); // modid
+			writer.WriteValue(ModName);
+			writer.WriteEndElement(); // /modid
+			writer.WriteStartElement("description"); // description
+			writer.WriteValue("A mod for Kingdom Come: Deliverance");
+			writer.WriteEndElement(); // /description
+			writer.WriteStartElement("author"); // author
+			writer.WriteValue("Antstar609");
+			writer.WriteEndElement(); // /author
+			writer.WriteStartElement("version"); // version
+			writer.WriteValue("1.0.0"); //TODO: make this a textbox
+			writer.WriteEndElement(); // /version
+			writer.WriteStartElement("created_on"); // created_on
+			writer.WriteValue(DateTime.Now.ToString("dd.MM.yyyy"));
+			writer.WriteEndElement(); // /created_on
+			writer.WriteStartElement("modifies_level"); // modifies_level
+			writer.WriteValue("false"); //TODO: make this a checkbox
+			writer.WriteEndElement(); // /modifies_level
+			writer.WriteEndElement(); // /info
+			writer.WriteEndElement(); // /kcd_mod
+			writer.WriteEndDocument();
 		}
 
 		public event PropertyChangedEventHandler? PropertyChanged;

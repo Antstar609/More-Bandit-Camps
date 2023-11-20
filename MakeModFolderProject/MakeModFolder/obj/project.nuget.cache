@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "zH20LxivDKZ7GlFDxQ2/n9sqAiZQKh7jnLIhlstniTfJelSvEV+2VpCVvLNJa+krFqDDTAl8NQ3W4oHn7+7GRA==",
+  "dgSpecHash": "+jWSTakh/x4u2yscGbGTJBDMToJk8G2zhZ1jtTwxzCGXj1OZ1/yg+OA844HGe9bqfkuyNsQQqkzUh9Cs32ihfg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Etudiant1\\Desktop\\MakeModFolder\\MakeModFolder\\MakeModFolder.csproj",
+  "projectFilePath": "D:\\Antoine\\Bazaar\\KCD Mod\\MakeModFolderProject\\MakeModFolder\\MakeModFolder.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Etudiant1\\.nuget\\packages\\windowsapicodepack-core\\1.1.1\\windowsapicodepack-core.1.1.1.nupkg.sha512",
-    "C:\\Users\\Etudiant1\\.nuget\\packages\\windowsapicodepack-shell\\1.1.1\\windowsapicodepack-shell.1.1.1.nupkg.sha512"
+    "C:\\Users\\antoi\\.nuget\\packages\\windowsapicodepack-core\\1.1.1\\windowsapicodepack-core.1.1.1.nupkg.sha512",
+    "C:\\Users\\antoi\\.nuget\\packages\\windowsapicodepack-shell\\1.1.1\\windowsapicodepack-shell.1.1.1.nupkg.sha512"
   ],
   "logs": [
     {

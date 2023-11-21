@@ -1,5 +1,7 @@
 -- System.LogAlways("Hello World ///////////////////////////////////////////////// TestMod !")
 
+math.randomseed(os.time());
+
 local Entity = { x = 0, y = 0 }
 
 for i = 1, 10, 1 do

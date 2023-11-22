@@ -88,6 +88,7 @@ namespace MakeModFolder
 
 			MessageBox.Show("Mod folder created successfully", "Success", MessageBoxButton.OK,
 				MessageBoxImage.Information);
+			Application.Current.Shutdown();
 		}
 
 		private void PathBrowse_Button_Click(object _sender, RoutedEventArgs _e)

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\SVN\\Perso\\Presentation Projet\\MakeModFolder\\MakeModFolder\\MakeModFolder.csproj": {}
+    "D:\\Antoine\\Bazaar\\KCD Mod\\MakeModFolder\\MakeModFolder\\MakeModFolder.csproj": {}
   },
   "projects": {
-    "D:\\SVN\\Perso\\Presentation Projet\\MakeModFolder\\MakeModFolder\\MakeModFolder.csproj": {
+    "D:\\Antoine\\Bazaar\\KCD Mod\\MakeModFolder\\MakeModFolder\\MakeModFolder.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\SVN\\Perso\\Presentation Projet\\MakeModFolder\\MakeModFolder\\MakeModFolder.csproj",
+        "projectUniqueName": "D:\\Antoine\\Bazaar\\KCD Mod\\MakeModFolder\\MakeModFolder\\MakeModFolder.csproj",
         "projectName": "MakeModFolder",
-        "projectPath": "D:\\SVN\\Perso\\Presentation Projet\\MakeModFolder\\MakeModFolder\\MakeModFolder.csproj",
-        "packagesPath": "C:\\Users\\Etudiant1\\.nuget\\packages\\",
-        "outputPath": "D:\\SVN\\Perso\\Presentation Projet\\MakeModFolder\\MakeModFolder\\obj\\",
+        "projectPath": "D:\\Antoine\\Bazaar\\KCD Mod\\MakeModFolder\\MakeModFolder\\MakeModFolder.csproj",
+        "packagesPath": "C:\\Users\\antoi\\.nuget\\packages\\",
+        "outputPath": "D:\\Antoine\\Bazaar\\KCD Mod\\MakeModFolder\\MakeModFolder\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Etudiant1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\antoi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

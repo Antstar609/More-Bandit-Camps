@@ -30,7 +30,7 @@ UIAction.RegisterActionListener(test_init, "", "", "sceneInitListener")
 System.AddCCommand('showText', 'showText()', "Shows the intro banner from startup")
 
 function printText()
-	Game.SendInfoText("Hello world ", false, nil, 5)
+	Game.SendInfoText("Ceci est un test !", false, nil, 5)
 end
 
-System.AddCCommand('printText', 'printText()', "Prints text to the screen")
+System.AddCCommand('printText', 'printText()', "Print text to the screen")

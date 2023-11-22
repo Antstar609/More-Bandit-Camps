@@ -172,7 +172,7 @@ namespace MakeModFolder
 			}
 		}
 
-		private string _modName;
+		private string _modName = "TestMod";
 
 		public string ModName
 		{
@@ -188,7 +188,7 @@ namespace MakeModFolder
 			}
 		}
 
-		private string _repoPath;
+		private string _repoPath = "D:/Antoine/Bazaar/KCD Mod";
 
 		public string RepositoryPath
 		{
@@ -204,7 +204,7 @@ namespace MakeModFolder
 			}
 		}
 
-		private string _gamePath;
+		private string _gamePath = "C:/Games SSD/steamapps/common/KingdomComeDeliverance";
 
 		public string GamePath
 		{
@@ -220,7 +220,7 @@ namespace MakeModFolder
 			}
 		}
 
-		private string _modVersion;
+		private string _modVersion = "0.1";
 
 		public string ModVersion
 		{

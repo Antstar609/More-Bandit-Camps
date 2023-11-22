@@ -10,33 +10,33 @@
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
         
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-            <Label Content="Mod Name" FontSize="15" Margin="5"/>
+            <Label Content="Mod Name" FontWeight="Bold" FontSize="15" Margin="5"/>
             <TextBox Text="{Binding ModName}" FontSize="15" Width="100" VerticalContentAlignment="Center"/>
         </StackPanel>
         
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-            <Label Content="Game Path" FontSize="15" VerticalContentAlignment="Center"/>
+            <Label Content="Game Path" FontWeight="Bold" FontSize="15" VerticalContentAlignment="Center"/>
             <Button Content="Browse" FontSize="15" Width="70" Height="30" Click="GameBrowsePath_Button_Click"/>
         </StackPanel>
         
         <StackPanel>
-            <Label Content="{Binding GamePath}" FontSize="15" HorizontalContentAlignment="Center"/>
+            <Label Content="{Binding GamePath}" FontStyle="Italic" FontSize="15" HorizontalContentAlignment="Center"/>
         </StackPanel>
         
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Label Content="Repository Path" FontSize="15" VerticalContentAlignment="Center"/>
+            <Label Content="Repository Path" FontWeight="Bold" FontSize="15" VerticalContentAlignment="Center"/>
             <Button Content="Browse" FontSize="15" Width="70" Height="30" Click="RepoBrowsePath_Button_Click"/>
         </StackPanel>
         
         <StackPanel>
-            <Label Content="{Binding RepositoryPath}" FontSize="15" HorizontalContentAlignment="Center"/>
+            <Label Content="{Binding RepositoryPath}" FontStyle="Italic" FontSize="15" HorizontalContentAlignment="Center"/>
         </StackPanel>
         
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Label Content="Mod Version" FontSize="15"/>
+            <Label Content="Mod Version" FontWeight="Bold" FontSize="15"/>
             <TextBox Text="{Binding ModVersion}" FontSize="15" Width="100" VerticalContentAlignment="Center"/>
             
-            <CheckBox Content="Modifies Map" FontSize="15" Margin="5" VerticalContentAlignment="Center" IsChecked="{Binding IsMapModified}"/>
+            <CheckBox Content="Modifies Map" FontWeight="Bold" FontSize="15" Margin="5" VerticalContentAlignment="Center" IsChecked="{Binding IsMapModified}"/>
         </StackPanel>
         
         <Button Content="Run" Click="Run_Button_Click" FontSize="15" Width="150" Height="25" Margin="15"/>

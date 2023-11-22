@@ -3,6 +3,7 @@ using System.Windows;
 using System.IO;
 using System.IO.Compression;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Xml;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -17,41 +18,9 @@ namespace MakeModFolder
 			InitializeComponent();
 		}
 
-		private string _modName;
-
-		public string ModName
-		{
-			get => _modName;
-
-			set
-			{
-				if (_modName != value)
-				{
-					_modName = value;
-					OnPropertyChanged();
-				}
-			}
-		}
-
-		private string _repositoryPath;
-
-		public string RepositoryPath
-		{
-			get => _repositoryPath;
-
-			set
-			{
-				if (_repositoryPath != value)
-				{
-					_repositoryPath = value;
-					OnPropertyChanged();
-				}
-			}
-		}
-
 		private void MakeModFolder()
 		{
-			var modPath = "../" + ModName;
+			var modPath = GamePath + "/mods/" + ModName;
 
 			// Create the mod folder
 			Directory.CreateDirectory(modPath);
@@ -60,12 +29,13 @@ namespace MakeModFolder
 			Directory.CreateDirectory(modPath + "/data");
 
 			// Copy the modding_eula.txt
-			var files = Directory.GetFiles(RepositoryPath);
+			var files = Directory.GetFiles(Directory.GetCurrentDirectory());
 			foreach (var file in files)
 			{
 				if (file.Contains("modding_eula.txt"))
 				{
 					File.Copy(file, modPath + "/" + Path.GetFileName(file));
+					break;
 				}
 			}
 
@@ -86,53 +56,10 @@ namespace MakeModFolder
 
 			ZipFile.CreateFromDirectory(dataPath, modPath + "/data/data" + ".pak", CompressionLevel.Optimal, false);
 
-			MessageBox.Show("Mod folder created successfully", "Success", MessageBoxButton.OK,
+			// MessageBox the user that the mod folder has been created and the location of it
+			MessageBox.Show("The mod folder has been created at " + modPath, "Success", MessageBoxButton.OK,
 				MessageBoxImage.Information);
 			Application.Current.Shutdown();
-		}
-
-		private void PathBrowse_Button_Click(object _sender, RoutedEventArgs _e)
-		{
-			CommonOpenFileDialog openFileDialog = new()
-			{
-				InitialDirectory = "c:\\",
-				RestoreDirectory = true,
-				IsFolderPicker = true
-			};
-
-			if (openFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
-			{
-				// if in the folder there is a mod.manifest file and a modding_eula.txt file, then it's the right folder
-				var files = Directory.GetFiles(openFileDialog.FileName);
-				var isRepository = false;
-				foreach (var file in files)
-				{
-					if (file.Contains("modding_eula.txt"))
-					{
-						isRepository = true;
-						RepositoryPath = openFileDialog.FileName;
-					}
-				}
-
-				if (!isRepository)
-				{
-					MessageBox.Show("The selected folder is not a valid repository", "Warning", MessageBoxButton.OK,
-						MessageBoxImage.Warning);
-				}
-			}
-		}
-
-		private void Run_Button_Click(object _sender, RoutedEventArgs _e)
-		{
-			if (!string.IsNullOrEmpty(ModName) && !string.IsNullOrEmpty(RepositoryPath))
-			{
-				MakeModFolder();
-			}
-			else
-			{
-				MessageBox.Show("Please enter a mod name and select a repository path", "Warning", MessageBoxButton.OK,
-					MessageBoxImage.Warning);
-			}
 		}
 
 		private void WriteModManifest()
@@ -144,7 +71,7 @@ namespace MakeModFolder
 				NewLineOnAttributes = true
 			};
 
-			using XmlWriter writer = XmlWriter.Create("../" + ModName + "/mod.manifest", settings);
+			using XmlWriter writer = XmlWriter.Create(GamePath + "/mods/" + ModName + "/mod.manifest", settings);
 
 			writer.WriteStartDocument();
 			writer.WriteStartElement("kcd_mod"); // kcd_mod
@@ -162,17 +89,166 @@ namespace MakeModFolder
 			writer.WriteValue("Antstar609");
 			writer.WriteEndElement(); // /author
 			writer.WriteStartElement("version"); // version
-			writer.WriteValue("1.0.0"); //TODO: make this a textbox
+			writer.WriteValue(ModVersion); //TODO: make this a textbox
 			writer.WriteEndElement(); // /version
 			writer.WriteStartElement("created_on"); // created_on
 			writer.WriteValue(DateTime.Now.ToString("dd.MM.yyyy"));
 			writer.WriteEndElement(); // /created_on
 			writer.WriteStartElement("modifies_level"); // modifies_level
-			writer.WriteValue("false"); //TODO: make this a checkbox
+			writer.WriteValue(IsMapModified); //TODO: make this a checkbox
 			writer.WriteEndElement(); // /modifies_level
 			writer.WriteEndElement(); // /info
 			writer.WriteEndElement(); // /kcd_mod
 			writer.WriteEndDocument();
+		}
+
+		private void RepoBrowsePath_Button_Click(object _sender, RoutedEventArgs _e)
+		{
+			CommonOpenFileDialog openFileDialog = new()
+			{
+				InitialDirectory = "c:\\",
+				RestoreDirectory = true,
+				IsFolderPicker = true
+			};
+
+			if (openFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
+			{
+				// if in the folder there is a mod.manifest file and a modding_eula.txt file, then it's the right folder
+				var files = Directory.GetFiles(openFileDialog.FileName);
+				var isRepository = false;
+				if (files.Any(file => file.Contains("ModRepository.txt")))
+				{
+					isRepository = true;
+					RepositoryPath = openFileDialog.FileName;
+				}
+
+				if (!isRepository)
+				{
+					MessageBox.Show("The selected folder is not a valid repository", "Warning", MessageBoxButton.OK,
+						MessageBoxImage.Warning);
+				}
+			}
+		}
+
+		private void GameBrowsePath_Button_Click(object _sender, RoutedEventArgs _e)
+		{
+			CommonOpenFileDialog openFileDialog = new()
+			{
+				InitialDirectory = "c:\\",
+				RestoreDirectory = true,
+				IsFolderPicker = true
+			};
+
+			if (openFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
+			{
+				// if in the folder there is a mod.manifest file and a modding_eula.txt file, then it's the right folder
+				var files = Directory.GetFiles(openFileDialog.FileName);
+				var isGame = false;
+				if (files.Any(file => file.Contains("kcd.log")))
+				{
+					isGame = true;
+					GamePath = openFileDialog.FileName;
+				}
+
+				if (!isGame)
+				{
+					MessageBox.Show("The selected folder is not a valid game folder", "Warning", MessageBoxButton.OK,
+						MessageBoxImage.Warning);
+				}
+			}
+		}
+
+		private void Run_Button_Click(object _sender, RoutedEventArgs _e)
+		{
+			if (!string.IsNullOrEmpty(ModName) && !string.IsNullOrEmpty(RepositoryPath) &&
+			    !string.IsNullOrEmpty(GamePath) && !string.IsNullOrEmpty(ModVersion))
+			{
+				MakeModFolder();
+			}
+			else
+			{
+				MessageBox.Show("Please fill all the fields", "Warning", MessageBoxButton.OK,
+					MessageBoxImage.Warning);
+			}
+		}
+
+		private string _modName;
+
+		public string ModName
+		{
+			get => _modName;
+
+			set
+			{
+				if (_modName != value)
+				{
+					_modName = value;
+					OnPropertyChanged();
+				}
+			}
+		}
+
+		private string _repoPath;
+
+		public string RepositoryPath
+		{
+			get => _repoPath;
+
+			set
+			{
+				if (_repoPath != value)
+				{
+					_repoPath = value;
+					OnPropertyChanged();
+				}
+			}
+		}
+
+		private string _gamePath;
+
+		public string GamePath
+		{
+			get => _gamePath;
+
+			set
+			{
+				if (_gamePath != value)
+				{
+					_gamePath = value;
+					OnPropertyChanged();
+				}
+			}
+		}
+
+		private string _modVersion;
+
+		public string ModVersion
+		{
+			get => _modVersion;
+			set
+			{
+				if (_modVersion != value)
+				{
+					_modVersion = value;
+					OnPropertyChanged();
+				}
+			}
+		}
+
+		private string _isMapModified = "False";
+
+		public string IsMapModified
+		{
+			get => _isMapModified;
+
+			set
+			{
+				if (_isMapModified != value)
+				{
+					_isMapModified = value;
+					OnPropertyChanged();
+				}
+			}
 		}
 
 		public event PropertyChangedEventHandler? PropertyChanged;

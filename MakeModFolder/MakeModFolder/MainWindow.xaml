@@ -5,19 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MakeModFolder"
         mc:Ignorable="d"
-        Title="MakeModFolder" Height="300" Width="350">
+        Title="MakeModFolder" SizeToContent="WidthAndHeight">
+    
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="15">
+        
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
             <Label Content="Mod Name" FontSize="15" Margin="5"/>
             <TextBox Text="{Binding ModName}" FontSize="15" Width="100" VerticalContentAlignment="Center"/>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-            <Label Content="Repository Path" FontSize="15" VerticalContentAlignment="Center"/>
-            <Button Content="Browse" FontSize="15" Width="70" Height="30" Click="PathBrowse_Button_Click" Margin="5"/>
+        
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+            <Label Content="Game Path" FontSize="15" VerticalContentAlignment="Center"/>
+            <Button Content="Browse" FontSize="15" Width="70" Height="30" Click="GameBrowsePath_Button_Click"/>
         </StackPanel>
+        
+        <StackPanel>
+            <Label Content="{Binding GamePath}" FontSize="15" HorizontalContentAlignment="Center"/>
+        </StackPanel>
+        
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Repository Path" FontSize="15" VerticalContentAlignment="Center"/>
+            <Button Content="Browse" FontSize="15" Width="70" Height="30" Click="RepoBrowsePath_Button_Click"/>
+        </StackPanel>
+        
         <StackPanel>
             <Label Content="{Binding RepositoryPath}" FontSize="15" HorizontalContentAlignment="Center"/>
         </StackPanel>
+        
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Mod Version" FontSize="15"/>
+            <TextBox Text="{Binding ModVersion}" FontSize="15" Width="100" VerticalContentAlignment="Center"/>
+            
+            <CheckBox Content="Modifies Map" FontSize="15" Margin="5" VerticalContentAlignment="Center" IsChecked="{Binding IsMapModified}"/>
+        </StackPanel>
+        
         <Button Content="Run" Click="Run_Button_Click" FontSize="15" Width="150" Height="25" Margin="15"/>
     </StackPanel>
 </Window>

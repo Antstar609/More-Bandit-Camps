@@ -1,0 +1,48 @@
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\bin\Debug\net7.0-windows\MakeModFolder.exe
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\bin\Debug\net7.0-windows\MakeModFolder.deps.json
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\bin\Debug\net7.0-windows\MakeModFolder.runtimeconfig.json
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\bin\Debug\net7.0-windows\MakeModFolder.dll
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\bin\Debug\net7.0-windows\MakeModFolder.pdb
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\obj\Debug\net7.0-windows\MainWindow.g.cs
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\obj\Debug\net7.0-windows\App.g.cs
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder_MarkupCompile.cache
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder_MarkupCompile.lref
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\obj\Debug\net7.0-windows\MainWindow.baml
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder.g.resources
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder.AssemblyInfoInputs.cache
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder.AssemblyInfo.cs
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder.csproj.CoreCompileInputs.cache
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder.dll
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\obj\Debug\net7.0-windows\refint\MakeModFolder.dll
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder.pdb
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder.genruntimeconfig.cache
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\obj\Debug\net7.0-windows\ref\MakeModFolder.dll
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\bin\Debug\net7.0-windows\Microsoft.WindowsAPICodePack.dll
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\bin\Debug\net7.0-windows\Microsoft.WindowsAPICodePack.Shell.dll
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder.csproj.AssemblyReference.cache
+C:\Users\Etudiant1\Desktop\MakeModFolder\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder.csproj.CopyComplete
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\bin\Debug\net7.0-windows\MakeModFolder.exe
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\bin\Debug\net7.0-windows\MakeModFolder.deps.json
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\bin\Debug\net7.0-windows\MakeModFolder.runtimeconfig.json
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\bin\Debug\net7.0-windows\MakeModFolder.dll
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\bin\Debug\net7.0-windows\MakeModFolder.pdb
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\bin\Debug\net7.0-windows\Microsoft.WindowsAPICodePack.dll
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\bin\Debug\net7.0-windows\Microsoft.WindowsAPICodePack.Shell.dll
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder.csproj.AssemblyReference.cache
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\obj\Debug\net7.0-windows\MainWindow.g.cs
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\obj\Debug\net7.0-windows\App.g.cs
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder_MarkupCompile.cache
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder_MarkupCompile.lref
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\obj\Debug\net7.0-windows\MainWindow.baml
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder.g.resources
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder.GeneratedMSBuildEditorConfig.editorconfig
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder.AssemblyInfoInputs.cache
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder.AssemblyInfo.cs
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder.csproj.CoreCompileInputs.cache
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder.csproj.CopyComplete
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder.dll
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\obj\Debug\net7.0-windows\refint\MakeModFolder.dll
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder.pdb
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\obj\Debug\net7.0-windows\MakeModFolder.genruntimeconfig.cache
+D:\Antoine\Bazaar\KCD Mod\MakeModFolderProject\MakeModFolder\obj\Debug\net7.0-windows\ref\MakeModFolder.dll

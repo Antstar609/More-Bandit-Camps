@@ -21,6 +21,11 @@ namespace MakeModFolder
 		private void MakeModFolder()
 		{
 			var modPath = GamePath + "/mods/" + ModName;
+			
+			if (Directory.Exists(modPath))
+			{
+				Directory.Delete(modPath, true);
+			}
 
 			// Create the mod folder
 			Directory.CreateDirectory(modPath);

@@ -1,2 +1,2 @@
 -- Reload all scripts
-Script.ReloadScript("Scripts/test.lua")
+Script.ReloadScript("scripts/test.lua")

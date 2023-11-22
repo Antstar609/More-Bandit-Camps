@@ -89,13 +89,13 @@ namespace MakeModFolder
 			writer.WriteValue("Antstar609");
 			writer.WriteEndElement(); // /author
 			writer.WriteStartElement("version"); // version
-			writer.WriteValue(ModVersion); //TODO: make this a textbox
+			writer.WriteValue(ModVersion);
 			writer.WriteEndElement(); // /version
 			writer.WriteStartElement("created_on"); // created_on
 			writer.WriteValue(DateTime.Now.ToString("dd.MM.yyyy"));
 			writer.WriteEndElement(); // /created_on
 			writer.WriteStartElement("modifies_level"); // modifies_level
-			writer.WriteValue(IsMapModified); //TODO: make this a checkbox
+			writer.WriteValue(IsMapModified);
 			writer.WriteEndElement(); // /modifies_level
 			writer.WriteEndElement(); // /info
 			writer.WriteEndElement(); // /kcd_mod

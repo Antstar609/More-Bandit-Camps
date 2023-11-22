@@ -1,1 +1,1 @@
-Just to let the ModMakeFolder know that this is a valid repo
+Just to let the MakeModFolder program know that this is a valid repo

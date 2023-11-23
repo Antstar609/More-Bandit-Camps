@@ -21,7 +21,7 @@ namespace MakeModFolder
 		private void MakeModFolder()
 		{
 			var modPath = GamePath + "/mods/" + ModName;
-			
+
 			if (Directory.Exists(modPath))
 			{
 				Directory.Delete(modPath, true);
@@ -30,8 +30,9 @@ namespace MakeModFolder
 			// Create the mod folder
 			Directory.CreateDirectory(modPath);
 
-			// Create the data folder
+			// Create the main folders
 			Directory.CreateDirectory(modPath + "/data");
+			Directory.CreateDirectory(modPath + "/localization");
 
 			// Copy the modding_eula.txt
 			var files = Directory.GetFiles(Directory.GetCurrentDirectory());
@@ -49,17 +50,31 @@ namespace MakeModFolder
 
 			// Copy the data folder and zip it
 			var dataPath = "";
+			var localizationPath = "";
 			var directories = Directory.GetDirectories(RepositoryPath);
+			var isDatazipped = false;
+			var isLocalizationzipped = false;
 			foreach (var directory in directories)
 			{
-				if (directory.Contains("data"))
+				if (directory.Contains("data") && !isDatazipped)
 				{
 					dataPath = directory;
-					break;
+					isDatazipped = true;
 				}
+
+				if (directory.Contains("localization") && !isLocalizationzipped)
+				{
+					localizationPath = directory;
+					isLocalizationzipped = true;
+				}
+
+				if (isDatazipped && isLocalizationzipped)
+					break;
 			}
 
 			ZipFile.CreateFromDirectory(dataPath, modPath + "/data/data" + ".pak", CompressionLevel.Optimal, false);
+			ZipFile.CreateFromDirectory(localizationPath, modPath + "/localization/English_xml" + ".pak",
+				CompressionLevel.Optimal, false);
 
 			// MessageBox the user that the mod folder has been created and the location of it
 			MessageBox.Show("The mod folder has been created at " + modPath, "Success", MessageBoxButton.OK,

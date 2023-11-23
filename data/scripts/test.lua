@@ -3,7 +3,7 @@ System.LogAlways("////////// TESTMOD LOADED //////////")
 test_init = {}
 
 function showText()
-	message = "<font color='#333333' size='28'>TestMod</font>" .. "\n"
+	message = "<font color='#ff8b00' size='28'>TestMod</font>" .. "\n"
 			.. "<font color='#333333' size='20'>Antstar609</font>"
 
 	Game.ShowTutorial(message, 20, false, true)

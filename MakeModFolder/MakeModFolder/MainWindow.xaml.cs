@@ -25,7 +25,7 @@ namespace MakeModFolder
 		private List<(string, string, string)> valueTuples = new()
 		{
 			//PC Name,		Game Path,		Repo Path
-			("Antoine",  "C:\\Games SSD\\steamapps\\common\\KingdomComeDeliverance", "D:\\Antoine\\Bazaar\\KCD Mod"),
+			("antoi",  "C:\\Games SSD\\steamapps\\common\\KingdomComeDeliverance", "D:\\Antoine\\Bazaar\\KCD Mod"),
 			("Etudiant1", "C:\\Program Files (x86)\\Steam\\steamapps\\common\\KingdomComeDeliverance", "D:\\KCD_Mod")
 		};
 		

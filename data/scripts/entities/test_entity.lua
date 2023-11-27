@@ -7,7 +7,7 @@ TestEntity = {
 		bSerialize = 0
 	},
 	States = {},
-	
+
 	playerEntity = nil
 }
 
@@ -19,7 +19,7 @@ end
 -- this is called once, use this for initializing stuff
 function TestEntity.Server:OnInit()
 	System.LogAlways("TestEntity OnInit")
-	
+
 	self.playerEntity = System.GetEntityByName("dude") -- Gets the player entity
 
 	if (not self.bInitialized) then
@@ -39,7 +39,7 @@ end
 -- this is called every frame given the entity has been spawned
 function TestEntity.Client:OnUpdate()
 	local pos = self.playerEntity:GetWorldPos() -- Returns a 3d vector
-	Game.SendInfoText("Player Pos\nX: " .. pos.x .. " Y: " .. pos.y .. " Z: " .. pos.z, false, nil, 0)
+	Game.SendInfoText("Player Pos\nX: " .. pos.x .. " Y: " .. pos.y .. " Z: " .. pos.z, false, nil, 1)
 end
 
 -- this is called when the player saves or updates a save state - storing values for your entities
@@ -57,8 +57,7 @@ function TestEntity:OnSave(tbl)
 	System.LogAlways("TestEntity OnSave")
 end
 
-TestEntity.Server.TurnedOn =
-{
+TestEntity.Server.TurnedOn = {
 	OnBeginState = function(self)
 		BroadcastEvent(self, "TurnOn")
 	end,
@@ -69,8 +68,7 @@ TestEntity.Server.TurnedOn =
 	end
 }
 
-TestEntity.Server.TurnedOff =
-{
+TestEntity.Server.TurnedOff = {
 	OnBeginState = function(self)
 		BroadcastEvent(self, "TurnOff")
 	end,
@@ -78,15 +76,12 @@ TestEntity.Server.TurnedOff =
 	end
 }
 
-TestEntity.FlowEvents =
-{
-	Inputs =
-	{
+TestEntity.FlowEvents = {
+	Inputs = {
 		TurnOn = { TestEntity.Event_TurnOn, "bool" },
 		TurnOff = { TestEntity.Event_TurnOff, "bool" },
 	},
-	Outputs =
-	{
+	Outputs = {
 		TurnOn = "bool",
 		TurnOff = "bool",
 	}

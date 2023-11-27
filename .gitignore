@@ -1,1 +1,2 @@
-MakeModFolder/MakeModFolder/obj
+MakeModFolder/MakeModFolder/obj/*
+MakeModFolder/MakeModFolder/bin/*

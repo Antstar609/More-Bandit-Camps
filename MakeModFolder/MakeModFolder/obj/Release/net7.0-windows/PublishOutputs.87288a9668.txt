@@ -1,7 +1,0 @@
-D:\Antoine\Desktop\MakeModFolder\MakeModFolder.exe
-D:\Antoine\Desktop\MakeModFolder\MakeModFolder.dll
-D:\Antoine\Desktop\MakeModFolder\MakeModFolder.deps.json
-D:\Antoine\Desktop\MakeModFolder\MakeModFolder.runtimeconfig.json
-D:\Antoine\Desktop\MakeModFolder\MakeModFolder.pdb
-D:\Antoine\Desktop\MakeModFolder\Microsoft.WindowsAPICodePack.dll
-D:\Antoine\Desktop\MakeModFolder\Microsoft.WindowsAPICodePack.Shell.dll

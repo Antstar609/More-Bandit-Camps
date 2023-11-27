@@ -1,7 +1,0 @@
-D:\Antoine\Bazaar\KCD Mod\MakeModFolder\MakeModFolder\bin\Release\net7.0-windows\publish\MakeModFolder.exe
-D:\Antoine\Bazaar\KCD Mod\MakeModFolder\MakeModFolder\bin\Release\net7.0-windows\publish\MakeModFolder.dll
-D:\Antoine\Bazaar\KCD Mod\MakeModFolder\MakeModFolder\bin\Release\net7.0-windows\publish\MakeModFolder.deps.json
-D:\Antoine\Bazaar\KCD Mod\MakeModFolder\MakeModFolder\bin\Release\net7.0-windows\publish\MakeModFolder.runtimeconfig.json
-D:\Antoine\Bazaar\KCD Mod\MakeModFolder\MakeModFolder\bin\Release\net7.0-windows\publish\MakeModFolder.pdb
-D:\Antoine\Bazaar\KCD Mod\MakeModFolder\MakeModFolder\bin\Release\net7.0-windows\publish\Microsoft.WindowsAPICodePack.dll
-D:\Antoine\Bazaar\KCD Mod\MakeModFolder\MakeModFolder\bin\Release\net7.0-windows\publish\Microsoft.WindowsAPICodePack.Shell.dll

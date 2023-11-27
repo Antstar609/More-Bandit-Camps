@@ -21,6 +21,10 @@ function test_init:sceneInitListener(actionName, eventName, eventArgs)
 	if actionName == "sys_loadingimagescreen" and eventName == "OnEnd" then
 		-- When the scene is loaded
 		showText()
+
+		if (testEntity == nil) then
+			testEntity = System.SpawnEntity({class = "TestEntity", name = "TestEntity", position = {x = 0, y = 0, z = 0}})
+		end
 	end
 end
 

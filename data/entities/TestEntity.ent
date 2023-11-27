@@ -1,0 +1,4 @@
+<Entity
+        Name="TestEntity"
+        Script="scripts/entities/test_entity.lua"
+/>

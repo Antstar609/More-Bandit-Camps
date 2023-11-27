@@ -126,7 +126,7 @@ namespace MakeModFolder
 			writer.WriteValue(ModName);
 			writer.WriteEndElement(); // /name
 			writer.WriteStartElement("modid"); // modid
-			writer.WriteValue(ModName);
+			writer.WriteValue(ModName.ToLower());
 			writer.WriteEndElement(); // /modid
 			writer.WriteStartElement("description"); // description
 			writer.WriteValue("A mod for Kingdom Come: Deliverance");

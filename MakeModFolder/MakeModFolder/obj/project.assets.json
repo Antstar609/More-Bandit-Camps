@@ -59,19 +59,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\antoi\\.nuget\\packages\\": {}
+    "C:\\Users\\Etudiant1\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Antoine\\Bazaar\\KCD Mod\\MakeModFolder\\MakeModFolder\\MakeModFolder.csproj",
+      "projectUniqueName": "D:\\KCD_Mod\\MakeModFolder\\MakeModFolder\\MakeModFolder.csproj",
       "projectName": "MakeModFolder",
-      "projectPath": "D:\\Antoine\\Bazaar\\KCD Mod\\MakeModFolder\\MakeModFolder\\MakeModFolder.csproj",
-      "packagesPath": "C:\\Users\\antoi\\.nuget\\packages\\",
-      "outputPath": "D:\\Antoine\\Bazaar\\KCD Mod\\MakeModFolder\\MakeModFolder\\obj\\",
+      "projectPath": "D:\\KCD_Mod\\MakeModFolder\\MakeModFolder\\MakeModFolder.csproj",
+      "packagesPath": "C:\\Users\\Etudiant1\\.nuget\\packages\\",
+      "outputPath": "D:\\KCD_Mod\\MakeModFolder\\MakeModFolder\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\antoi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Etudiant1\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

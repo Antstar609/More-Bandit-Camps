@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.IO;
 using System.IO.Compression;
@@ -8,6 +9,8 @@ using System.Runtime.CompilerServices;
 using System.Xml;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
+// ReSharper disable UseVerbatimString
+
 namespace MakeModFolder
 {
 	public partial class MainWindow : INotifyPropertyChanged
@@ -16,12 +19,35 @@ namespace MakeModFolder
 		{
 			DataContext = this;
 			InitializeComponent();
+			SetDefaultPath();
+		}
+
+		private List<(string, string, string)> valueTuples = new()
+		{
+			//PC Name,		Game Path,		Repo Path
+			("Antoine",  "C:\\Games SSD\\steamapps\\common\\KingdomComeDeliverance", "D:\\Antoine\\Bazaar\\KCD Mod"),
+			("Etudiant1", "C:\\Program Files (x86)\\Steam\\steamapps\\common\\KingdomComeDeliverance", "D:\\KCD_Mod")
+		};
+		
+		private void SetDefaultPath()
+		{
+			var pcName = Environment.UserName;
+			foreach (var valueTuple in valueTuples)
+			{
+				if (valueTuple.Item1 == pcName)
+				{
+					GamePath = valueTuple.Item2;
+					RepoPath = valueTuple.Item3;
+					break;
+				}
+			}
 		}
 
 		private void MakeModFolder()
 		{
-			var modPath = GamePath + "/mods/" + ModName;
-
+			var modPath = GamePath + "\\mods\\" + ModName;
+			
+			// Check if the mod folder already exists, if it exists, delete it
 			if (Directory.Exists(modPath))
 			{
 				Directory.Delete(modPath, true);
@@ -31,8 +57,8 @@ namespace MakeModFolder
 			Directory.CreateDirectory(modPath);
 
 			// Create the main folders
-			Directory.CreateDirectory(modPath + "/data");
-			Directory.CreateDirectory(modPath + "/localization");
+			Directory.CreateDirectory(modPath + "\\data");
+			Directory.CreateDirectory(modPath + "\\localization");
 
 			// Copy the modding_eula.txt
 			var files = Directory.GetFiles(Directory.GetCurrentDirectory());
@@ -40,7 +66,7 @@ namespace MakeModFolder
 			{
 				if (file.Contains("modding_eula.txt"))
 				{
-					File.Copy(file, modPath + "/" + Path.GetFileName(file));
+					File.Copy(file, modPath + "\\" + Path.GetFileName(file));
 					break;
 				}
 			}
@@ -51,7 +77,7 @@ namespace MakeModFolder
 			// Copy the data folder and zip it
 			var dataPath = "";
 			var localizationPath = "";
-			var directories = Directory.GetDirectories(RepositoryPath);
+			var directories = Directory.GetDirectories(RepoPath);
 			var isDatazipped = false;
 			var isLocalizationzipped = false;
 			foreach (var directory in directories)
@@ -72,8 +98,8 @@ namespace MakeModFolder
 					break;
 			}
 
-			ZipFile.CreateFromDirectory(dataPath, modPath + "/data/data" + ".pak", CompressionLevel.Optimal, false);
-			ZipFile.CreateFromDirectory(localizationPath, modPath + "/localization/English_xml" + ".pak",
+			ZipFile.CreateFromDirectory(dataPath, modPath + "\\data\\data" + ".pak", CompressionLevel.Optimal, false);
+			ZipFile.CreateFromDirectory(localizationPath, modPath + "\\localization\\English_xml" + ".pak",
 				CompressionLevel.Optimal, false);
 
 			// MessageBox the user that the mod folder has been created and the location of it
@@ -91,7 +117,7 @@ namespace MakeModFolder
 				NewLineOnAttributes = true
 			};
 
-			using XmlWriter writer = XmlWriter.Create(GamePath + "/mods/" + ModName + "/mod.manifest", settings);
+			using XmlWriter writer = XmlWriter.Create(GamePath + "\\mods\\" + ModName + "\\mod.manifest", settings);
 
 			writer.WriteStartDocument();
 			writer.WriteStartElement("kcd_mod"); // kcd_mod
@@ -139,7 +165,7 @@ namespace MakeModFolder
 				if (files.Any(file => file.Contains("ModRepository.txt")))
 				{
 					isRepository = true;
-					RepositoryPath = openFileDialog.FileName;
+					RepoPath = openFileDialog.FileName;
 				}
 
 				if (!isRepository)
@@ -180,7 +206,7 @@ namespace MakeModFolder
 
 		private void Run_Button_Click(object _sender, RoutedEventArgs _e)
 		{
-			if (!string.IsNullOrEmpty(ModName) && !string.IsNullOrEmpty(RepositoryPath) &&
+			if (!string.IsNullOrEmpty(ModName) && !string.IsNullOrEmpty(RepoPath) &&
 			    !string.IsNullOrEmpty(GamePath) && !string.IsNullOrEmpty(ModVersion))
 			{
 				MakeModFolder();
@@ -208,9 +234,9 @@ namespace MakeModFolder
 			}
 		}
 
-		private string _repoPath = "D:/Antoine/Bazaar/KCD Mod";
-
-		public string RepositoryPath
+		private string _repoPath = "";
+		
+		public string RepoPath
 		{
 			get => _repoPath;
 
@@ -224,7 +250,7 @@ namespace MakeModFolder
 			}
 		}
 
-		private string _gamePath = "C:/Games SSD/steamapps/common/KingdomComeDeliverance";
+		private string _gamePath = "";
 
 		public string GamePath
 		{

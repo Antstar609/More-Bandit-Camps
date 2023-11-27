@@ -29,7 +29,7 @@
         </StackPanel>
         
         <StackPanel>
-            <Label Content="{Binding RepositoryPath}" FontStyle="Italic" FontSize="15" HorizontalContentAlignment="Center"/>
+            <Label Content="{Binding RepoPath}" FontStyle="Italic" FontSize="15" HorizontalContentAlignment="Center"/>
         </StackPanel>
         
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

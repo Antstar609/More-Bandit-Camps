@@ -3,7 +3,7 @@
   <component name="LocationsWithSilentDeleteHolder">
     <option name="locations">
       <list>
-        <option value="$USER_HOME$/Desktop/MakeModFolder" />
+        <option value="$PROJECT_DIR$/../../MakeModFolder" />
       </list>
     </option>
   </component>

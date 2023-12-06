@@ -38,3 +38,13 @@ function printText()
 end
 
 System.AddCCommand('printText', 'printText()', "Print text to the screen")
+
+function listEntities()
+	center = System.GetEntityByName("dude"):GetWorldPos()
+	entities = System.GetEntities(center, 5)
+	for i, entity in ipairs(entities) do
+		System.LogAlways(entity:GetName())
+	end
+end
+
+System.AddCCommand('listEntities', 'listEntities()', "List entities in a sphere")

@@ -51,7 +51,7 @@ System.AddCCommand('listEntities', 'listEntities()', "List entities in a sphere"
 
 function spawnEntity()
     local entityParams = {
-        class = "NPC_Female", 
+        class = "NPC_Female",
         name = "MyEntity",
         position = System.GetEntityByName("dude"):GetWorldPos()
     }

@@ -3,3 +3,6 @@
 
 # Ignore the obj directory
 **/obj/
+
+KCD Mod.iml
+Data_reference.xml

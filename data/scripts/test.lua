@@ -2,14 +2,6 @@ System.LogAlways("////////// TESTMOD LOADED //////////")
 
 test_init = {}
 
-function showText()
-	message = "<font color='#ff8b00' size='28'>TestMod</font>" .. "\n"
-			.. "<font color='#333333' size='20'>Antstar609</font>"
-
-	Game.ShowTutorial(message, 20, false, true)
-end
-System.AddCCommand('showText', 'showText()', "Shows the intro banner from startup")
-
 -- Listener for the scene init event
 function test_init:sceneInitListener(actionName, eventName, eventArgs)
 	System.LogAlways("actionName: " .. actionName)
@@ -21,10 +13,10 @@ function test_init:sceneInitListener(actionName, eventName, eventArgs)
 
 	if actionName == "sys_loadingimagescreen" and eventName == "OnEnd" then
 		-- When the scene is loaded
-		showText()
-
 		if (testEntity == nil) then
-			testEntity = System.SpawnEntity({class = "TestEntity", name = "TestEntity", position = {x = 0, y = 0, z = 0}})
+			testEntity = System.SpawnEntity({ class = "TestEntity", name = "TestEntity", position = { x = 0, y = 0, z = 0 } })
+		else
+			System.LogAlways("TestEntity not spawned")
 		end
 	end
 end

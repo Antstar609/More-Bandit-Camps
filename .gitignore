@@ -4,5 +4,8 @@
 # Ignore the obj directory
 **/obj/
 
+# Not sure if i have to ignore this
 KCD Mod.iml
+
+# Contains specific path
 Data_reference.xml

@@ -40,6 +40,9 @@ public partial class MainWindow : INotifyPropertyChanged
 				RepoPath = value.Item3;
 				break;
 			}
+
+			GamePath = "";
+			RepoPath = "";
 		}
 	}
 

@@ -17,7 +17,7 @@ function mod_main:sceneInitListener(actionName, eventName, eventArgs)
 	if actionName == "sys_loadingimagescreen" and eventName == "OnEnd" then
 		-- When the scene is loaded
 		mod_commands:showText()
-		local testEntity = System.SpawnEntity({ class = "NPC", name = "TestEntity", position = player:GetWorldPos() })
+		local testEntity = System.SpawnEntity({ class = "TestEntity", name = "TestEntity", position = player:GetWorldPos() })
 	end
 end
 

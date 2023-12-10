@@ -16,7 +16,7 @@ end
 
 -- this is called once, use this for initializing stuff
 function TestEntity.Server:OnInit()
-	--mod_main:Log("TestEntity OnInit")
+	mod_main:Log("TestEntity spawned (does nothing)")
 	if (not self.bInitialized) then
 		self:OnReset()
 		self.bInitialized = 1
@@ -33,8 +33,7 @@ end
 
 -- this is called every frame given the entity has been spawned
 function TestEntity.Client:OnUpdate()
-	local pos = player:GetWorldPos() -- Returns a 3d vector
-	Game.SendInfoText("Player Pos\nX: " .. pos.x .. " Y: " .. pos.y .. " Z: " .. pos.z, false, nil, 1)
+	--mod_main:Log("TestEntity OnUpdate")
 end
 
 -- this is called when the player saves or updates a save state - storing values for your entities

@@ -27,20 +27,3 @@ System.AddCCommand('listEntities', 'mod_commands:listEntities()', "List entities
 
 ---------------------------------------------------------------------------------------------------
 
-function mod_commands:spawnEntity()
-	local entityParams = {
-		class = "NPC",
-		name = "MyEntity",
-		position = player:GetWorldPos()
-	}
-	local newEntity = System.SpawnEntity(entityParams)
-	if newEntity then
-		mod_main:Log("Entity spawned: " .. newEntity:GetName())
-	else
-		mod_main:Log("Failed to spawn entity")
-	end
-end
-System.AddCCommand('spawnEntity', 'mod_commands:spawnEntity()', "Spawns an entity")
-
----------------------------------------------------------------------------------------------------
-

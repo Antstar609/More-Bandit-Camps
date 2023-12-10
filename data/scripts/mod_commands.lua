@@ -20,10 +20,26 @@ System.AddCCommand('printText', 'mod_commands:printText()', "Print text to the s
 function mod_commands:listEntities()
 	entities = System.GetEntities(player:GetWorldPos(), 2)
 	for i, entity in ipairs(entities) do
-		mod_main:Log(entity:GetName())
+		mod_main:Log("Name: " .. entity:GetName() .. " | Class: " .. entity.class)
 	end
 end
 System.AddCCommand('listEntities', 'mod_commands:listEntities()', "List entities in a sphere")
 
 ---------------------------------------------------------------------------------------------------
 
+function mod_commands:spawnEntity()
+	local spawnParams = {}
+	spawnParams.class = "NPC"
+	spawnParams.name = "SpawnedEntity"
+	spawnParams.position = player:GetWorldPos()
+	spawnParams.orientation = { x = 0, y = 0, z = 0 }
+	spawnParams.properties = {}
+	spawnParams.properties.sharedSoulGuid = "4861066f-1843-2ba9-42d5-05a5e34303ae"
+
+	local entity = System.SpawnEntity(spawnParams)
+	entity.lootable = false
+	entity.AI.invulnerable = true
+	
+	mod_main:Log("Spawned entity")
+end
+System.AddCCommand('spawnEntity', 'mod_commands:spawnEntity()', "Spawn an entity")

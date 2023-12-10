@@ -6,22 +6,17 @@ TestEntity = {
 		Saved_by_game = 0,
 		bSerialize = 0
 	},
-	States = {},
-
-	playerEntity = nil
+	States = {}
 }
 
 -- this is called when the player loads a save state - use this for restoring values when a game gets loaded
 function TestEntity:OnLoad(tbl)
-	System.LogAlways("TestEntity OnLoad")
+	--mod_main:Log("TestEntity OnLoad")
 end
 
 -- this is called once, use this for initializing stuff
 function TestEntity.Server:OnInit()
-	System.LogAlways("TestEntity OnInit")
-
-	self.playerEntity = System.GetEntityByName("dude") -- Gets the player entity
-
+	--mod_main:Log("TestEntity OnInit")
 	if (not self.bInitialized) then
 		self:OnReset()
 		self.bInitialized = 1
@@ -30,7 +25,7 @@ end
 
 -- this is called once, use this for initializing stuff
 function TestEntity:OnReset()
-	System.LogAlways("TestEntity OnReset")
+	--mod_main:Log("TestEntity OnReset")
 	self:Activate(1)
 	-- self:SetCurrentSlot(0)
 	-- self:PhysicalizeThis(0)
@@ -38,23 +33,23 @@ end
 
 -- this is called every frame given the entity has been spawned
 function TestEntity.Client:OnUpdate()
-	local pos = self.playerEntity:GetWorldPos() -- Returns a 3d vector
+	local pos = player:GetWorldPos() -- Returns a 3d vector
 	Game.SendInfoText("Player Pos\nX: " .. pos.x .. " Y: " .. pos.y .. " Z: " .. pos.z, false, nil, 1)
 end
 
 -- this is called when the player saves or updates a save state - storing values for your entities
 function TestEntity:OnPropertyChange()
 	self:OnReset()
-	System.LogAlways("TestEntity opc")
+	--mod_main:Log("TestEntity opc")
 end
 
 function TestEntity:OnAction(action, activation, value)
-	System.LogAlways("TestEntity OnAction")
+	--mod_main:Log("TestEntity OnAction")
 end
 
 -- this is called when the player saves or updates a save state - storing values for your entities
 function TestEntity:OnSave(tbl)
-	System.LogAlways("TestEntity OnSave")
+	--mod_main:Log("TestEntity OnSave")
 end
 
 TestEntity.Server.TurnedOn = {

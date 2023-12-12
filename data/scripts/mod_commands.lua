@@ -34,11 +34,20 @@ function mod_commands:spawnEntity()
 	spawnParams.position = player:GetWorldPos()
 	spawnParams.orientation = { x = 0, y = 0, z = 0 }
 	spawnParams.properties = {}
-	spawnParams.properties.sharedSoulGuid = "4664d3f6-1aa0-ebea-25c8-9d131258deb9" --skalice guard
+	--spawnParams.properties.sharedSoulGuid = "4664d3f6-1aa0-ebea-25c8-9d131258deb9" --skalice guard
 
 	local entity = System.SpawnEntity(spawnParams)
 	-- now i can access entity stuff
-	
+
+	--TODO: Make this entity have a fucking brain
+	local initmsg = Utils.makeTable('mod:init', { controller = player.this.id, isEnemy = true, oponentsNode = player.this.id, useQuickTargeting = true, targetingDistance = 5.0, useMassBrain = true })
+	XGenAIModule.SendMessageToEntityData(entity.this.id, 'mod:init', initmsg);
+
+	local initmsg2 = Utils.makeTable('mod:command', { type = "attackMove", target = player.this.id, randomRadius = 0.5, movementSpeed = "AlertedWalk" })
+	XGenAIModule.SendMessageToEntityData(entity.this.id, 'mod:command', initmsg2);
+	local initmsg3 = Utils.makeTable('mod:barkSetup', { metarole = "COMBAT_CHARGE", cooldown = "15s", once = false, command = "*", forceSubtitles = false })
+	XGenAIModule.SendMessageToEntityData(entity.this.id, 'mod:barkSetup', initmsg3)
+
 	mod_main:Log("Spawned entity")
 end
 System.AddCCommand('spawnEntity', 'mod_commands:spawnEntity()', "Spawn an entity")

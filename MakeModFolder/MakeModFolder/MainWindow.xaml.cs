@@ -144,7 +144,7 @@ public partial class MainWindow : INotifyPropertyChanged
 		writer.WriteValue(DateTime.Now.ToString("dd.MM.yyyy"));
 		writer.WriteEndElement(); // /created_on
 		writer.WriteStartElement("modifies_level"); // modifies_level
-		writer.WriteValue(IsMapModified);
+		writer.WriteValue(IsMapModified.ToLower());
 		writer.WriteEndElement(); // /modifies_level
 		writer.WriteEndElement(); // /info
 		writer.WriteEndElement(); // /kcd_mod

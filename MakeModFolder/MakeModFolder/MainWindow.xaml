@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MakeModFolder"
         mc:Ignorable="d"
-        Title="MakeModFolder" SizeToContent="WidthAndHeight">
+        Title="MakeModFolder Tool" SizeToContent="WidthAndHeight"
+        WindowStyle="ToolWindow"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
     
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
         

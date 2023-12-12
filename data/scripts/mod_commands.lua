@@ -37,8 +37,7 @@ function mod_commands:spawnEntity()
 	spawnParams.properties.sharedSoulGuid = "4664d3f6-1aa0-ebea-25c8-9d131258deb9" --skalice guard
 
 	local entity = System.SpawnEntity(spawnParams)
-	entity.lootable = false
-	entity.AI.invulnerable = true
+	-- now i can access entity stuff
 	
 	mod_main:Log("Spawned entity")
 end

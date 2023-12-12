@@ -34,7 +34,7 @@ function mod_commands:spawnEntity()
 	spawnParams.position = player:GetWorldPos()
 	spawnParams.orientation = { x = 0, y = 0, z = 0 }
 	spawnParams.properties = {}
-	spawnParams.properties.sharedSoulGuid = "4861066f-1843-2ba9-42d5-05a5e34303ae"
+	spawnParams.properties.sharedSoulGuid = "4664d3f6-1aa0-ebea-25c8-9d131258deb9" --skalice guard
 
 	local entity = System.SpawnEntity(spawnParams)
 	entity.lootable = false

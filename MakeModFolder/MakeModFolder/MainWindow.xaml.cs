@@ -26,7 +26,7 @@ public partial class MainWindow : INotifyPropertyChanged
 	{
 		//PC Name,		Game Path,		Repo Path
 		("antoi",  "C:\\Games SSD\\steamapps\\common\\KingdomComeDeliverance", "D:\\Antoine\\Bazaar\\KCD Mod"),
-		("Etudiant1", "C:\\Program Files (x86)\\Steam\\steamapps\\common\\KingdomComeDeliverance", "D:\\KCD_Mod")
+		("Etudiant1", "D:\\SteamLibrary\\steamapps\\common\\KingdomComeDeliverance", "D:\\KCD_Mod")
 	};
 		
 	private void SetDefaultPath()

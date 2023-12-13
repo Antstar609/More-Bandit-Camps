@@ -52,12 +52,6 @@ public partial class MainWindow : INotifyPropertyChanged
 	{
 		var modPath = GamePath + "\\mods\\" + ModName;
 
-		// Check if the mod folder already exists, if it exists, delete it
-		if (Directory.Exists(modPath))
-		{
-			Directory.Delete(modPath, true);
-		}
-
 		// Create the mod folder
 		Directory.CreateDirectory(modPath);
 
@@ -221,6 +215,22 @@ public partial class MainWindow : INotifyPropertyChanged
 		if (!string.IsNullOrEmpty(ModName) && !string.IsNullOrEmpty(RepoPath) &&
 		    !string.IsNullOrEmpty(GamePath) && !string.IsNullOrEmpty(ModVersion))
 		{
+			//check if the mod already exists and if i can access it (if it's not in use)
+			var modPath = GamePath + "\\mods\\" + ModName;
+			if (Directory.Exists(modPath))
+			{
+				try
+				{
+					Directory.Delete(modPath, true);
+				}
+				catch (Exception)
+				{
+					MessageBox.Show("The mod folder is in use", "Warning", MessageBoxButton.OK,
+						MessageBoxImage.Warning);
+					return;
+				}
+			}
+			
 			MakeModFolder();
 		}
 		else

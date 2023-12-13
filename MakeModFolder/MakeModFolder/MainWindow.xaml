@@ -14,7 +14,7 @@
         
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
             <Label Content="Mod Name" FontWeight="Bold" FontSize="15" Margin="5"/>
-            <TextBox Text="{Binding ModName}" FontSize="15" Width="100" VerticalContentAlignment="Center"/>
+            <TextBox Text="{Binding ModName}" PreviewTextInput="NonSpecialCharValidationTextBox" FontSize="15" Width="100" VerticalContentAlignment="Center"/>
         </StackPanel>
         
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
@@ -37,7 +37,7 @@
         
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Label Content="Mod Version" FontWeight="Bold" FontSize="15"/>
-            <TextBox Text="{Binding ModVersion}" FontSize="15" Width="100" VerticalContentAlignment="Center"/>
+            <TextBox Text="{Binding ModVersion}" PreviewTextInput="NumberValidationTextBox" FontSize="15" Width="100" VerticalContentAlignment="Center"/>
             
             <CheckBox Content="Modifies Map" FontWeight="Bold" FontSize="15" Margin="5" VerticalContentAlignment="Center" IsChecked="{Binding IsMapModified}"/>
         </StackPanel>

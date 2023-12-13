@@ -6,6 +6,8 @@ using System.IO.Compression;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
+using System.Windows.Input;
 using System.Xml;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
@@ -25,10 +27,10 @@ public partial class MainWindow : INotifyPropertyChanged
 	private List<(string, string, string)> defaultPathList = new()
 	{
 		//PC Name,		Game Path,		Repo Path
-		("antoi",  "C:\\Games SSD\\steamapps\\common\\KingdomComeDeliverance", "D:\\Antoine\\Bazaar\\KCD Mod"),
+		("antoi", "C:\\Games SSD\\steamapps\\common\\KingdomComeDeliverance", "D:\\Antoine\\Bazaar\\KCD Mod"),
 		("Etudiant1", "D:\\SteamLibrary\\steamapps\\common\\KingdomComeDeliverance", "D:\\KCD_Mod")
 	};
-		
+
 	private void SetDefaultPath()
 	{
 		var pcName = Environment.UserName;
@@ -49,7 +51,7 @@ public partial class MainWindow : INotifyPropertyChanged
 	private void MakeModFolder()
 	{
 		var modPath = GamePath + "\\mods\\" + ModName;
-			
+
 		// Check if the mod folder already exists, if it exists, delete it
 		if (Directory.Exists(modPath))
 		{
@@ -64,22 +66,20 @@ public partial class MainWindow : INotifyPropertyChanged
 		Directory.CreateDirectory(modPath + "\\localization");
 
 		// Copy the modding_eula.txt
-		var files = Directory.GetFiles(Directory.GetCurrentDirectory());
-		foreach (var file in files)
+		var exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+		var moddingEulaPath = Path.GetDirectoryName(exePath) + "\\modding_eula.txt";
+		if (File.Exists(moddingEulaPath))
 		{
-			if (file.Contains("modding_eula.txt"))
-			{
-				File.Copy(file, modPath + "\\" + Path.GetFileName(file));
-				break;
-			}
+			File.Copy(moddingEulaPath, modPath + "\\modding_eula.txt");
+		}
+		else
+		{
+			MessageBox.Show("The modding_eula.txt file is missing", "Warning", MessageBoxButton.OK,
+				MessageBoxImage.Warning);
 		}
 
-		//Create the mod.manifest file
-		WriteModManifest();
 
 		// Copy the data folder and zip it
-		var dataPath = "";
-		var localizationPath = "";
 		var directories = Directory.GetDirectories(RepoPath);
 		var isDatazipped = false;
 		var isLocalizationzipped = false;
@@ -87,13 +87,16 @@ public partial class MainWindow : INotifyPropertyChanged
 		{
 			if (directory.Contains("data") && !isDatazipped)
 			{
-				dataPath = directory;
+				ZipFile.CreateFromDirectory(directory, modPath + "\\data\\data" + ".pak", CompressionLevel.Optimal,
+					false);
 				isDatazipped = true;
 			}
 
+			//Optional
 			if (directory.Contains("localization") && !isLocalizationzipped)
 			{
-				localizationPath = directory;
+				ZipFile.CreateFromDirectory(directory, modPath + "\\localization\\English_xml" + ".pak",
+					CompressionLevel.Optimal, false);
 				isLocalizationzipped = true;
 			}
 
@@ -101,9 +104,15 @@ public partial class MainWindow : INotifyPropertyChanged
 				break;
 		}
 
-		ZipFile.CreateFromDirectory(dataPath, modPath + "\\data\\data" + ".pak", CompressionLevel.Optimal, false);
-		ZipFile.CreateFromDirectory(localizationPath, modPath + "\\localization\\English_xml" + ".pak",
-			CompressionLevel.Optimal, false);
+		if (!isDatazipped)
+		{
+			MessageBox.Show("The data folder is missing", "Warning", MessageBoxButton.OK,
+				MessageBoxImage.Warning);
+			return;
+		}
+
+		//Create the mod.manifest file
+		WriteModManifest();
 
 		// MessageBox the user that the mod folder has been created and the location of it
 		MessageBox.Show("The mod folder has been created at " + modPath, "Success", MessageBoxButton.OK,
@@ -238,7 +247,7 @@ public partial class MainWindow : INotifyPropertyChanged
 	}
 
 	private string _repoPath = "";
-		
+
 	public string RepoPath
 	{
 		get => _repoPath;
@@ -305,5 +314,17 @@ public partial class MainWindow : INotifyPropertyChanged
 	private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
 	{
 		PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+	}
+
+	private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+	{
+		Regex regex = new Regex("[^0-9.]+");
+		e.Handled = regex.IsMatch(e.Text);
+	}
+	
+	void NonSpecialCharValidationTextBox(object sender, TextCompositionEventArgs e)
+	{
+		Regex regex = new Regex("[^a-zA-Z0-9_]+");
+		e.Handled = regex.IsMatch(e.Text);
 	}
 }

@@ -11,7 +11,7 @@ end
 -- Listener for the scene init event
 function modMain:sceneInitListener(actionName, eventName, eventArgs)
 	if eventArgs then
-		--modMain:Log("eventArgs: " .. tostring(eventName))
+		--modMain:Log("eventArgs: " .. eventName)
 	end
 
 	if actionName == "sys_loadingimagescreen" and eventName == "OnEnd" then

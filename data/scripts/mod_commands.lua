@@ -29,7 +29,7 @@ System.AddCCommand('listEntities', 'modCommands:listEntities()', "List entities 
 
 function modCommands:spawnEntity()
 
-	local souls = modSoul:GetSoulsFromDatabase("soldier")
+	local souls = modSoul:GetSoulsFromDatabase("guard")
 	local randomNumber = math.random(1, #souls)
 
 	local spawnParams = {}

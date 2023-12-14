@@ -1,5 +1,6 @@
 modSoul = {}
 
+modSoul.isDatabaseLoaded = false
 modSoul.soulType = {
 	"villager", -- 1
 	"bandit", -- 2
@@ -48,7 +49,13 @@ function modSoul:GetSoulsFromDatabase(type)
 	if modSoul:CheckValidType(type) then
 		local souls = {}
 		local tableName = "v_soul_character_data"
-		Database.LoadTable(tableName)
+		
+		--not sure if i need to load the database in the first place
+		if not modSoul.isDatabaseLoaded then
+			Database.LoadTable(tableName)
+			modSoul.isDatabaseLoaded = true
+		end
+		
 		local tableData = Database.GetTableInfo(tableName)
 		local rows = tableData.LineCount - 1
 

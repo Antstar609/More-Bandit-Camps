@@ -1,25 +1,24 @@
 System.LogAlways("////////// TESTMOD LOADED //////////")
 
-mod_main = {}
-mod_main.name = "TestMod"
-mod_main.version = "0.0.1"
+modMain = {}
+modMain.name = "TestMod"
+modMain.version = "0.0.1"
 
-function mod_main:Log(message)
-	System.LogAlways(mod_main.name .. " ~ " .. message)
+function modMain:Log(message)
+	System.LogAlways(modMain.name .. " ~ " .. message)
 end
 
 -- Listener for the scene init event
-function mod_main:sceneInitListener(actionName, eventName, eventArgs)
+function modMain:sceneInitListener(actionName, eventName, eventArgs)
 	if eventArgs then
-		--mod_main:Log("eventArgs: " .. tostring(eventName))
+		--modMain:Log("eventArgs: " .. tostring(eventName))
 	end
 
 	if actionName == "sys_loadingimagescreen" and eventName == "OnEnd" then
 		-- When the scene is loaded
-		mod_commands:showText()
-		local testEntity = System.SpawnEntity({ class = "TestEntity", name = "TestEntity", position = player:GetWorldPos() })
+		local testEntity = System.SpawnEntity({ class = "TestEntity", name = "TestEntity", position = { x = 0, y = 0, z = 0 } })
 	end
 end
 
 -- Register the listener
-UIAction.RegisterActionListener(mod_main, "", "", "sceneInitListener")
+UIAction.RegisterActionListener(modMain, "", "", "sceneInitListener")

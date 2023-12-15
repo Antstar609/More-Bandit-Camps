@@ -332,7 +332,7 @@ public partial class MainWindow : INotifyPropertyChanged
 		e.Handled = regex.IsMatch(e.Text);
 	}
 	
-	void NonSpecialCharValidationTextBox(object sender, TextCompositionEventArgs e)
+	private void NonSpecialCharValidationTextBox(object sender, TextCompositionEventArgs e)
 	{
 		Regex regex = new Regex("[^a-zA-Z0-9_]+");
 		e.Handled = regex.IsMatch(e.Text);

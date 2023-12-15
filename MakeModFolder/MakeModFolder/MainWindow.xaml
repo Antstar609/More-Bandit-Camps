@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:MakeModFolder"
         mc:Ignorable="d"
         Title="MakeModFolder Tool" SizeToContent="WidthAndHeight"
-        WindowStyle="ToolWindow"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
     

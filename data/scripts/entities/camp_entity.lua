@@ -47,6 +47,7 @@ function CampEntity.Client:OnUpdate()
 	if distance <= 5 and self.isSpawned == false then
 		if modMain.temp then
 			modSoul:spawnEntity("guard", campPos)
+			Game.SendInfoText("Camp spawned", false, nil, 5)
 			self.isSpawned = true
 		end
 	end

@@ -35,6 +35,7 @@ System.AddCCommand('spawnEntity', 'modSoul:spawnEntity(%line)', "Spawn an entity
 ---------------------------------------------------------------------------------------------------
 
 function modCommands:enableCamp()
+	Game.SendInfoText("Camp enabled", false, nil, 1)
 	modMain.temp = true
 end
 System.AddCCommand('enableCamp', 'modCommands:enableCamp()', "Enable camp")

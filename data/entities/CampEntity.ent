@@ -1,0 +1,4 @@
+<Entity
+        Name="CampEntity"
+        Script="scripts/entities/camp_entity.lua"
+/>

@@ -13,7 +13,6 @@ modSoul.soulType = {
 	"wanderer",
 	"bailiff",
 	"merchant",
-	"horse",
 	"weaponsmith",
 	"circator",
 	"lumberjack",
@@ -37,7 +36,7 @@ modSoul.soulType = {
 
 function modSoul:CheckValidType(type)
 
-	for i, v in ipairs(modSoul.soulType) do
+	for i, v in ipairs(self.soulType) do
 		if v == type then
 			return true
 		end
@@ -46,14 +45,14 @@ end
 
 function modSoul:GetSoulsFromDatabase(type)
 
-	if modSoul:CheckValidType(type) then
+	if self:CheckValidType(type) then
 		local souls = {}
 		local tableName = "v_soul_character_data"
 
 		--not sure if i need to load the database in the first place
-		if not modSoul.isDatabaseLoaded then
+		if not self.isDatabaseLoaded then
 			Database.LoadTable(tableName)
-			modSoul.isDatabaseLoaded = true
+			self.isDatabaseLoaded = true
 		end
 
 		local tableData = Database.GetTableInfo(tableName)
@@ -72,5 +71,27 @@ function modSoul:GetSoulsFromDatabase(type)
 		return souls
 	else
 		modMain:Log("Type not in the list")
+	end
+end
+
+function modSoul:spawnEntity(type, position)
+
+	local souls = self:GetSoulsFromDatabase(type)
+
+	if souls ~= nil then
+		local randomNumber = math.random(1, #souls)
+
+		local spawnParams = {}
+		spawnParams.class = "NPC"
+		spawnParams.name = souls[randomNumber].name
+		spawnParams.position = position or player:GetWorldPos()
+		spawnParams.orientation = spawnParams.position
+		spawnParams.properties = {}
+		spawnParams.properties.sharedSoulGuid = souls[randomNumber].id
+
+		local entity = System.SpawnEntity(spawnParams)
+		entity.AI.invulnerable = true
+
+		modMain:Log("Name : " .. entity:GetName() .. " | ID : " .. spawnParams.properties.sharedSoulGuid) --can't access to the ID on the entity
 	end
 end

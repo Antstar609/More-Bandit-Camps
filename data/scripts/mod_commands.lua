@@ -30,25 +30,11 @@ System.AddCCommand('listEntities', 'modCommands:listEntities()', "List entities 
 
 ---------------------------------------------------------------------------------------------------
 
-function modCommands:spawnEntity(type)
+System.AddCCommand('spawnEntity', 'modSoul:spawnEntity(%line)', "Spawn an entity")
 
-	local souls = modSoul:GetSoulsFromDatabase(tostring(type))
-	if souls then
-		--check if souls is not empty
-		local randomNumber = math.random(1, #souls)
+---------------------------------------------------------------------------------------------------
 
-		local spawnParams = {}
-		spawnParams.class = "NPC"
-		spawnParams.name = souls[randomNumber].name
-		spawnParams.position = player:GetWorldPos()
-		spawnParams.orientation = player:GetWorldPos()
-		spawnParams.properties = {}
-		spawnParams.properties.sharedSoulGuid = souls[randomNumber].id
-
-		local entity = System.SpawnEntity(spawnParams)
-		entity.AI.invulnerable = true
-
-		modMain:Log("Name : " .. entity:GetName() .. " | ID : " .. spawnParams.properties.sharedSoulGuid) --can't access to the ID on the entity
-	end
+function modCommands:enableCamp()
+	modMain.temp = true
 end
-System.AddCCommand('spawnEntity', 'modCommands:spawnEntity(%line)', "Spawn an entity")
+System.AddCCommand('enableCamp', 'modCommands:enableCamp()', "Enable camp")

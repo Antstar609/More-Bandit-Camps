@@ -8,6 +8,7 @@ CampEntity = {
 	},
 	States = {},
 	
+	isEnabled = false,
 	isSpawned = false
 }
 
@@ -31,7 +32,7 @@ function CampEntity:OnReset()
 	--modMain:Log("CampEntity OnReset")
 
 	self:Activate(1)
-	self:LoadObject(0, "objects/props/campfire/campfire.cgf")
+	self:LoadObject(0, "objects/props/torture_rack/torture_rack.cgf")
 	-- self:SetCurrentSlot(0)
 	-- self:PhysicalizeThis(0)
 end
@@ -42,10 +43,12 @@ function CampEntity.Client:OnUpdate()
 
 	local playerPos = player:GetWorldPos()
 	local campPos = self:GetWorldPos()
+
+	--modMain:Log("isEnabled : " .. tostring(self.isEnabled) .. " | isSpawned : " .. tostring(self.isSpawned))
 	
 	local distance = DistanceVectors(playerPos, campPos)
 	if distance <= 5 and self.isSpawned == false then
-		if modMain.temp then
+		if self.isEnabled then
 			modSoul:spawnEntity("guard", campPos)
 			Game.SendInfoText("Camp spawned", false, nil, 5)
 			self.isSpawned = true
@@ -98,3 +101,16 @@ CampEntity.FlowEvents = {
 		TurnOff = "bool",
 	}
 }
+
+function CampEntity:enableCamp()
+	Game.SendInfoText("Camp enabled", false, nil, 1)
+	self.isEnabled = true
+end
+System.AddCCommand('enableCamp', 'CampEntity:enableCamp()', "Enable camp")
+
+function CampEntity:resetCamp()
+	Game.SendInfoText("Camp reset", false, nil, 1)
+	self.isSpawned = false
+	self.isEnabled = false
+end
+System.AddCCommand('resetCamp', 'CampEntity:resetCamp()', "Reset camp")

@@ -93,5 +93,7 @@ function modSoul:spawnEntity(type, position)
 		entity.AI.invulnerable = true
 
 		modMain:Log("Name : " .. entity:GetName() .. " | ID : " .. spawnParams.properties.sharedSoulGuid) --can't access to the ID on the entity
+		Game.SendInfoText("Entity spawned", false, nil, 1)
 	end
 end
+System.AddCCommand('spawnEntity', 'modSoul:spawnEntity(%line)', "Spawn an entity")

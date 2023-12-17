@@ -4,7 +4,7 @@ CampEntity = {
 	Properties = {
 		bSaved_by_game = 0,
 		Saved_by_game = 0,
-		bSerialize = 0
+		bSerialize = 0,
 	},
 	States = {},
 	

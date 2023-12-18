@@ -28,7 +28,7 @@ end
 function TestEntity:OnReset()
 	--modMain:Log("TestEntity OnReset")
 	self:Activate(1)
-	modCommands:showText()
+	modCommands:ShowText()
 	-- self:SetCurrentSlot(0)
 	-- self:PhysicalizeThis(0)
 end

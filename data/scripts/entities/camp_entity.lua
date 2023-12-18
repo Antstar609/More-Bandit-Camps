@@ -7,7 +7,7 @@ CampEntity = {
 		bSerialize = 0,
 	},
 	States = {},
-	
+
 	isEnabled = false,
 	isSpawned = false
 }
@@ -45,7 +45,7 @@ function CampEntity.Client:OnUpdate()
 	local campPos = self:GetWorldPos()
 
 	--modMain:Log("isEnabled : " .. tostring(self.isEnabled) .. " | isSpawned : " .. tostring(self.isSpawned))
-	
+
 	local distance = DistanceVectors(playerPos, campPos)
 	if distance <= 5 and self.isSpawned == false then
 		if self.isEnabled then
@@ -108,6 +108,7 @@ function CampEntity:enableCamp()
 end
 System.AddCCommand('enableCamp', 'CampEntity:enableCamp()', "Enable camp")
 
+-- isSpawned always set itself to true idk why
 function CampEntity:resetCamp()
 	Game.SendInfoText("Camp reset", false, nil, 1)
 	self.isSpawned = false

@@ -80,7 +80,7 @@ function modSoul:GetSoulsFromDatabase(type)
 	if self:CheckValidType(type) then
 		local souls = {}
 		local tableName = "v_soul_character_data"
-		
+
 		Database.LoadTable(tableName)
 		local tableData = Database.GetTableInfo(tableName)
 		local rows = tableData.LineCount - 1
@@ -91,7 +91,7 @@ function modSoul:GetSoulsFromDatabase(type)
 				local soul = {}
 				soul.name = lineInfo.name_string_id
 				soul.id = lineInfo.soul_id
-				soul.row = i + 10
+				soul.row = i + 10 --to match the line in the xml file
 				table.insert(souls, soul)
 			end
 		end
@@ -100,27 +100,6 @@ function modSoul:GetSoulsFromDatabase(type)
 	else
 		modMain:Log("Type not in the list")
 	end
-end
-
-function modSoul:GetSubbrainFromDatabase()
-	
-	local subbrains = {}
-	local tableName = "subbrain"
-
-	Database.LoadTable(tableName)
-	local tableData = Database.GetTableInfo(tableName)
-	local rows = tableData.LineCount - 1
-
-	for i = 0, rows do
-		local lineInfo = Database.GetTableLine(tableName, i)
-		local subbrain = {}
-		subbrain.name = lineInfo.subbrain_name
-		subbrain.id = lineInfo.subbrain_id
-		subbrain.row = i + 12
-		table.insert(subbrains, subbrain)
-	end
-
-	return subbrains
 end
 
 function modSoul:SpawnEntityByType(type, position)
@@ -132,7 +111,7 @@ function modSoul:SpawnEntityByType(type, position)
 
 		local spawnParams = {}
 		spawnParams.class = self:SetGender(souls[randomNumber].name)
-		spawnParams.name = type .. "_" .. souls[randomNumber].row --to match the line in the xml file
+		spawnParams.name = type .. "_" .. souls[randomNumber].row
 		spawnParams.position = position or player:GetWorldPos()
 		spawnParams.orientation = spawnParams.position
 		spawnParams.properties = {}
@@ -150,7 +129,7 @@ function modSoul:SpawnEntityByLine(line, position)
 
 	local tableName = "v_soul_character_data"
 	local data = Database.GetTableLine(tableName, line - 10)
-	
+
 	local spawnParams = {}
 	spawnParams.class = self:SetGender(data.name_string_id)
 	spawnParams.name = data.name_string_id .. "_" .. line
@@ -183,3 +162,34 @@ function modSoul:SpawnWanderingGuard()
 	Game.SendInfoText("Entity spawned", false, nil, 1)
 end
 System.AddCCommand('SpawnWanderingGuard', 'modSoul:SpawnWanderingGuard()', "Spawn a wandering guard")
+
+---------------------------------------------------------------------------------------------------
+
+function modSoul:GetSubbrainFromDatabase()
+
+	local subbrains = {}
+	local tableName = "subbrain"
+
+	Database.LoadTable(tableName)
+	local tableData = Database.GetTableInfo(tableName)
+	local rows = tableData.LineCount - 1
+
+	for i = 0, rows do
+		local lineInfo = Database.GetTableLine(tableName, i)
+		local subbrain = {}
+		subbrain.name = lineInfo.subbrain_name
+		subbrain.id = lineInfo.subbrain_id
+		subbrain.row = i + 12 --to match the line in the xml file
+		table.insert(subbrains, subbrain)
+	end
+
+	return subbrains
+end
+
+function modSoul:PrintSubbrains()
+
+	local subbrains = self:GetSubbrainFromDatabase()
+	for i, sb in ipairs(subbrains) do
+		modMain:Log("Subbrain | Name: " .. sb.name .. " | Id: " .. sb.id .. " | Row: " .. sb.row)
+	end
+end

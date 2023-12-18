@@ -2,24 +2,24 @@ local function Object(name, pos)
 	local self = {}
 	self.class = "Object"
 	self.name = name or "No name"
-	self.pos = pos or { x = 0, y = 0 } 
+	self.pos = pos or { x = 0, y = 0 }
 	self.status = "Idle"
 
 	self.Move = function()
 		self.status = "Moving"
 	end
-	
+
 	return self
 end
 
 print("ClassObject :")
 local object = Object("Test", { x = 3, y = 6 })
-print("Class : "..object.class)
-print("Name : "..object.name)
-print("Pos : "..object.pos.x..", ".. object.pos.y)
-print("Status : "..object.status)
+print("Class : " .. object.class)
+print("Name : " .. object.name)
+print("Pos : " .. object.pos.x .. ", " .. object.pos.y)
+print("Status : " .. object.status)
 object:Move()
-print("Status : "..object.status)
+print("Status : " .. object.status)
 
 local function Player(name, pos, hp, mana)
 	local self = Object(name, pos)
@@ -30,7 +30,7 @@ local function Player(name, pos, hp, mana)
 	self.Move = function()
 		self.status = "Moving Fast"
 	end
-	
+
 	self.Attack = function()
 		self.status = "Attacking"
 	end
@@ -41,13 +41,21 @@ end
 local player = Player("Player", { x = 10, y = 10 })
 
 print("\nClassPlayer :")
-print("Class : "..player.class)
-print("Name : "..player.name)
-print("Pos : "..player.pos.x..", ".. player.pos.y)
-print("Status : "..player.status)
+print("Class : " .. player.class)
+print("Name : " .. player.name)
+print("Pos : " .. player.pos.x .. ", " .. player.pos.y)
+print("Status : " .. player.status)
 player:Move()
-print("Status : "..player.status)
-print("Hp : "..player.hp)
-print("Mana : "..player.mana)
+print("Status : " .. player.status)
+print("Hp : " .. player.hp)
+print("Mana : " .. player.mana)
 player:Attack()
-print("Status : "..player.status)
+print("Status : " .. player.status)
+
+--local file = io.open("D:/powerOf2.txt", 'w')
+--local result;
+--for i = 0, 12 do
+--	result = math.floor(math.pow(2, i))
+--	file:write(result .. "\n")
+--end
+--file:close()

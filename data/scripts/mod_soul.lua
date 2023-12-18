@@ -80,13 +80,8 @@ function modSoul:GetSoulsFromDatabase(type)
 	if self:CheckValidType(type) then
 		local souls = {}
 		local tableName = "v_soul_character_data"
-
-		--not sure if i need to load the database in the first place
-		if not self.isDatabaseLoaded then
-			Database.LoadTable(tableName)
-			self.isDatabaseLoaded = true
-		end
-
+		
+		Database.LoadTable(tableName)
 		local tableData = Database.GetTableInfo(tableName)
 		local rows = tableData.LineCount - 1
 
@@ -105,6 +100,27 @@ function modSoul:GetSoulsFromDatabase(type)
 	else
 		modMain:Log("Type not in the list")
 	end
+end
+
+function modSoul:GetSubbrainFromDatabase()
+	
+	local subbrains = {}
+	local tableName = "subbrain"
+
+	Database.LoadTable(tableName)
+	local tableData = Database.GetTableInfo(tableName)
+	local rows = tableData.LineCount - 1
+
+	for i = 0, rows do
+		local lineInfo = Database.GetTableLine(tableName, i)
+		local subbrain = {}
+		subbrain.name = lineInfo.subbrain_name
+		subbrain.id = lineInfo.subbrain_id
+		subbrain.row = i + 12
+		table.insert(subbrains, subbrain)
+	end
+
+	return subbrains
 end
 
 function modSoul:SpawnEntityByType(type, position)
@@ -155,7 +171,7 @@ function modSoul:SpawnWanderingGuard()
 	local randomNumber = math.random(1, #self.wanderingGuards)
 	local spawnParams = {}
 	spawnParams.class = "NPC"
-	--spawnParams.name = "Guard"
+	spawnParams.name = "Guard"
 	spawnParams.position = player:GetWorldPos()
 	spawnParams.orientation = spawnParams.position
 	spawnParams.properties = {}

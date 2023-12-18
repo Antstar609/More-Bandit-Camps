@@ -26,7 +26,6 @@ public partial class MainWindow : INotifyPropertyChanged
 
 	private List<(string, string, string)> defaultPathList = new()
 	{
-		//TODO: Update the default path list
 		//PC Name,		Game Path,		Repo Path
 		("BALLSPIELVEREIN", "C:\\Games SSD\\steamapps\\common\\KingdomComeDeliverance", "D:\\Antoine\\Bazaar\\KCD Mod"),
 		("DELL22-58", "D:\\SteamLibrary\\steamapps\\common\\KingdomComeDeliverance", "D:\\KCD_Mod"),
@@ -52,14 +51,14 @@ public partial class MainWindow : INotifyPropertyChanged
 
 	private void MakeModFolder()
 	{
-		var modPath = GamePath + "\\mods\\" + ModName;
+		var modPath = GamePath + "\\Mods\\" + ModName;
 
 		// Create the mod folder
 		Directory.CreateDirectory(modPath);
 
 		// Create the main folders
-		Directory.CreateDirectory(modPath + "\\data");
-		Directory.CreateDirectory(modPath + "\\localization");
+		Directory.CreateDirectory(modPath + "\\Data");
+		Directory.CreateDirectory(modPath + "\\Localization");
 
 		// Copy the modding_eula.txt
 		var exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
@@ -81,17 +80,17 @@ public partial class MainWindow : INotifyPropertyChanged
 		var isLocalizationzipped = false;
 		foreach (var directory in directories)
 		{
-			if (directory.Contains("data") && !isDatazipped)
+			if (directory.Contains("Data") && !isDatazipped)
 			{
-				ZipFile.CreateFromDirectory(directory, modPath + "\\data\\data" + ".pak", CompressionLevel.Optimal,
+				ZipFile.CreateFromDirectory(directory, modPath + "\\Data\\data" + ".pak", CompressionLevel.Optimal,
 					false);
 				isDatazipped = true;
 			}
 
 			//Optional
-			if (directory.Contains("localization") && !isLocalizationzipped)
+			if (directory.Contains("Localization") && !isLocalizationzipped)
 			{
-				ZipFile.CreateFromDirectory(directory, modPath + "\\localization\\English_xml" + ".pak",
+				ZipFile.CreateFromDirectory(directory, modPath + "\\Localization\\English_xml" + ".pak",
 					CompressionLevel.Optimal, false);
 				isLocalizationzipped = true;
 			}
@@ -125,7 +124,7 @@ public partial class MainWindow : INotifyPropertyChanged
 			NewLineOnAttributes = true
 		};
 
-		using XmlWriter writer = XmlWriter.Create(GamePath + "\\mods\\" + ModName + "\\mod.manifest", settings);
+		using XmlWriter writer = XmlWriter.Create(GamePath + "\\Mods\\" + ModName + "\\mod.manifest", settings);
 
 		writer.WriteStartDocument();
 		writer.WriteStartElement("kcd_mod"); // kcd_mod
@@ -198,6 +197,7 @@ public partial class MainWindow : INotifyPropertyChanged
 			// if in the folder there is a mod.manifest file and a modding_eula.txt file, then it's the right folder
 			var files = Directory.GetFiles(openFileDialog.FileName);
 			var isGame = false;
+			// TODO: find a better way to check if it's the right folder
 			if (files.Any(file => file.Contains("kcd.log")))
 			{
 				isGame = true;
@@ -218,7 +218,7 @@ public partial class MainWindow : INotifyPropertyChanged
 		    !string.IsNullOrEmpty(GamePath) && !string.IsNullOrEmpty(ModVersion))
 		{
 			//check if the mod already exists and if i can access it (if it's not in use)
-			var modPath = GamePath + "\\mods\\" + ModName;
+			var modPath = GamePath + "\\Mods\\" + ModName;
 			if (Directory.Exists(modPath))
 			{
 				try

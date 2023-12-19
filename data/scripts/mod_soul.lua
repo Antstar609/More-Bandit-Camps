@@ -37,7 +37,7 @@ modSoul.soulType = {
 modSoul.wanderingGuards = {
 	"f1c2611b-f0b9-469e-aad5-cf713a11790f",
 	"47310cda-0bcc-4541-9401-0a29e68a61a3",
-	"79862ell-4c5a-4a76-8461-58ed2875de99",
+	"79862e11-4c5a-4a76-8461-58ed2875de99",
 	"9773c67c-b2c4-46ee-a505-f4c2094bd11d",
 	"0651c27f-bfda-4cb5-8ccc-0e874b05fad2",
 	"ab05a713-1fce-4576-b128-e06c5d32f03f",
@@ -150,7 +150,7 @@ function modSoul:SpawnWanderingGuard()
 	local randomNumber = math.random(1, #self.wanderingGuards)
 	local spawnParams = {}
 	spawnParams.class = "NPC"
-	spawnParams.name = "Guard"
+	spawnParams.name = "wandering_guard" .. "_" .. randomNumber
 	spawnParams.position = player:GetWorldPos()
 	spawnParams.orientation = spawnParams.position
 	spawnParams.properties = {}

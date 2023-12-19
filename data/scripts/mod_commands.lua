@@ -7,7 +7,7 @@ function modCommands:ShowText()
 
 	Game.ShowTutorial(message, 20, false, true);
 end
-System.AddCCommand('ShowText', 'modCommands:ShowText()', "Shows the intro banner from startup")
+System.AddCCommand(modMain.modPrefix .. 'ShowText', 'modCommands:ShowText()', "Shows the intro banner from startup")
 
 ---------------------------------------------------------------------------------------------------
 
@@ -15,7 +15,7 @@ function modCommands:PrintText()
 
 	Game.SendInfoText("Ceci est un test !", false, nil, 5)
 end
-System.AddCCommand('PrintText', 'modCommands:PrintText()', "Print text to the screen")
+System.AddCCommand(modMain.modPrefix .. 'PrintText', 'modCommands:PrintText()', "Print text to the screen")
 
 ---------------------------------------------------------------------------------------------------
 
@@ -26,7 +26,7 @@ function modCommands:ListEntities()
 		modMain:Log("Name: " .. entity:GetName() .. " | Class: " .. entity.class)
 	end
 end
-System.AddCCommand('ListEntities', 'modCommands:ListEntities()', "List entities in a sphere")
+System.AddCCommand(modMain.modPrefix .. 'ListEntities', 'modCommands:ListEntities()', "List entities in a sphere")
 
 ---------------------------------------------------------------------------------------------------
 

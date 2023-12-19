@@ -53,6 +53,8 @@ function CampEntity.Client:OnUpdate()
 			Game.SendInfoText("Camp spawned", false, nil, 5)
 			self.isSpawned = true
 		end
+	else
+		self:ResetCamp()
 	end
 end
 
@@ -102,16 +104,16 @@ CampEntity.FlowEvents = {
 	}
 }
 
-function CampEntity:enableCamp()
+function CampEntity:EnableCamp()
 	Game.SendInfoText("Camp enabled", false, nil, 1)
 	self.isEnabled = true
 end
-System.AddCCommand('enableCamp', 'CampEntity:enableCamp()', "Enable camp")
+System.AddCCommand(modMain.modPrefix .. 'EnableCamp', 'CampEntity:EnableCamp()', "Enable camp")
 
 -- isSpawned always set itself to true idk why
-function CampEntity:resetCamp()
-	Game.SendInfoText("Camp reset", false, nil, 1)
+function CampEntity:ResetCamp()
+	--Game.SendInfoText("Camp reset", false, nil, 1)
 	self.isSpawned = false
 	self.isEnabled = false
 end
-System.AddCCommand('resetCamp', 'CampEntity:resetCamp()', "Reset camp")
+System.AddCCommand(modMain.modPrefix .. 'ResetCamp', 'CampEntity:ResetCamp()', "Reset camp")

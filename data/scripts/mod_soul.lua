@@ -123,7 +123,7 @@ function modSoul:SpawnEntityByType(type, position)
 		Game.SendInfoText("Entity spawned", false, nil, 1)
 	end
 end
-System.AddCCommand('SpawnEntityByType', 'modSoul:SpawnEntityByType(%line)', "")
+System.AddCCommand(modMain.modPrefix .. 'SpawnEntityByType', 'modSoul:SpawnEntityByType(%line)', "")
 
 function modSoul:SpawnEntityByLine(line, position)
 
@@ -143,7 +143,7 @@ function modSoul:SpawnEntityByLine(line, position)
 
 	Game.SendInfoText("Entity spawned", false, nil, 1)
 end
-System.AddCCommand('SpawnEntityByLine', 'modSoul:SpawnEntityByLine(%line)', "")
+System.AddCCommand(modMain.modPrefix .. 'SpawnEntityByLine', 'modSoul:SpawnEntityByLine(%line)', "")
 
 function modSoul:SpawnWanderingGuard()
 
@@ -161,7 +161,7 @@ function modSoul:SpawnWanderingGuard()
 
 	Game.SendInfoText("Entity spawned", false, nil, 1)
 end
-System.AddCCommand('SpawnWanderingGuard', 'modSoul:SpawnWanderingGuard()', "Spawn a wandering guard")
+System.AddCCommand(modMain.modPrefix .. 'SpawnWanderingGuard', 'modSoul:SpawnWanderingGuard()', "Spawn a wandering guard")
 
 ---------------------------------------------------------------------------------------------------
 
@@ -193,3 +193,4 @@ function modSoul:PrintSubbrains()
 		modMain:Log("Subbrain | Name: " .. sb.name .. " | Id: " .. sb.id .. " | Row: " .. sb.row)
 	end
 end
+System.AddCCommand(modMain.modPrefix .. 'PrintSubbrains', 'modSoul:PrintSubbrains()', "Print all subbrains")

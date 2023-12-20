@@ -1,14 +1,12 @@
-System.LogAlways("////////// TESTMOD LOADED //////////")
-
 modMain = {}
 modMain.name = "TestMod"
 modMain.version = "0.0.1"
-modMain.modPrefix = 'mod_'
+modMain.modPrefix = ''
 
 modMain.temp = false
 
 function modMain:Log(message)
-	System.LogAlways(self.name .. " ~ " .. message)
+	System.LogAlways(self.name .. " ~ " .. tostring(message))
 end
 
 -- Listener for the scene init event

@@ -30,3 +30,35 @@ System.AddCCommand(modMain.modPrefix .. 'ListEntities', 'modCommands:ListEntitie
 
 ---------------------------------------------------------------------------------------------------
 
+function modSoul:GetSubbrainFromDatabase()
+
+	local subbrains = {}
+	local tableName = "subbrain"
+
+	Database.LoadTable(tableName)
+	local tableData = Database.GetTableInfo(tableName)
+	local rows = tableData.LineCount - 1
+
+	for i = 0, rows do
+		local lineInfo = Database.GetTableLine(tableName, i)
+		local subbrain = {}
+		subbrain.name = lineInfo.subbrain_name
+		subbrain.id = lineInfo.subbrain_id
+		subbrain.row = i + 12 --to match the line in the xml file
+		table.insert(subbrains, subbrain)
+	end
+
+	return subbrains
+end
+
+function modSoul:PrintSubbrains()
+
+	local subbrains = self:GetSubbrainFromDatabase()
+	for i, sb in ipairs(subbrains) do
+		modMain:Log("Subbrain | Name: " .. sb.name .. " | Id: " .. sb.id .. " | Row: " .. sb.row)
+	end
+end
+System.AddCCommand(modMain.modPrefix .. 'PrintSubbrains', 'modSoul:PrintSubbrains()', "Print all subbrains")
+
+---------------------------------------------------------------------------------------------------
+

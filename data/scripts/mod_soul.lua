@@ -1,6 +1,6 @@
 modSoul = {}
 
-modSoul.isDatabaseLoaded = false
+modSoul.tableName = "soul"
 modSoul.soulType = {
 	"villager",
 	"bandit",
@@ -65,9 +65,9 @@ function modSoul:CheckValidType(type)
 	end
 end
 
-function modSoul:SetGender(name)
+function modSoul:SetGender(id)
 
-	if string.find(name, "woman", 1, true) then
+	if id == 1 then
 		Game.SendInfoText("Woman", false, nil, 1)
 		return "NPC_Female"
 	end
@@ -79,19 +79,19 @@ function modSoul:GetSoulsFromDatabase(type)
 
 	if self:CheckValidType(type) then
 		local souls = {}
-		local tableName = "v_soul_character_data"
 
-		Database.LoadTable(tableName)
-		local tableData = Database.GetTableInfo(tableName)
+		Database.LoadTable(self.tableName)
+		local tableData = Database.GetTableInfo(self.tableName)
 		local rows = tableData.LineCount - 1
 
 		for i = 0, rows do
-			local lineInfo = Database.GetTableLine(tableName, i)
-			if string.find(lineInfo.name_string_id, type, 1, true) then
+			local lineInfo = Database.GetTableLine(self.tableName, i)
+			if string.find(lineInfo.soul_name, type, 1, true) then
 				local soul = {}
-				soul.name = lineInfo.name_string_id
+				soul.name = lineInfo.soul_name
 				soul.id = lineInfo.soul_id
-				soul.row = i + 10 --to match the line in the xml file
+				soul.archetype_id = lineInfo.soul_archetype_id
+				soul.row = i + 79 --to match the line in the xml file
 				table.insert(souls, soul)
 			end
 		end
@@ -110,8 +110,8 @@ function modSoul:SpawnEntityByType(type, position)
 		local randomNumber = math.random(1, #souls)
 
 		local spawnParams = {}
-		spawnParams.class = self:SetGender(souls[randomNumber].name)
-		spawnParams.name = type .. "_" .. souls[randomNumber].row
+		spawnParams.class = self:SetGender(souls[randomNumber].archetype_id)
+		spawnParams.name = souls[randomNumber].name .. "_" .. souls[randomNumber].row
 		spawnParams.position = position or player:GetWorldPos()
 		spawnParams.orientation = spawnParams.position
 		spawnParams.properties = {}
@@ -127,16 +127,15 @@ System.AddCCommand(modMain.modPrefix .. 'SpawnEntityByType', 'modSoul:SpawnEntit
 
 function modSoul:SpawnEntityByLine(line, position)
 
-	local tableName = "v_soul_character_data"
-	local data = Database.GetTableLine(tableName, line - 10)
+	local soul = Database.GetTableLine(self.tableName, line - 79)
 
 	local spawnParams = {}
-	spawnParams.class = self:SetGender(data.name_string_id)
-	spawnParams.name = data.name_string_id .. "_" .. line
+	spawnParams.class = self:SetGender(soul.soul_archetype_id)
+	spawnParams.name = soul.soul_name .. "_" .. line
 	spawnParams.position = position or player:GetWorldPos()
 	spawnParams.orientation = spawnParams.position
 	spawnParams.properties = {}
-	spawnParams.properties.sharedSoulGuid = data.soul_id
+	spawnParams.properties.sharedSoulGuid = soul.soul_id
 
 	local entity = System.SpawnEntity(spawnParams)
 	entity.AI.invulnerable = true
@@ -162,35 +161,3 @@ function modSoul:SpawnWanderingGuard()
 	Game.SendInfoText("Entity spawned", false, nil, 1)
 end
 System.AddCCommand(modMain.modPrefix .. 'SpawnWanderingGuard', 'modSoul:SpawnWanderingGuard()', "Spawn a wandering guard")
-
----------------------------------------------------------------------------------------------------
-
-function modSoul:GetSubbrainFromDatabase()
-
-	local subbrains = {}
-	local tableName = "subbrain"
-
-	Database.LoadTable(tableName)
-	local tableData = Database.GetTableInfo(tableName)
-	local rows = tableData.LineCount - 1
-
-	for i = 0, rows do
-		local lineInfo = Database.GetTableLine(tableName, i)
-		local subbrain = {}
-		subbrain.name = lineInfo.subbrain_name
-		subbrain.id = lineInfo.subbrain_id
-		subbrain.row = i + 12 --to match the line in the xml file
-		table.insert(subbrains, subbrain)
-	end
-
-	return subbrains
-end
-
-function modSoul:PrintSubbrains()
-
-	local subbrains = self:GetSubbrainFromDatabase()
-	for i, sb in ipairs(subbrains) do
-		modMain:Log("Subbrain | Name: " .. sb.name .. " | Id: " .. sb.id .. " | Row: " .. sb.row)
-	end
-end
-System.AddCCommand(modMain.modPrefix .. 'PrintSubbrains', 'modSoul:PrintSubbrains()', "Print all subbrains")

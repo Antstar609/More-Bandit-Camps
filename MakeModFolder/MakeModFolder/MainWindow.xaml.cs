@@ -26,14 +26,16 @@ public partial class MainWindow : INotifyPropertyChanged
 
 	private List<(string, string, string)> defaultPathList = new()
 	{
+		//TODO: Update the default path list
 		//PC Name,		Game Path,		Repo Path
 		("antoi", "C:\\Games SSD\\steamapps\\common\\KingdomComeDeliverance", "D:\\Antoine\\Bazaar\\KCD Mod"),
-		("Etudiant1", "D:\\SteamLibrary\\steamapps\\common\\KingdomComeDeliverance", "D:\\KCD_Mod")
+		("Etudiant1", "D:\\SteamLibrary\\steamapps\\common\\KingdomComeDeliverance", "D:\\KCD_Mod"),
+		("REVIERDERBY", "D:\\Games\\Steam\\steamapps\\common\\KingdomComeDeliverance", "D:\\Antoine\\Bazaar\\KCD_Mod")
 	};
 
 	private void SetDefaultPath()
 	{
-		var pcName = Environment.UserName;
+		var pcName = Environment.MachineName;
 		foreach (var value in defaultPathList)
 		{
 			if (value.Item1 == pcName)

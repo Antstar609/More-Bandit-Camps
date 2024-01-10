@@ -28,8 +28,8 @@ public partial class MainWindow : INotifyPropertyChanged
 	{
 		//TODO: Update the default path list
 		//PC Name,		Game Path,		Repo Path
-		("antoi", "C:\\Games SSD\\steamapps\\common\\KingdomComeDeliverance", "D:\\Antoine\\Bazaar\\KCD Mod"),
-		("Etudiant1", "D:\\SteamLibrary\\steamapps\\common\\KingdomComeDeliverance", "D:\\KCD_Mod"),
+		("BALLSPIELVEREIN", "C:\\Games SSD\\steamapps\\common\\KingdomComeDeliverance", "D:\\Antoine\\Bazaar\\KCD Mod"),
+		("DELL22-58", "D:\\SteamLibrary\\steamapps\\common\\KingdomComeDeliverance", "D:\\KCD_Mod"),
 		("REVIERDERBY", "D:\\Games\\Steam\\steamapps\\common\\KingdomComeDeliverance", "D:\\Antoine\\Bazaar\\KCD_Mod")
 	};
 

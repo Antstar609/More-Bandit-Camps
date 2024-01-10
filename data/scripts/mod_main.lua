@@ -6,7 +6,7 @@ modMain.modPrefix = ''
 modMain.temp = false
 
 function modMain:Log(message)
-	System.LogAlways(self.name .. " ~ " .. tostring(message))
+	System.LogAlways(self.name .. " ~ " .. message)
 end
 
 -- Listener for the scene init event

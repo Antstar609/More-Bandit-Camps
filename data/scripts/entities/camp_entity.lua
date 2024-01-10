@@ -32,7 +32,7 @@ function CampEntity:OnReset()
 	--modMain:Log("CampEntity OnReset")
 
 	self:Activate(1)
-	self:LoadObject(0, "objects/props/torture_rack/torture_rack.cgf")
+	self:LoadObject(0, "objects/props/crates/crate_short.cgf")
 	-- self:SetCurrentSlot(0)
 	-- self:PhysicalizeThis(0)
 end

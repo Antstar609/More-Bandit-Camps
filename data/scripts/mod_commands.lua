@@ -1,6 +1,6 @@
 modCommands = {}
 
-function modCommands:ShowText()
+function modCommands:ShowTextbox()
 
 	message = "<font color='#ff8b00' size='28'>TestMod</font>" .. "\n"
 			.. "<font color='#333333' size='20'>Antstar609</font>"
@@ -8,14 +8,6 @@ function modCommands:ShowText()
 	Game.ShowTutorial(message, 20, false, true);
 end
 System.AddCCommand(modMain.modPrefix .. 'ShowText', 'modCommands:ShowText()', "Shows the intro banner from startup")
-
----------------------------------------------------------------------------------------------------
-
-function modCommands:PrintText()
-
-	Game.SendInfoText("Ceci est un test !", false, nil, 5)
-end
-System.AddCCommand(modMain.modPrefix .. 'PrintText', 'modCommands:PrintText()', "Print text to the screen")
 
 ---------------------------------------------------------------------------------------------------
 
@@ -32,9 +24,11 @@ System.AddCCommand(modMain.modPrefix .. 'ListEntities', 'modCommands:ListEntitie
 
 function modCommands:GetDatabase(tableName)
 
-	Database.LoadTable(tableName)
+	if not Database.LoadTable(tableName) then
+		return nil
+	end
+	
 	local tableData = Database.GetTableInfo(tableName)
-
 	local columnsSize = tableData.ColumnCount - 1
 	local rowsSize = tableData.LineCount - 1
 
@@ -57,7 +51,11 @@ function modCommands:PrintDatabase(databaseName)
 	
 	local database = self:GetDatabase(databaseName)
 
-	modMain:Log("Database Contents:")
+	if database == nil then
+		modMain:Log("No database found")
+		return
+	end
+
 	for i, data in ipairs(database) do
 		modMain:Log("Row " .. i .. ":")
 		for columnName, columnValue in pairs(data) do

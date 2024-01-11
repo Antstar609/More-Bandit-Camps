@@ -12,12 +12,11 @@ TestEntity = {
 -- this is called when the player loads a save state - use this for restoring values when a game gets loaded
 function TestEntity:OnLoad(tbl)
 	--modMain:Log("TestEntity OnLoad")
-
 end
 
 -- this is called once, use this for initializing stuff
 function TestEntity.Server:OnInit()
-	modMain:Log("TestEntity spawned (does nothing)")
+	modMain:Log("TestEntity spawned (shows textbox)")
 	if (not self.bInitialized) then
 		self:OnReset()
 		self.bInitialized = 1
@@ -28,7 +27,7 @@ end
 function TestEntity:OnReset()
 	--modMain:Log("TestEntity OnReset")
 	self:Activate(1)
-	modCommands:ShowText()
+	modCommands:ShowTextbox()
 	-- self:SetCurrentSlot(0)
 	-- self:PhysicalizeThis(0)
 end
@@ -36,7 +35,8 @@ end
 -- this is called every frame given the entity has been spawned
 function TestEntity.Client:OnUpdate()
 	--modMain:Log("TestEntity OnUpdate")
-	--Game.SendInfoText("Entity Pos\n X: " .. TestEntity.position.x .. " Y: " .. TestEntity.position.y .. " Z: " .. TestEntity.position.z, false, nil, 1)
+	local playerPos = player:GetWorldPos()
+	modMain:LogOnScreen("Entity Pos\n X: " .. playerPos.x .. " Y: " .. playerPos.y .. " Z: " .. playerPos.z, true)
 end
 
 -- this is called when the player saves or updates a save state - storing values for your entities

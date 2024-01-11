@@ -68,18 +68,19 @@
 ---------------------------------------------------------------------------------------------------
 -- Print members name of a table as string
 
-local Table = {
-	name = "",
-	type = ""
-}
-
-local names = {}
-for k in pairs(Table) do
-	table.insert(names, k)
-end
-
-for k in ipairs(names) do
-	print(names[k])
-end
+--local Table = {
+--	name = "",
+--	type = ""
+--}
+--
+--local names = {}
+--for k in pairs(Table) do
+--	table.insert(names, k)
+--end
+--
+--for k in ipairs(names) do
+--	print(names[k])
+--end
 
 ---------------------------------------------------------------------------------------------------
+

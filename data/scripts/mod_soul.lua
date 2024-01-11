@@ -69,43 +69,44 @@ end
 function modSoul:SetGender(id)
 
 	if id == 1 then
-		Game.SendInfoText("Woman", false, nil, 1)
+		modMain:Log("Woman")
 		return "NPC_Female"
 	end
-	Game.SendInfoText("Man", false, nil, 1)
+	modMain:Log("Man")
 	return "NPC"
 end
 
-function modSoul:GetSoulsFromDatabase(type)
+function modSoul:GetSoulsFromDatabase(soulType)
 
-	if self:CheckValidType(type) then
+	if self:CheckValidType(soulType) then
 		local souls = {}
 
 		Database.LoadTable(self.tableName)
 		local tableData = Database.GetTableInfo(self.tableName)
-		
+
 		local rows = tableData.LineCount - 1
 		for i = 0, rows do
 			local lineInfo = Database.GetTableLine(self.tableName, i)
-			if string.find(lineInfo.soul_name, type, 1, true) then
-				local soul = {}
-				soul.name = lineInfo.soul_name
-				soul.id = lineInfo.soul_id
-				soul.archetype_id = lineInfo.soul_archetype_id
-				soul.row = i + self.rowOffset --to match the line in the xml file
-				table.insert(souls, soul)
+			if string.find(lineInfo.soul_name, soulType, 1, true) then
+				local soulData = {}
+				soulData.name = lineInfo.soul_name
+				soulData.id = lineInfo.soul_id
+				soulData.archetype_id = lineInfo.soul_archetype_id
+				soulData.row = i + self.rowOffset --to match the line in the xml file
+				table.insert(souls, soulData)
 			end
 		end
 
 		return souls
 	else
 		modMain:Log("Type not in the list")
+		return nil
 	end
 end
 
-function modSoul:SpawnEntityByType(type, position)
+function modSoul:SpawnEntityByType(entityType, position)
 
-	local souls = self:GetSoulsFromDatabase(type)
+	local souls = self:GetSoulsFromDatabase(entityType)
 
 	if souls ~= nil then
 		local randomNumber = math.random(1, #souls)
@@ -121,18 +122,20 @@ function modSoul:SpawnEntityByType(type, position)
 		local entity = System.SpawnEntity(spawnParams)
 		entity.AI.invulnerable = true
 
-		Game.SendInfoText("Entity spawned", false, nil, 1)
+		modMain:Log("Entity spawned")
+	else
+		modMain:Log("No souls found")
 	end
 end
 System.AddCCommand(modMain.modPrefix .. 'SpawnEntityByType', 'modSoul:SpawnEntityByType(%line)', "")
 
-function modSoul:SpawnEntityByLine(line, position)
+function modSoul:SpawnEntityByLine(lineNumber, position)
 
-	local soul = Database.GetTableLine(self.tableName, line - self.rowOffset)
+	local soul = Database.GetTableLine(self.tableName, lineNumber - self.rowOffset)
 
 	local spawnParams = {}
 	spawnParams.class = self:SetGender(soul.soul_archetype_id)
-	spawnParams.name = soul.soul_name .. "_" .. line
+	spawnParams.name = soul.soul_name .. "_" .. lineNumber
 	spawnParams.position = position or player:GetWorldPos()
 	spawnParams.orientation = spawnParams.position
 	spawnParams.properties = {}
@@ -141,7 +144,7 @@ function modSoul:SpawnEntityByLine(line, position)
 	local entity = System.SpawnEntity(spawnParams)
 	entity.AI.invulnerable = true
 
-	Game.SendInfoText("Entity spawned", false, nil, 1)
+	modMain:Log("Entity spawned")
 end
 System.AddCCommand(modMain.modPrefix .. 'SpawnEntityByLine', 'modSoul:SpawnEntityByLine(%line)', "")
 
@@ -159,6 +162,6 @@ function modSoul:SpawnWanderingGuard()
 	local entity = System.SpawnEntity(spawnParams)
 	entity.AI.invulnerable = true
 
-	Game.SendInfoText("Entity spawned", false, nil, 1)
+	modMain:Log("Entity spawned")
 end
 System.AddCCommand(modMain.modPrefix .. 'SpawnWanderingGuard', 'modSoul:SpawnWanderingGuard()', "Spawn a wandering guard")

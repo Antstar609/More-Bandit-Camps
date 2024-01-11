@@ -32,31 +32,37 @@ System.AddCCommand(modMain.modPrefix .. 'ListEntities', 'modCommands:ListEntitie
 
 function modCommands:GetDatabase(tableName)
 
-	local data = {}
 	Database.LoadTable(tableName)
 	local tableData = Database.GetTableInfo(tableName)
-	
+
 	local columnsSize = tableData.ColumnCount - 1
 	local rowsSize = tableData.LineCount - 1
-	for i = 0, columnsSize do
-		local columnInfo = Database.GetColumnInfo(tableName, i)
-		for j = 0, rowsSize do
-			local lineInfo = Database.GetTableLine(tableName, j)
-			local line = {}
-			-- line[columnInfo.Name] = lineInfo[columnInfo.Name] --TODO: Find a to create a member with the name of the column
-			-- modMain:Log(line[columnInfo.Name] .. " : " .. lineInfo[columnInfo.Name])
-			table.insert(data, line)
+
+	local data = {}
+	for row = 0, rowsSize do
+		local line = {}
+		local lineInfo = Database.GetTableLine(tableName, row)
+
+		for column = 0, columnsSize do
+			local columnInfo = Database.GetColumnInfo(tableName, column)
+			line[columnInfo.Name] = lineInfo[columnInfo.Name]
 		end
+		table.insert(data, line)
 	end
 
 	return data
 end
 
-function modCommands:PrintDatabase(line)
+function modCommands:PrintDatabase(databaseName)
+	
+	local database = self:GetDatabase(databaseName)
 
-	local database = self:GetDatabase("inventory")
+	modMain:Log("Database Contents:")
 	for i, data in ipairs(database) do
-		--TODO: Print the data
+		modMain:Log("Row " .. i .. ":")
+		for columnName, columnValue in pairs(data) do
+			modMain:Log("\t" .. columnName .. ": " .. tostring(columnValue))
+		end
 	end
 end
 System.AddCCommand(modMain.modPrefix .. 'PrintDatabase', 'modCommands:PrintDatabase(%line)', "Print a database")

@@ -35,18 +35,18 @@ function modCommands:GetDatabase(tableName)
 	local data = {}
 	Database.LoadTable(tableName)
 	local tableData = Database.GetTableInfo(tableName)
-
-	local columnsSize = tableData.ColumnCount
-	modMain:Log("Columns: " .. tostring(columnsSize))
+	
+	local columnsSize = tableData.ColumnCount - 1
+	local rowsSize = tableData.LineCount - 1
 	for i = 0, columnsSize do
-		local columnInfo = Database.GetTableColumnData(tableName, i)
-		modMain:Log("Name: " .. tostring(columnInfo.name))
-	end
-
-	local rowsSize = tableData.LineCount
-	modMain:Log("Rows: " .. tostring(rowsSize))
-	for i = 0, rowsSize do
-		local lineInfo = Database.GetTableLine(tableName, i)
+		local columnInfo = Database.GetColumnInfo(tableName, i)
+		for j = 0, rowsSize do
+			local lineInfo = Database.GetTableLine(tableName, j)
+			local line = {}
+			-- line[columnInfo.Name] = lineInfo[columnInfo.Name] --TODO: Find a to create a member with the name of the column
+			-- modMain:Log(line[columnInfo.Name] .. " : " .. lineInfo[columnInfo.Name])
+			table.insert(data, line)
+		end
 	end
 
 	return data
@@ -54,11 +54,10 @@ end
 
 function modCommands:PrintDatabase(line)
 
-	local database = self:GetDatabase(line)
+	local database = self:GetDatabase("inventory")
 	for i, data in ipairs(database) do
+		--TODO: Print the data
 	end
 end
 System.AddCCommand(modMain.modPrefix .. 'PrintDatabase', 'modCommands:PrintDatabase(%line)', "Print a database")
-
----------------------------------------------------------------------------------------------------
 

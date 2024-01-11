@@ -1,6 +1,7 @@
 modSoul = {}
 
 modSoul.tableName = "soul"
+modSoul.rowOffset = 81
 modSoul.soulType = {
 	"villager",
 	"bandit",
@@ -82,8 +83,8 @@ function modSoul:GetSoulsFromDatabase(type)
 
 		Database.LoadTable(self.tableName)
 		local tableData = Database.GetTableInfo(self.tableName)
+		
 		local rows = tableData.LineCount - 1
-
 		for i = 0, rows do
 			local lineInfo = Database.GetTableLine(self.tableName, i)
 			if string.find(lineInfo.soul_name, type, 1, true) then
@@ -91,7 +92,7 @@ function modSoul:GetSoulsFromDatabase(type)
 				soul.name = lineInfo.soul_name
 				soul.id = lineInfo.soul_id
 				soul.archetype_id = lineInfo.soul_archetype_id
-				soul.row = i + 79 --to match the line in the xml file
+				soul.row = i + self.rowOffset --to match the line in the xml file
 				table.insert(souls, soul)
 			end
 		end
@@ -127,7 +128,7 @@ System.AddCCommand(modMain.modPrefix .. 'SpawnEntityByType', 'modSoul:SpawnEntit
 
 function modSoul:SpawnEntityByLine(line, position)
 
-	local soul = Database.GetTableLine(self.tableName, line - 79)
+	local soul = Database.GetTableLine(self.tableName, line - self.rowOffset)
 
 	local spawnParams = {}
 	spawnParams.class = self:SetGender(soul.soul_archetype_id)

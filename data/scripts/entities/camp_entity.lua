@@ -7,8 +7,8 @@ CampEntity = {
 		bSerialize = 0,
 	},
 	States = {},
-	
-	dificulty = 1,
+
+	difficulty = 0,
 	isSpawned = false,
 }
 
@@ -44,9 +44,11 @@ function CampEntity.Client:OnUpdate()
 
 	local distance = DistanceVectors(playerPos, campPos)
 	if distance <= 5 and self.isSpawned == false then
-		for i = 1, self.dificulty do
-			--TODO: Spawns entity with an offset
-			ModSoul:SpawnEntityByType("guard", campPos)
+		for i = 1, self.difficulty do
+			local offsetX = math.random(-3, 3)
+			local offsetY = math.random(-3, 3)
+			local newPos = { x = campPos.x + offsetX, y = campPos.y + offsetY, z = campPos.z }
+			ModSoul:SpawnEntityByType("bandit", newPos)
 		end
 		ModUtils:LogOnScreen("Guard spawned")
 		self.isSpawned = true

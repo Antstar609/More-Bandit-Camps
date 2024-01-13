@@ -55,7 +55,12 @@ function ModSoul:GetSoulsFromDatabase(soulType)
 				archetype_id = lineInfo.soul_archetype_id,
 				row = i + self.rowOffset,
 			}
-			table.insert(souls, soulData)
+			
+			-- to prevent bugged entity (not perfect for all entities)
+			local activity = lineInfo.activity_0
+			if not (activity == "dummyWait") then
+				table.insert(souls, soulData)
+			end
 		end
 	end
 

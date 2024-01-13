@@ -14,7 +14,7 @@ function ModMain:sceneInitListener(actionName, eventName, eventArgs)
 		-- When the scene is loaded
 		System.LogAlways(self.name .. " loaded " .. "(v" .. self.version .. ")")
 		--local testEntity = System.SpawnEntity({ class = "TestEntity", name = "TestEntity", position = { x = 0, y = 0, z = 0 } })
-		ModCamps:SpawnCamp("CampSkalice", "skalice", 3)
+		ModCamps:SpawnCamp("CampSkalice", "skalice")
 	end
 end
 

@@ -1,4 +1,4 @@
-modSoul = {
+ModSoul = {
 	tableName = "soul",
 	rowOffset = 81,
 
@@ -25,22 +25,19 @@ modSoul = {
 	},
 }
 
-function modSoul:CheckValidType(type)
-
+function ModSoul:CheckValidType(type)
 	return table.contains(self.soulType, type)
 end
 
-function modSoul:SetGender(id)
-
+function ModSoul:SetGender(id)
 	local gender = (id == 1) and "Woman" or "Man" -- ternary test
-	modMain:Log(gender)
+	ModUtils:Log(gender)
 	return (id == 1) and "NPC_Female" or "NPC"
 end
 
-function modSoul:GetSoulsFromDatabase(soulType)
-
+function ModSoul:GetSoulsFromDatabase(soulType)
 	if not self:CheckValidType(soulType) then
-		modMain:Log("Type not in the list")
+		ModUtils:Log("Type not in the list")
 		return nil
 	end
 
@@ -65,12 +62,11 @@ function modSoul:GetSoulsFromDatabase(soulType)
 	return souls
 end
 
-function modSoul:SpawnEntityByType(entityType, position)
-
+function ModSoul:SpawnEntityByType(entityType, position)
 	local soul = self:GetSoulsFromDatabase(entityType)
 
 	if soul == nil then
-		modMain:Log("No souls found")
+		ModUtils:Log("No souls found")
 		return
 	end
 
@@ -89,17 +85,15 @@ function modSoul:SpawnEntityByType(entityType, position)
 	local entity = System.SpawnEntity(spawnParams)
 	entity.AI.invulnerable = true
 
-	modMain:Log("Entity spawned")
+	ModUtils:Log("Entity spawned")
 end
+System.AddCCommand(ModMain.prefix .. 'SpawnEntityByType', 'ModSoul:SpawnEntityByType(%line)', "")
 
-System.AddCCommand(modMain.modPrefix .. 'SpawnEntityByType', 'modSoul:SpawnEntityByType(%line)', "")
-
-function modSoul:SpawnEntityByLine(lineNumber, position)
-
+function ModSoul:SpawnEntityByLine(lineNumber, position)
 	local soul = Database.GetTableLine(self.tableName, lineNumber - self.rowOffset)
 
 	if soul == nil then
-		modMain:Log("No souls found")
+		ModUtils:Log("No souls found")
 		return
 	end
 
@@ -116,12 +110,11 @@ function modSoul:SpawnEntityByLine(lineNumber, position)
 	local entity = System.SpawnEntity(spawnParams)
 	entity.AI.invulnerable = true
 
-	modMain:Log("Entity spawned")
+	ModUtils:Log("Entity spawned")
 end
-System.AddCCommand(modMain.modPrefix .. 'SpawnEntityByLine', 'modSoul:SpawnEntityByLine(%line)', "")
+System.AddCCommand(ModMain.prefix .. 'SpawnEntityByLine', 'ModSoul:SpawnEntityByLine(%line)', "")
 
-function modSoul:SpawnWanderingGuard()
-
+function ModSoul:SpawnWanderingGuard()
 	local randomNumber = math.random(1, #self.wanderingGuards)
 	local spawnParams = {
 		class = "NPC",
@@ -136,6 +129,6 @@ function modSoul:SpawnWanderingGuard()
 	local entity = System.SpawnEntity(spawnParams)
 	entity.AI.invulnerable = true
 
-	modMain:Log("Entity spawned")
+	ModUtils:Log("Entity spawned")
 end
-System.AddCCommand(modMain.modPrefix .. 'SpawnWanderingGuard', 'modSoul:SpawnWanderingGuard()', "Spawn a wandering guard")
+System.AddCCommand(ModMain.prefix .. 'SpawnWanderingGuard', 'ModSoul:SpawnWanderingGuard()', "Spawn a wandering guard")

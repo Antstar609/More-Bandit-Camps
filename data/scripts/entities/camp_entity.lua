@@ -7,20 +7,18 @@ CampEntity = {
 		bSerialize = 0,
 	},
 	States = {},
-
-	isEnabled = false,
-	isSpawned = false
+	
+	dificulty = 1,
+	isSpawned = false,
 }
 
 -- this is called when the player loads a save state - use this for restoring values when a game gets loaded
 function CampEntity:OnLoad(tbl)
-	--modMain:Log("CampEntity OnLoad")
+	--ModUtils:Log("CampEntity OnLoad")
 end
 
 -- this is called once, use this for initializing stuff
 function CampEntity.Server:OnInit()
-	modMain:Log("CampEntity spawned")
-
 	if (not self.bInitialized) then
 		self:OnReset()
 		self.bInitialized = 1
@@ -29,49 +27,45 @@ end
 
 -- this is called once, use this for initializing stuff
 function CampEntity:OnReset()
-	--modMain:Log("CampEntity OnReset")
-
-	self:Activate(1)
+	--ModUtils:Log("CampEntity OnReset")
+	
 	self:LoadObject(0, "objects/props/crates/crate_short.cgf")
+	self:Activate(1)
 	-- self:SetCurrentSlot(0)
 	-- self:PhysicalizeThis(0)
 end
 
 -- this is called every frame given the entity has been spawned
 function CampEntity.Client:OnUpdate()
-	--modMain:Log("CampEntity OnUpdate")
+	--ModUtils:Log("CampEntity OnUpdate")
 
 	local playerPos = player:GetWorldPos()
 	local campPos = self:GetWorldPos()
 
-	--modMain:Log("isEnabled : " .. tostring(self.isEnabled) .. " | isSpawned : " .. tostring(self.isSpawned))
-
 	local distance = DistanceVectors(playerPos, campPos)
 	if distance <= 5 and self.isSpawned == false then
-		if self.isEnabled then
-			modSoul:SpawnEntityByType("guard", campPos)
-			Game.SendInfoText("Camp spawned", false, nil, 5)
-			self.isSpawned = true
+		for i = 1, self.dificulty do
+			--TODO: Spawns entity with an offset
+			ModSoul:SpawnEntityByType("guard", campPos)
 		end
-	else
-		self:ResetCamp()
+		ModUtils:LogOnScreen("Guard spawned")
+		self.isSpawned = true
 	end
 end
 
 -- this is called when the player saves or updates a save state - storing values for your entities
 function CampEntity:OnPropertyChange()
-	--modMain:Log("CampEntity opc")
-
+	--ModUtils:Log("CampEntity opc")
 	self:OnReset()
 end
 
 function CampEntity:OnAction(action, activation, value)
-	--modMain:Log("CampEntity OnAction")
+	--ModUtils:Log("CampEntity OnAction")
 end
 
 -- this is called when the player saves or updates a save state - storing values for your entities
 function CampEntity:OnSave(tbl)
-	--modMain:Log("CampEntity OnSave")
+	--ModUtils:Log("CampEntity OnSave")
 end
 
 CampEntity.Server.TurnedOn = {
@@ -103,17 +97,3 @@ CampEntity.FlowEvents = {
 		TurnOff = "bool",
 	}
 }
-
-function CampEntity:EnableCamp()
-	Game.SendInfoText("Camp enabled", false, nil, 1)
-	self.isEnabled = true
-end
-System.AddCCommand(modMain.modPrefix .. 'EnableCamp', 'CampEntity:EnableCamp()', "Enable camp")
-
--- isSpawned always set itself to true idk why
-function CampEntity:ResetCamp()
-	--Game.SendInfoText("Camp reset", false, nil, 1)
-	self.isSpawned = false
-	self.isEnabled = false
-end
-System.AddCCommand(modMain.modPrefix .. 'ResetCamp', 'CampEntity:ResetCamp()', "Reset camp")

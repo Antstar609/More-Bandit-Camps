@@ -8,8 +8,11 @@ CampEntity = {
 	},
 	States = {},
 
+	name = "",
 	difficulty = 0,
+	spawnRadius = 5,
 	isSpawned = false,
+	isDestroyed = false,
 }
 
 -- this is called when the player loads a save state - use this for restoring values when a game gets loaded
@@ -28,7 +31,7 @@ end
 -- this is called once, use this for initializing stuff
 function CampEntity:OnReset()
 	--ModUtils:Log("CampEntity OnReset")
-	
+
 	self:LoadObject(0, "objects/props/crates/crate_short.cgf")
 	self:Activate(1)
 	-- self:SetCurrentSlot(0)
@@ -38,19 +41,19 @@ end
 -- this is called every frame given the entity has been spawned
 function CampEntity.Client:OnUpdate()
 	--ModUtils:Log("CampEntity OnUpdate")
+	if not self.isSpawned then
+		self:CreateCamp()
+	end
+end
 
+function CampEntity:CreateCamp()
 	local playerPos = player:GetWorldPos()
 	local campPos = self:GetWorldPos()
 
 	local distance = DistanceVectors(playerPos, campPos)
-	if distance <= 5 and self.isSpawned == false then
-		for i = 1, self.difficulty do
-			local offsetX = math.random(-3, 3)
-			local offsetY = math.random(-3, 3)
-			local newPos = { x = campPos.x + offsetX, y = campPos.y + offsetY, z = campPos.z }
-			ModSoul:SpawnEntityByType("bandit", newPos)
-		end
-		ModUtils:LogOnScreen("Guard spawned")
+	if distance <= self.spawnRadius then
+		ModSoul:SpawnEntityByType("bandit", campPos, self.difficulty, 3)
+		ModUtils:LogOnScreen(self.name .. " spawned with " .. self.difficulty .. " bandits")
 		self.isSpawned = true
 	end
 end

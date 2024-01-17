@@ -55,7 +55,7 @@ function ModSoul:GetSoulsFromDatabase(soulType)
 				archetype_id = lineInfo.soul_archetype_id,
 				row = i + self.rowOffset,
 			}
-			
+
 			-- to prevent bugged entity (not perfect for all entities)
 			local activity = lineInfo.activity_0
 			if not (activity == "dummyWait") then
@@ -67,36 +67,40 @@ function ModSoul:GetSoulsFromDatabase(soulType)
 	return souls
 end
 
-function ModSoul:SpawnEntityByType(entityType, position)
+function ModSoul:SpawnEntityByType(entityType, position, numberOfEntities, offsetPosition)
 	local soul = self:GetSoulsFromDatabase(entityType)
-
 	if soul == nil then
 		ModUtils:Log("No souls found")
 		return
 	end
+	
+	for i = 1, (numberOfEntities or 1) do
+		local randomNumber = math.random(1, #soul)
+		
+		if offsetPosition ~= nil then
+			local offsetX = math.random(-offsetPosition, offsetPosition)
+			local offsetY = math.random(-offsetPosition, offsetPosition)
+			position = { x = position.x + offsetX, y = position.y + offsetY, z = position.z }
+		end
 
-	local randomNumber = math.random(1, #soul)
+		local spawnParams = {
+			class = self:SetGender(soul[randomNumber].archetype_id),
+			name = soul[randomNumber].name .. "_" .. soul[randomNumber].row,
+			position = position or player:GetWorldPos(),
+			orientation = player:GetWorldPos(),
+			properties = {
+				sharedSoulGuid = soul[randomNumber].id,
+			},
+		}
 
-	local spawnParams = {
-		class = self:SetGender(soul[randomNumber].archetype_id),
-		name = soul[randomNumber].name .. "_" .. soul[randomNumber].row,
-		position = position or player:GetWorldPos(),
-		orientation = player:GetWorldPos(),
-		properties = {
-			sharedSoulGuid = soul[randomNumber].id,
-		},
-	}
-
-	local entity = System.SpawnEntity(spawnParams)
-	entity.AI.invulnerable = true
-
-	ModUtils:Log("Entity spawned")
+		local entity = System.SpawnEntity(spawnParams)
+		entity.AI.invulnerable = true
+	end
 end
 System.AddCCommand(ModMain.prefix .. 'SpawnEntityByType', 'ModSoul:SpawnEntityByType(%line)', "")
 
 function ModSoul:SpawnEntityByLine(lineNumber, position)
 	local soul = Database.GetTableLine(self.tableName, lineNumber - self.rowOffset)
-
 	if soul == nil then
 		ModUtils:Log("No souls found")
 		return

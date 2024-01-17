@@ -1,5 +1,5 @@
 ModCamps = {
-	entity = nil,
+	campEntities = {},
 	locations = {
 		skalice = { x = 528.059, y = 3557.59, z = 26.5238 },
 	},
@@ -11,10 +11,11 @@ ModCamps = {
 }
 
 function ModCamps:SpawnCamp(campName, locationName, difficulty)
-	self.entity = System.SpawnEntity({ class = "CampEntity", name = campName, position = self.locations[locationName] })
+	local camp = System.SpawnEntity({ class = "CampEntity", name = campName, position = self.locations[locationName] })
+	camp.name = campName
 	
 	if difficulty == nil then
 		ModUtils:Log(campName .. " spawned with default difficulty")
 	end
-	self.entity.difficulty = self.difficulty[difficulty] or self.difficulty.easy
+	camp.difficulty = self.difficulty[difficulty] or self.difficulty.easy
 end

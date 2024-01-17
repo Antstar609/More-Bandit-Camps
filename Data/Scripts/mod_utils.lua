@@ -1,14 +1,11 @@
 ModUtils = {}
 
 function ModUtils:Log(message)
-	System.LogAlways("$5" .. ModMain.name .. " ~ " .. message)
+	System.LogAlways("$5" .. ModMain.name .. " ~ " .. tostring(message))
 end
 
 function ModUtils:LogOnScreen(message, forceClear, time)
-	local _forceClear = forceClear or false
-	local _time = time or 3
-
-	Game.SendInfoText(message, _forceClear, nil, _time)
+	Game.SendInfoText(tostring(message), forceClear or false, nil, time or 3)
 end
 
 function ModUtils:ShowTextbox()

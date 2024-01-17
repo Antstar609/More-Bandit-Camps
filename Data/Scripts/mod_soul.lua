@@ -31,7 +31,6 @@ end
 
 function ModSoul:SetGender(id)
 	local gender = (id == 1) and "Woman" or "Man" -- ternary test
-	ModUtils:Log(gender)
 	return (id == 1) and "NPC_Female" or "NPC"
 end
 
@@ -73,10 +72,11 @@ function ModSoul:SpawnEntityByType(entityType, position, numberOfEntities, offse
 		ModUtils:Log("No souls found")
 		return
 	end
-	
+
+	local entities = {}
 	for i = 1, (numberOfEntities or 1) do
 		local randomNumber = math.random(1, #soul)
-		
+
 		if offsetPosition ~= nil then
 			local offsetX = math.random(-offsetPosition, offsetPosition)
 			local offsetY = math.random(-offsetPosition, offsetPosition)
@@ -95,7 +95,10 @@ function ModSoul:SpawnEntityByType(entityType, position, numberOfEntities, offse
 
 		local entity = System.SpawnEntity(spawnParams)
 		entity.AI.invulnerable = true
+		
+		table.insert(entities, entity)
 	end
+	return entities
 end
 System.AddCCommand(ModMain.prefix .. 'SpawnEntityByType', 'ModSoul:SpawnEntityByType(%line)', "")
 

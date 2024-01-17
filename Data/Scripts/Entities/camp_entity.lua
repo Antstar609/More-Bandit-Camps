@@ -8,9 +8,12 @@ CampEntity = {
 	},
 	States = {},
 
+	bandits = {},
 	name = "",
 	difficulty = 0,
 	spawnRadius = 5,
+	despawnRadius = 20,
+	isFirstSpawn = false,
 	isSpawned = false,
 	isDestroyed = false,
 }
@@ -43,6 +46,11 @@ function CampEntity.Client:OnUpdate()
 	--ModUtils:Log("CampEntity OnUpdate")
 	if not self.isSpawned then
 		self:CreateCamp()
+	else
+		if not self.isDestroyed then
+			self:CheckCampStatus()
+			self:DespawnEntites()
+		end
 	end
 end
 
@@ -52,9 +60,47 @@ function CampEntity:CreateCamp()
 
 	local distance = DistanceVectors(playerPos, campPos)
 	if distance <= self.spawnRadius then
-		ModSoul:SpawnEntityByType("bandit", campPos, self.difficulty, 3)
-		ModUtils:LogOnScreen(self.name .. " spawned with " .. self.difficulty .. " bandits")
+		if not self.isFirstSpawn then
+			self.bandits = ModSoul:SpawnEntityByType("bandit", campPos, self.difficulty, 3)
+			self.isFirstSpawn = true
+			ModUtils:LogOnScreen("INITIAL SPAWN: " .. self.name .. " spawned with " .. self.difficulty .. " bandits")
+		else
+			for i, bandit in pairs(self.bandits) do
+				-- Does not work
+				System.SpawnEntity(bandit)
+			end
+			ModUtils:LogOnScreen(self.name .. " spawned with " .. #self.bandits .. " bandits")
+		end
 		self.isSpawned = true
+	end
+end
+
+function CampEntity:CheckCampStatus()
+	for i, bandit in pairs(self.bandits) do
+		if bandit:IsDead() then
+			table.remove(self.bandits, i)
+		end
+	end
+
+	if next(self.bandits) == nil then
+		self.isDestroyed = true
+		ModUtils:LogOnScreen(self.name .. " destroyed")
+	end
+end
+
+function CampEntity:DespawnEntites()
+	local playerPos = player:GetWorldPos()
+	local campPos = self:GetWorldPos()
+
+	local distance = DistanceVectors(playerPos, campPos)
+	if distance >= self.despawnRadius then
+		for i, bandit in pairs(self.bandits) do
+			if not bandit:IsDead() then
+				System.RemoveEntity(bandit.id)
+			end
+		end
+		ModUtils:LogOnScreen(self.name .. " despawned")
+		self.isSpawned = false
 	end
 end
 

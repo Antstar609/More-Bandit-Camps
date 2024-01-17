@@ -12,9 +12,10 @@ function ModMain:sceneInitListener(actionName, eventName, eventArgs)
 
 	if actionName == "sys_loadingimagescreen" and eventName == "OnEnd" then
 		-- When the scene is loaded
-		System.LogAlways(self.name .. " loaded " .. "(v" .. self.version .. ")")
+		System.LogAlways("$5" .. self.name .. " loaded " .. "(v" .. self.version .. ")")
+		
 		--local testEntity = System.SpawnEntity({ class = "TestEntity", name = "TestEntity", position = { x = 0, y = 0, z = 0 } })
-		ModCamps:SpawnCamp("CampSkalice", "skalice")
+		ModCamps:SpawnCamp("CampSkalice", "skalice", "hard")
 	end
 end
 

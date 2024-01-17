@@ -1,7 +1,7 @@
 ModUtils = {}
 
 function ModUtils:Log(message)
-	System.LogAlways(ModMain.name .. " ~ " .. message)
+	System.LogAlways("$5" .. ModMain.name .. " ~ " .. message)
 end
 
 function ModUtils:LogOnScreen(message, forceClear, time)

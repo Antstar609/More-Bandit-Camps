@@ -95,6 +95,7 @@ function ModSoul:SpawnEntityByType(entityType, position, numberOfEntities, offse
 
 		local entity = System.SpawnEntity(spawnParams)
 		entity.AI.invulnerable = true
+		entity.lootIsLegal = true
 		
 		table.insert(entities, entity)
 	end
@@ -121,6 +122,7 @@ function ModSoul:SpawnEntityByLine(lineNumber, position)
 
 	local entity = System.SpawnEntity(spawnParams)
 	entity.AI.invulnerable = true
+	entity.lootIsLegal = true
 
 	ModUtils:Log("Entity spawned")
 end
@@ -140,6 +142,7 @@ function ModSoul:SpawnWanderingGuard()
 
 	local entity = System.SpawnEntity(spawnParams)
 	entity.AI.invulnerable = true
+	entity.lootIsLegal = true
 
 	ModUtils:Log("Entity spawned")
 end

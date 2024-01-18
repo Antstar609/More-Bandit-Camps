@@ -15,6 +15,8 @@ CampEntity = {
 	despawnRadius = 20,
 	isFirstSpawn = false,
 	isSpawned = false,
+	
+	-- to be saved
 	isDestroyed = false,
 }
 
@@ -55,21 +57,15 @@ function CampEntity.Client:OnUpdate()
 end
 
 function CampEntity:CreateCamp()
-	local playerPos = player:GetWorldPos()
-	local campPos = self:GetWorldPos()
-
-	local distance = DistanceVectors(playerPos, campPos)
+	-- check if the player is within the spawn radius
+	local distance = player:GetDistance(self.id)
 	if distance <= self.spawnRadius then
 		if not self.isFirstSpawn then
-			self.bandits = ModSoul:SpawnEntityByType("bandit", campPos, self.difficulty, 3)
+			self.bandits = ModSoul:SpawnEntityByType("bandit", self:GetWorldPos(), self.difficulty, 3)
 			self.isFirstSpawn = true
 			ModUtils:LogOnScreen("INITIAL SPAWN: " .. self.name .. " spawned with " .. self.difficulty .. " bandits")
 		else
-			for i, bandit in pairs(self.bandits) do
-				-- Does not work
-				System.SpawnEntity(bandit)
-			end
-			ModUtils:LogOnScreen(self.name .. " spawned with " .. #self.bandits .. " bandits")
+			self:RespawnEntities(self:GetWorldPos())
 		end
 		self.isSpawned = true
 	end
@@ -84,44 +80,68 @@ function CampEntity:CheckCampStatus()
 
 	if next(self.bandits) == nil then
 		self.isDestroyed = true
-		ModUtils:LogOnScreen(self.name .. " destroyed")
+		ModUtils:LogOnScreen(self.name .. " destroyed ")
 	end
 end
 
-function CampEntity:DespawnEntites()
-	local playerPos = player:GetWorldPos()
-	local campPos = self:GetWorldPos()
+function CampEntity:RespawnEntities(position)
+	-- use the previous bandit entities to spawn new ones with the same attributes
+	for i, bandit in pairs(self.bandits) do
+		-- spawn the new entity at a random position around the camp
+		local offsetX = math.random(-3, 3)
+		local offsetY = math.random(-3, 3)
+		local newPos = { x = position.x + offsetX, y = position.y + offsetY, z = position.z }
 
-	local distance = DistanceVectors(playerPos, campPos)
+		local spawnParams = {
+			class = bandit.class,
+			name = "bandit_" .. i,
+			position = newPos,
+			orientation = position,
+			properties = {
+				sharedSoulGuid = bandit.Properties.sharedSoulGuid,
+			},
+		}
+		local entity = System.SpawnEntity(spawnParams)
+		entity.AI.invulnerable = true
+		entity.lootIsLegal = true
+
+		-- replace the old entity with the new one
+		self.bandits[i] = entity
+	end
+	ModUtils:LogOnScreen(self.name .. " spawned with " .. #self.bandits .. " bandits ")
+end
+
+function CampEntity:DespawnEntites()
+	local distance = player:GetDistance(self.id)
 	if distance >= self.despawnRadius then
 		for i, bandit in pairs(self.bandits) do
 			if not bandit:IsDead() then
 				System.RemoveEntity(bandit.id)
 			end
 		end
-		ModUtils:LogOnScreen(self.name .. " despawned")
+		ModUtils:LogOnScreen(self.name .. " despawned ")
 		self.isSpawned = false
 	end
 end
 
 -- this is called when the player saves or updates a save state - storing values for your entities
 function CampEntity:OnPropertyChange()
-	--ModUtils:Log("CampEntity opc")
+	--ModUtils:Log("CampEntity opc ")
 	self:OnReset()
 end
 
 function CampEntity:OnAction(action, activation, value)
-	--ModUtils:Log("CampEntity OnAction")
+	--ModUtils:Log("CampEntity OnAction ")
 end
 
 -- this is called when the player saves or updates a save state - storing values for your entities
 function CampEntity:OnSave(tbl)
-	--ModUtils:Log("CampEntity OnSave")
+	--ModUtils:Log("CampEntity OnSave ")
 end
 
 CampEntity.Server.TurnedOn = {
 	OnBeginState = function(self)
-		BroadcastEvent(self, "TurnOn")
+		BroadcastEvent(self, "TurnOn ")
 	end,
 	OnUpdate = function(self, dt)
 		--[[ do something every frame, like rendering, ai, ..]]
@@ -132,7 +152,7 @@ CampEntity.Server.TurnedOn = {
 
 CampEntity.Server.TurnedOff = {
 	OnBeginState = function(self)
-		BroadcastEvent(self, "TurnOff")
+		BroadcastEvent(self, "TurnOff ")
 	end,
 	OnEndState = function(self)
 	end
@@ -140,11 +160,11 @@ CampEntity.Server.TurnedOff = {
 
 CampEntity.FlowEvents = {
 	Inputs = {
-		TurnOn = { CampEntity.Event_TurnOn, "bool" },
-		TurnOff = { CampEntity.Event_TurnOff, "bool" },
+		TurnOn = { CampEntity.Event_TurnOn, "bool " },
+		TurnOff = { CampEntity.Event_TurnOff, "bool " },
 	},
 	Outputs = {
-		TurnOn = "bool",
-		TurnOff = "bool",
+		TurnOn = "bool ",
+		TurnOff = "bool ",
 	}
 }

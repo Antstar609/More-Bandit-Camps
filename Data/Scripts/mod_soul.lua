@@ -74,7 +74,7 @@ function ModSoul:SpawnEntityByType(entityType, position, numberOfEntities, offse
 	end
 
 	local entities = {}
-	for i = 1, (numberOfEntities or 1) do
+	for _ = 1, (numberOfEntities or 1) do
 		local randomNumber = math.random(1, #soul)
 
 		if (offsetPosition ~= nil) then
@@ -96,7 +96,7 @@ function ModSoul:SpawnEntityByType(entityType, position, numberOfEntities, offse
 		local entity = System.SpawnEntity(spawnParams)
 		entity.AI.invulnerable = true
 		entity.lootIsLegal = true
-		
+
 		table.insert(entities, entity)
 	end
 	return entities

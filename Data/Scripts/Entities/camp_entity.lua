@@ -15,7 +15,7 @@ CampEntity = {
 	despawnRadius = 20,
 	isFirstSpawn = false,
 	isSpawned = false,
-	
+
 	-- to be saved
 	isDestroyed = false,
 }
@@ -114,7 +114,7 @@ end
 function CampEntity:DespawnEntites()
 	local distance = player:GetDistance(self.id)
 	if (distance >= self.despawnRadius) then
-		for i, bandit in pairs(self.bandits) do
+		for _, bandit in pairs(self.bandits) do
 			if (not bandit:IsDead()) then
 				System.RemoveEntity(bandit.id)
 			end

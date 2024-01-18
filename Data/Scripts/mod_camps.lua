@@ -4,8 +4,8 @@ ModCamps = {
 		skalice = { x = 528.059, y = 3557.59, z = 26.5238 },
 	},
 	difficulty = {
-		easy = 1,
-		medium = 2,
+		easy = 2,
+		medium = 3,
 		hard = 4,
 	},
 }

@@ -57,7 +57,7 @@ function ModSoul:GetSoulsFromDatabase(soulType)
 
 			-- to prevent bugged entity (not perfect for all entities)
 			local activity = lineInfo.activity_0
-			if (not activity == "dummyWait") then
+			if (activity ~= "dummyWait") then
 				table.insert(souls, soulData)
 			end
 		end

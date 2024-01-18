@@ -30,12 +30,12 @@ function ModSoul:CheckValidType(type)
 end
 
 function ModSoul:SetGender(id)
-	local gender = (id == 1) and "Woman" or "Man" -- ternary test
-	return (id == 1) and "NPC_Female" or "NPC"
+	--local gender = (id == 1) and "Woman" or "Man"
+	return (id == 1) and "NPC_Female" or "NPC" -- ternary test
 end
 
 function ModSoul:GetSoulsFromDatabase(soulType)
-	if not self:CheckValidType(soulType) then
+	if (not self:CheckValidType(soulType)) then
 		ModUtils:Log("Type not in the list")
 		return nil
 	end
@@ -47,7 +47,7 @@ function ModSoul:GetSoulsFromDatabase(soulType)
 
 	for i = 0, rows do
 		local lineInfo = Database.GetTableLine(self.tableName, i)
-		if string.find(lineInfo.soul_name, soulType, 1, true) then
+		if (string.find(lineInfo.soul_name, soulType, 1, true)) then
 			local soulData = {
 				name = lineInfo.soul_name,
 				id = lineInfo.soul_id,
@@ -57,7 +57,7 @@ function ModSoul:GetSoulsFromDatabase(soulType)
 
 			-- to prevent bugged entity (not perfect for all entities)
 			local activity = lineInfo.activity_0
-			if not (activity == "dummyWait") then
+			if (not activity == "dummyWait") then
 				table.insert(souls, soulData)
 			end
 		end
@@ -68,7 +68,7 @@ end
 
 function ModSoul:SpawnEntityByType(entityType, position, numberOfEntities, offsetPosition)
 	local soul = self:GetSoulsFromDatabase(entityType)
-	if soul == nil then
+	if (soul == nil) then
 		ModUtils:Log("No souls found")
 		return
 	end
@@ -77,7 +77,7 @@ function ModSoul:SpawnEntityByType(entityType, position, numberOfEntities, offse
 	for i = 1, (numberOfEntities or 1) do
 		local randomNumber = math.random(1, #soul)
 
-		if offsetPosition ~= nil then
+		if (offsetPosition ~= nil) then
 			local offsetX = math.random(-offsetPosition, offsetPosition)
 			local offsetY = math.random(-offsetPosition, offsetPosition)
 			position = { x = position.x + offsetX, y = position.y + offsetY, z = position.z }
@@ -105,7 +105,7 @@ System.AddCCommand(ModMain.prefix .. 'SpawnEntityByType', 'ModSoul:SpawnEntityBy
 
 function ModSoul:SpawnEntityByLine(lineNumber, position)
 	local soul = Database.GetTableLine(self.tableName, lineNumber - self.rowOffset)
-	if soul == nil then
+	if (soul == nil) then
 		ModUtils:Log("No souls found")
 		return
 	end
@@ -142,7 +142,6 @@ function ModSoul:SpawnWanderingGuard()
 
 	local entity = System.SpawnEntity(spawnParams)
 	entity.AI.invulnerable = true
-	entity.lootIsLegal = true
 
 	ModUtils:Log("Entity spawned")
 end

@@ -1,7 +1,7 @@
 ModDatabase = {}
 
 function ModDatabase:GetDatabase(tableName)
-	if not Database.LoadTable(tableName) then
+	if (not Database.LoadTable(tableName)) then
 		ModUtils:Log("No database found")
 		return nil
 	end
@@ -28,7 +28,7 @@ end
 function ModDatabase:PrintDatabase(databaseName)
 	local database = self:GetDatabase(databaseName)
 
-	if database == nil then
+	if (database == nil) then
 		return
 	end
 

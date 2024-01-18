@@ -6,11 +6,11 @@ ModMain = {
 
 -- Listener for the scene init event
 function ModMain:sceneInitListener(actionName, eventName, eventArgs)
-	if eventArgs then
+	if (eventArgs) then
 		--ModUtils:Log("eventArgs: " .. eventName)
 	end
 
-	if actionName == "sys_loadingimagescreen" and eventName == "OnEnd" then
+	if (actionName == "sys_loadingimagescreen") and (eventName == "OnEnd") then
 		-- When the scene is loaded
 		System.LogAlways("$5" .. self.name .. " loaded " .. "(v" .. self.version .. ")")
 		

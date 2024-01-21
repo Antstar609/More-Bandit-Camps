@@ -1,5 +1,9 @@
+---@class ModDatabase : ModScript - Used to get data from any database (.xml files) in the game
 ModDatabase = {}
 
+--- Get a database from the game
+--- @param tableName string Name of the database
+--- @return table Database data
 function ModDatabase:GetDatabase(tableName)
 	if (not Database.LoadTable(tableName)) then
 		ModUtils:Log("No database found")
@@ -25,6 +29,8 @@ function ModDatabase:GetDatabase(tableName)
 	return data
 end
 
+--- Print a database to the console
+--- @param databaseName string Name of the database
 function ModDatabase:PrintDatabase(databaseName)
 	local database = self:GetDatabase(databaseName)
 

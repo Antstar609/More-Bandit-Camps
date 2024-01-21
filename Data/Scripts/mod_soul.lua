@@ -1,3 +1,9 @@
+--- @class ModSoul : ModScript - Contains all the functions to spawn entities from the database (soul.xml)
+--- @field tableName string Name of the database
+--- @field rowOffset number Offset to match the line number in the xml file
+--- @field soulType table List of all the types of entities (string)
+--- @field wanderingGuards table List of all the wandering guards ids (string)
+--- @field wanderingVillager table List of all the wandering villagers ids (string)
 ModSoul = {
 	tableName = "soul",
 	rowOffset = 81,
@@ -25,15 +31,23 @@ ModSoul = {
 	},
 }
 
+--- Check if the type is in the list of valid types (soulType)
+--- @param type string Type of the entity
+--- @return boolean Is the type valid
 function ModSoul:CheckValidType(type)
 	return table.contains(self.soulType, type)
 end
 
-function ModSoul:SetGender(id)
-	--local gender = (id == 1) and "Woman" or "Man"
+--- Get the gender of the entity by the archetype id
+--- @param id number Archetype id of the entity
+--- @return string Returns either "NPC" for male and "NPC_Female" for female
+function ModSoul:GetGender(id)
 	return (id == 1) and "NPC_Female" or "NPC" -- ternary test
 end
 
+--- Get all souls from the database with the given type
+--- @param soulType string Type of the entity
+--- @return table Souls data (nil if the type is not valid)
 function ModSoul:GetSoulsFromDatabase(soulType)
 	if (not self:CheckValidType(soulType)) then
 		ModUtils:Log("Type not in the list")
@@ -57,7 +71,7 @@ function ModSoul:GetSoulsFromDatabase(soulType)
 
 			-- to prevent bugged entity (not perfect for all entities)
 			local activity = lineInfo.activity_0
-			if (activity ~= "dummyWait") then
+			if (not (activity == "dummyWait")) then
 				table.insert(souls, soulData)
 			end
 		end
@@ -66,6 +80,12 @@ function ModSoul:GetSoulsFromDatabase(soulType)
 	return souls
 end
 
+--- Spawn n entities with the given type at the given position with an offset or at the player position
+--- @param entityType string Type of the entity
+--- @param position table Position of the entity (x, y, z)
+--- @param numberOfEntities number Number of entities to spawn
+--- @param offsetPosition number Offset of the position (default: 0)
+--- @return table Entities spawned data (nil if no entity found)
 function ModSoul:SpawnEntityByType(entityType, position, numberOfEntities, offsetPosition)
 	local soul = self:GetSoulsFromDatabase(entityType)
 	if (soul == nil) then
@@ -84,7 +104,7 @@ function ModSoul:SpawnEntityByType(entityType, position, numberOfEntities, offse
 		end
 
 		local spawnParams = {
-			class = self:SetGender(soul[randomNumber].archetype_id),
+			class = self:GetGender(soul[randomNumber].archetype_id),
 			name = soul[randomNumber].name .. "_" .. soul[randomNumber].row,
 			position = position or player:GetWorldPos(),
 			orientation = player:GetWorldPos(),
@@ -99,10 +119,15 @@ function ModSoul:SpawnEntityByType(entityType, position, numberOfEntities, offse
 
 		table.insert(entities, entity)
 	end
+
 	return entities
 end
 System.AddCCommand(ModMain.prefix .. 'SpawnEntityByType', 'ModSoul:SpawnEntityByType(%line)', "")
 
+--- Spawn an entity with the given line number at the given position or at the player position
+--- @param lineNumber number Line number of the entity in the xml file
+--- @param position table Position of the entity (x, y, z)
+--- @return table Entity spawned data (nil if no entity found)
 function ModSoul:SpawnEntityByLine(lineNumber, position)
 	local soul = Database.GetTableLine(self.tableName, lineNumber - self.rowOffset)
 	if (soul == nil) then
@@ -111,7 +136,7 @@ function ModSoul:SpawnEntityByLine(lineNumber, position)
 	end
 
 	local spawnParams = {
-		class = self:SetGender(soul.soul_archetype_id),
+		class = self:GetGender(soul.soul_archetype_id),
 		name = soul.soul_name .. "_" .. lineNumber,
 		position = position or player:GetWorldPos(),
 		orientation = player:GetWorldPos(),
@@ -123,11 +148,10 @@ function ModSoul:SpawnEntityByLine(lineNumber, position)
 	local entity = System.SpawnEntity(spawnParams)
 	entity.AI.invulnerable = true
 	entity.lootIsLegal = true
-
-	ModUtils:Log("Entity spawned")
 end
 System.AddCCommand(ModMain.prefix .. 'SpawnEntityByLine', 'ModSoul:SpawnEntityByLine(%line)', "")
 
+--- Spawn a wandering villager at the player position
 function ModSoul:SpawnWanderingGuard()
 	local randomNumber = math.random(1, #self.wanderingGuards)
 	local spawnParams = {
@@ -142,7 +166,5 @@ function ModSoul:SpawnWanderingGuard()
 
 	local entity = System.SpawnEntity(spawnParams)
 	entity.AI.invulnerable = true
-
-	ModUtils:Log("Entity spawned")
 end
 System.AddCCommand(ModMain.prefix .. 'SpawnWanderingGuard', 'ModSoul:SpawnWanderingGuard()', "Spawn a wandering guard")

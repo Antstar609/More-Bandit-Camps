@@ -1,3 +1,12 @@
+---@class CampEntity : Entity - Custom entity for spawning a camp with bandits
+---@field bandits table List of bandit entities
+---@field name string Name of the camp
+---@field difficulty number Difficulty of the camp
+---@field spawnRadius number Radius around the camp to spawn entities when the player is within
+---@field despawnRadius number Radius around the camp to despawn entities when the player is outside
+---@field isFirstSpawn boolean True if the camp has been spawned at least once
+---@field isSpawned boolean True if the camp is spawned
+---@field isDestroyed boolean True if the camp is destroyed
 CampEntity = {
 	Client = {},
 	Server = {},
@@ -50,12 +59,15 @@ function CampEntity.Client:OnUpdate()
 		self:CreateCamp()
 	else
 		if (not self.isDestroyed) then
-			self:CheckCampStatus()
+			-- check if the player is outside the despawn radius then despawn the camp
 			self:DespawnEntites()
+			-- check if the camp is destroyed
+			self:CheckCampStatus()
 		end
 	end
 end
 
+--- Spawn entities around the camp
 function CampEntity:CreateCamp()
 	-- check if the player is within the spawn radius
 	local distance = player:GetDistance(self.id)
@@ -71,6 +83,7 @@ function CampEntity:CreateCamp()
 	end
 end
 
+--- Check entities around the camp and remove them if they are dead or despawn the camp if all entities are dead
 function CampEntity:CheckCampStatus()
 	for i, bandit in pairs(self.bandits) do
 		if (bandit:IsDead()) then
@@ -84,6 +97,8 @@ function CampEntity:CheckCampStatus()
 	end
 end
 
+--- Respawn remaining entities around the camp if the player is within the spawn radius
+--- @param position table Position of the camp (x, y, z)
 function CampEntity:RespawnEntities(position)
 	-- use the previous bandit entities to spawn new ones with the same attributes
 	for i, bandit in pairs(self.bandits) do
@@ -111,6 +126,7 @@ function CampEntity:RespawnEntities(position)
 	ModUtils:LogOnScreen(self.name .. " spawned with " .. #self.bandits .. " bandits ")
 end
 
+--- Despawn the camp if the player is outside the despawn radius
 function CampEntity:DespawnEntites()
 	local distance = player:GetDistance(self.id)
 	if (distance >= self.despawnRadius) then

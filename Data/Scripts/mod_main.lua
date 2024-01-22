@@ -1,4 +1,4 @@
----@class ModMain : ModScript - The main mod class
+---@class ModMain The main mod class
 ---@field name string Name of the mod
 ---@field version string Version of the mod
 ---@field prefix string Prefix for the console commands

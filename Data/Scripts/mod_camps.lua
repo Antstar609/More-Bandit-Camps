@@ -1,4 +1,4 @@
----@class ModCamps : ModScript - Manage camps entities
+---@class ModCamps Manage camps entities
 ---@field campEntities table List of camp entities
 ---@field locations table List of different spawning locations
 ---@field difficulty table List of different difficulties

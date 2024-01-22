@@ -1,4 +1,4 @@
----@class ModDatabase : ModScript - Used to get data from any database (.xml files) in the game
+---@class ModDatabase Used to get data from any database (.xml files) in the game
 ModDatabase = {}
 
 --- Get a database from the game

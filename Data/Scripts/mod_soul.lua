@@ -1,4 +1,4 @@
---- @class ModSoul : ModScript - Contains all the functions to spawn entities from the database (soul.xml)
+--- @class ModSoul Contains all the functions to spawn entities from the database (soul.xml)
 --- @field tableName string Name of the database
 --- @field rowOffset number Offset to match the line number in the xml file
 --- @field soulType table List of all the types of entities (string)

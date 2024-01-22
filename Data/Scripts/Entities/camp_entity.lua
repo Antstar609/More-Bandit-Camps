@@ -1,4 +1,4 @@
----@class CampEntity : Entity - Custom entity for spawning a camp with bandits
+---@class CampEntity Custom entity for spawning a camp with bandits
 ---@field bandits table List of bandit entities
 ---@field name string Name of the camp
 ---@field difficulty number Difficulty of the camp

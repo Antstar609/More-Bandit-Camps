@@ -28,8 +28,6 @@ function TestEntity:OnReset()
 	--ModUtils:Log("TestEntity OnReset")
 	self:Activate(1)
 	ModUtils:ShowTextbox()
-	-- self:SetCurrentSlot(0)
-	-- self:PhysicalizeThis(0)
 end
 
 -- this is called every frame given the entity has been spawned

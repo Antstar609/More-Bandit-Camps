@@ -45,11 +45,7 @@ end
 -- this is called once, use this for initializing stuff
 function CampEntity:OnReset()
 	--ModUtils:Log("CampEntity OnReset")
-
-	self:LoadObject(0, "objects/props/crates/crate_short.cgf")
-	self:Activate(1)
-	-- self:SetCurrentSlot(0)
-	-- self:PhysicalizeThis(0)
+	self:Activate(0)
 end
 
 -- this is called every frame given the entity has been spawned

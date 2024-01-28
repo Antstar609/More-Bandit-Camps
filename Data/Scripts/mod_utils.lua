@@ -1,4 +1,4 @@
----@class ModUtils Utility functions
+--- @class ModUtils Utility functions
 ModUtils = {}
 
 --- Logs a message to the console

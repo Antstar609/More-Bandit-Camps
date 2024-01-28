@@ -1,12 +1,12 @@
----@class CampEntity Custom entity for spawning a camp with bandits
----@field bandits table List of bandit entities
----@field name string Name of the camp
----@field difficulty number Difficulty of the camp
----@field spawnRadius number Radius around the camp to spawn entities when the player is within
----@field despawnRadius number Radius around the camp to despawn entities when the player is outside
----@field isFirstSpawn boolean True if the camp has been spawned at least once
----@field isSpawned boolean True if the camp is spawned
----@field isDestroyed boolean True if the camp is destroyed
+--- @class CampEntity Custom entity for spawning a camp with bandits
+--- @field bandits table List of bandit entities
+--- @field name string Name of the camp
+--- @field difficulty number Difficulty of the camp
+--- @field spawnRadius number Radius around the camp to spawn entities when the player is within
+--- @field despawnRadius number Radius around the camp to despawn entities when the player is outside
+--- @field isFirstSpawn boolean True if the camp has been spawned at least once
+--- @field isSpawned boolean True if the camp is spawned
+--- @field isDestroyed boolean True if the camp is destroyed
 CampEntity = {
 	Client = {},
 	Server = {},

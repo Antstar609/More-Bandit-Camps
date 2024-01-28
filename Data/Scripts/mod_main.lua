@@ -1,7 +1,7 @@
----@class ModMain The main mod class
----@field name string Name of the mod
----@field version string Version of the mod
----@field prefix string Prefix for the console commands
+--- @class ModMain The main mod class
+--- @field name string Name of the mod
+--- @field version string Version of the mod
+--- @field prefix string Prefix for the console commands
 ModMain = {
 	name = "TestMod",
 	version = "0.0.1",

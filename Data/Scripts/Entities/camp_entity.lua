@@ -94,20 +94,20 @@ function CampEntity:CheckCampStatus()
 end
 
 --- Respawn remaining entities around the camp if the player is within the spawn radius
---- @param position table Position of the camp (x, y, z)
-function CampEntity:RespawnEntities(position)
+--- @param _position table Position of the camp (x, y, z)
+function CampEntity:RespawnEntities(_position)
 	-- use the previous bandit entities to spawn new ones with the same attributes
 	for i, bandit in pairs(self.bandits) do
 		-- spawn the new entity at a random position around the camp
 		local offsetX = math.random(-3, 3)
 		local offsetY = math.random(-3, 3)
-		local newPos = { x = position.x + offsetX, y = position.y + offsetY, z = position.z }
+		local newPos = { x = _position.x + offsetX, y = _position.y + offsetY, z = _position.z }
 
 		local spawnParams = {
 			class = bandit.class,
 			name = "bandit_" .. i,
 			position = newPos,
-			orientation = position,
+			orientation = _position,
 			properties = {
 				sharedSoulGuid = bandit.Properties.sharedSoulGuid,
 			},

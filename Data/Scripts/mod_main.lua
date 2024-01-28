@@ -9,12 +9,12 @@ ModMain = {
 }
 
 -- Listener for the scene init event
-function ModMain:sceneInitListener(actionName, eventName, eventArgs)
-	if (eventArgs) then
+function ModMain:sceneInitListener(_actionName, _eventName, _eventArgs)
+	if (_eventArgs) then
 		--ModUtils:Log("eventArgs: " .. eventName)
 	end
 
-	if (actionName == "sys_loadingimagescreen") and (eventName == "OnEnd") then
+	if (_actionName == "sys_loadingimagescreen") and (_eventName == "OnEnd") then
 		-- When the scene is loaded
 		ModUtils:Log(self.name .. " loaded " .. "(v" .. self.version .. ")")
 

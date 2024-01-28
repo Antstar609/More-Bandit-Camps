@@ -31,42 +31,42 @@ ModCamps = {
 }
 
 --- Spawn a camp entity at the given location with the given difficulty
---- @param campName string Name of the camp entity
---- @param locationName string Name of the location
---- @param difficulty string Difficulty of the camp (default: easy)
+--- @param _campName string Name of the camp entity
+--- @param _locationName string Name of the location
+--- @param _difficulty string Difficulty of the camp (default: easy)
 --- @return table Camp entity
-function ModCamps:SpawnCamp(campName, locationName, difficulty)
+function ModCamps:SpawnCamp(_campName, _locationName, _difficulty)
 	local spawnParams = {
 		class = "CampEntity",
-		name = campName,
-		position = self.locations[locationName],
+		name = _campName,
+		position = self.locations[_locationName],
 	}
 	local camp = System.SpawnEntity(spawnParams)
 
-	if (not (type(difficulty) == "string")) then
-		ModUtils:Log(campName .. " spawned with default difficulty")
+	if (not (type(_difficulty) == "string")) then
+		ModUtils:Log(_campName .. " spawned with default difficulty")
 	end
-	camp.difficulty = self.difficulty[difficulty] or self.difficulty.easy
+	camp.difficulty = self.difficulty[_difficulty] or self.difficulty.easy
 
-	self:SpawnMeshes(campName, self.locations[locationName])
+	self:SpawnMeshes(_campName, self.locations[_locationName])
 
 	return camp
 end
 
---- Spawn meshes for the camp entity
---- @param campName string Name of the camp entity
---- @param position table Position of the camp entity (x, y, z)
-function ModCamps:SpawnMeshes(campName, position)
+--- Spawn all meshes for the camp entity
+--- @param _campName string Name of the camp entity
+--- @param _position table Position of the camp entity (x, y, z)
+function ModCamps:SpawnMeshes(_campName, _position)
 
 	local tentOffset, tentOrientation = { x = 0, y = 0, z = 0 }
 	local crateOffset, crateOrientation = { x = 0, y = 0, z = 0 }
 
-	if (campName == "TestCamp") then
+	if (_campName == "TestCamp") then
 		tentOffset = { x = 1.5, y = 1.2, z = 2 }
 		tentOrientation = { x = 0, y = 0, z = 0 }
 		crateOffset = { x = -1.8, y = -1.1, z = 2 }
 		crateOrientation = { x = 0, y = 0, z = 0 }
-	elseif (campName == "") then
+	elseif (_campName == "") then
 		tentOffset = { x = 1, y = 1, z = 0 }
 		tentOrientation = { x = 0, y = 0, z = 0 }
 		crateOffset = { x = -1, y = -1, z = 0 }
@@ -74,17 +74,17 @@ function ModCamps:SpawnMeshes(campName, position)
 	end
 
 	-- fireplace
-	local fireplace = System.SpawnEntity({ class = "BasicEntity", name = "fireplace", position = position })
+	local fireplace = System.SpawnEntity({ class = "BasicEntity", name = "fireplace", position = _position })
 	fireplace:LoadObject(0, self.meshes.fireplace)
 
 	-- tents
-	local tentPosition = { x = position.x + tentOffset.x, y = position.y + tentOffset.y, z = position.z + tentOffset.z }
+	local tentPosition = { x = _position.x + tentOffset.x, y = _position.y + tentOffset.y, z = _position.z + tentOffset.z }
 	local tent = System.SpawnEntity({ class = "BasicEntity", name = "tent", position = tentPosition, orientation = tentOrientation })
 	local randomTent = math.random(1, #self.meshes.tents)
 	tent:LoadObject(0, self.meshes.tents[randomTent])
 
 	-- crates
-	local cratePosition = { x = position.x + crateOffset.x, y = position.y + crateOffset.y, z = position.z + crateOffset.z }
+	local cratePosition = { x = _position.x + crateOffset.x, y = _position.y + crateOffset.y, z = _position.z + crateOffset.z }
 	local crate = System.SpawnEntity({ class = "BasicEntity", name = "crate", position = cratePosition, orientation = crateOrientation })
 	local randomCrate = math.random(1, #self.meshes.crates)
 	crate:LoadObject(0, self.meshes.crates[randomCrate])

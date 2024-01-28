@@ -32,24 +32,24 @@ ModSoul = {
 }
 
 --- Check if the type is in the list of valid types (soulType)
---- @param type string Type of the entity
+--- @param _type string Type of the entity
 --- @return boolean Is the type valid
-function ModSoul:CheckValidType(type)
-	return table.contains(self.soulType, type)
+function ModSoul:CheckValidType(_type)
+	return table.contains(self.soulType, _type)
 end
 
 --- Get the gender of the entity by the archetype id
---- @param id number Archetype id of the entity
+--- @param _id number Archetype id of the entity
 --- @return string Returns either "NPC" for male and "NPC_Female" for female
-function ModSoul:GetGender(id)
-	return (id == 1) and "NPC_Female" or "NPC" -- ternary test
+function ModSoul:GetGender(_id)
+	return (_id == 1) and "NPC_Female" or "NPC" -- ternary test
 end
 
 --- Get all souls from the database with the given type
---- @param soulType string Type of the entity
+--- @param _soulType string Type of the entity
 --- @return table Souls data (nil if the type is not valid)
-function ModSoul:GetSoulsFromDatabase(soulType)
-	if (not self:CheckValidType(soulType)) then
+function ModSoul:GetSoulsFromDatabase(_soulType)
+	if (not self:CheckValidType(_soulType)) then
 		ModUtils:Log("Type not in the list")
 		return nil
 	end
@@ -61,7 +61,7 @@ function ModSoul:GetSoulsFromDatabase(soulType)
 
 	for i = 0, rows do
 		local lineInfo = Database.GetTableLine(self.tableName, i)
-		if (string.find(lineInfo.soul_name, soulType, 1, true)) then
+		if (string.find(lineInfo.soul_name, _soulType, 1, true)) then
 			local soulData = {
 				name = lineInfo.soul_name,
 				id = lineInfo.soul_id,
@@ -81,32 +81,32 @@ function ModSoul:GetSoulsFromDatabase(soulType)
 end
 
 --- Spawn n entities with the given type at the given position with an offset or at the player position
---- @param entityType string Type of the entity
---- @param position table Position of the entity (x, y, z)
---- @param numberOfEntities number Number of entities to spawn
---- @param offsetPosition number Offset of the position (default: 0)
+--- @param _entityType string Type of the entity
+--- @param _position table Position of the entity (x, y, z)
+--- @param _numberOfEntities number Number of entities to spawn
+--- @param _offsetPosition number Offset of the position (default: 0)
 --- @return table Entities spawned data (nil if no entity found)
-function ModSoul:SpawnEntityByType(entityType, position, numberOfEntities, offsetPosition)
-	local soul = self:GetSoulsFromDatabase(entityType)
+function ModSoul:SpawnEntityByType(_entityType, _position, _numberOfEntities, _offsetPosition)
+	local soul = self:GetSoulsFromDatabase(_entityType)
 	if (soul == nil) then
 		ModUtils:Log("No souls found")
 		return
 	end
 
 	local entities = {}
-	for _ = 1, (numberOfEntities or 1) do
+	for _ = 1, (_numberOfEntities or 1) do
 		local randomNumber = math.random(1, #soul)
 
-		if (offsetPosition ~= nil) then
-			local offsetX = math.random(-offsetPosition, offsetPosition)
-			local offsetY = math.random(-offsetPosition, offsetPosition)
-			position = { x = position.x + offsetX, y = position.y + offsetY, z = position.z }
+		if (_offsetPosition ~= nil) then
+			local offsetX = math.random(-_offsetPosition, _offsetPosition)
+			local offsetY = math.random(-_offsetPosition, _offsetPosition)
+			_position = { x = _position.x + offsetX, y = _position.y + offsetY, z = _position.z }
 		end
 
 		local spawnParams = {
 			class = self:GetGender(soul[randomNumber].archetype_id),
 			name = soul[randomNumber].name .. "_" .. soul[randomNumber].row,
-			position = position or player:GetWorldPos(),
+			position = _position or player:GetWorldPos(),
 			orientation = player:GetWorldPos(),
 			properties = {
 				sharedSoulGuid = soul[randomNumber].id,
@@ -125,11 +125,11 @@ end
 System.AddCCommand(ModMain.prefix .. 'SpawnEntityByType', 'ModSoul:SpawnEntityByType(%line)', "")
 
 --- Spawn an entity with the given line number at the given position or at the player position
---- @param lineNumber number Line number of the entity in the xml file
---- @param position table Position of the entity (x, y, z)
+--- @param _lineNumber number Line number of the entity in the xml file
+--- @param _position table Position of the entity (x, y, z)
 --- @return table Entity spawned data (nil if no entity found)
-function ModSoul:SpawnEntityByLine(lineNumber, position)
-	local soul = Database.GetTableLine(self.tableName, lineNumber - self.rowOffset)
+function ModSoul:SpawnEntityByLine(_lineNumber, _position)
+	local soul = Database.GetTableLine(self.tableName, _lineNumber - self.rowOffset)
 	if (soul == nil) then
 		ModUtils:Log("No souls found")
 		return
@@ -137,8 +137,8 @@ function ModSoul:SpawnEntityByLine(lineNumber, position)
 
 	local spawnParams = {
 		class = self:GetGender(soul.soul_archetype_id),
-		name = soul.soul_name .. "_" .. lineNumber,
-		position = position or player:GetWorldPos(),
+		name = soul.soul_name .. "_" .. _lineNumber,
+		position = _position or player:GetWorldPos(),
 		orientation = player:GetWorldPos(),
 		properties = {
 			sharedSoulGuid = soul.soul_id,

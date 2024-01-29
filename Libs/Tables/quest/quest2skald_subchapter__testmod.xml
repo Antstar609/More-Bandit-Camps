@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <database name="hammerheart">
-  <table name="quest2skald_subchapter__testmod" version="1">
-    <header>
-      <column name="quest_id" type="integer" />
-      <column name="quest_level" type="integer" />
-      <column name="skald_subchapter_id" type="integer" />
-    </header>
-    <rows>
-      <row quest_id="190530164" quest_level="0" skald_subchapter_id="66666" />
-    </rows>
-  </table>
+	<table name="quest2skald_subchapter__testmod" version="1">
+		<header>
+			<column name="quest_id" type="integer"/>
+			<column name="quest_level" type="integer"/>
+			<column name="skald_subchapter_id" type="integer"/>
+		</header>
+		<rows>
+			<row quest_id="190530164" quest_level="0" skald_subchapter_id="66666"/>
+		</rows>
+	</table>
 </database>

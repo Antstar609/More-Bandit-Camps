@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <database name="hammerheart">
-  <table name="quest_objective__testmod" version="1">
-    <header>
-      <column name="autocomplete_timeout" type="integer" />
-      <column name="autocomplete_timeout_str" type="character varying" />
-      <column name="condition" type="character varying" />
-      <column name="experience_coef" type="real" />
-      <column name="expiration_timeout_str" type="character varying" />
-      <column name="is_exclusive" type="boolean" />
-      <column name="is_hidden" type="boolean" />
-      <column name="objective_id" type="integer" />
-      <column name="objective_name" type="character varying" />
-      <column name="pos" type="character varying" />
-      <column name="quest_id" type="integer" />
-      <column name="time" type="integer" />
-    </header>
-    <rows>
-      <row autocomplete_timeout="" autocomplete_timeout_str="-1" condition="" experience_coef="0" expiration_timeout_str="-1" is_exclusive="False" is_hidden="False" objective_id="4" objective_name="startBattle" pos="320,20,0" quest_id="190530164" time="0" />
-      <row autocomplete_timeout="" autocomplete_timeout_str="-1" condition="" experience_coef="0" expiration_timeout_str="-1" is_exclusive="False" is_hidden="False" objective_id="11" objective_name="finishBattle" pos="420,450,0" quest_id="190530164" time="0" />
-      <row autocomplete_timeout="" autocomplete_timeout_str="-1" condition="" experience_coef="0" expiration_timeout_str="-1" is_exclusive="False" is_hidden="False" objective_id="12" objective_name="testAsset" pos="410,680,0" quest_id="190530164" time="0" />
-    </rows>
-  </table>
+	<table name="quest_objective__testmod" version="1">
+		<header>
+			<column name="autocomplete_timeout" type="integer"/>
+			<column name="autocomplete_timeout_str" type="character varying"/>
+			<column name="condition" type="character varying"/>
+			<column name="experience_coef" type="real"/>
+			<column name="expiration_timeout_str" type="character varying"/>
+			<column name="is_exclusive" type="boolean"/>
+			<column name="is_hidden" type="boolean"/>
+			<column name="objective_id" type="integer"/>
+			<column name="objective_name" type="character varying"/>
+			<column name="pos" type="character varying"/>
+			<column name="quest_id" type="integer"/>
+			<column name="time" type="integer"/>
+		</header>
+		<rows>
+			<row autocomplete_timeout="" autocomplete_timeout_str="-1" condition="" experience_coef="0"
+				 expiration_timeout_str="-1" is_exclusive="False" is_hidden="False" objective_id="4"
+				 objective_name="startBattle" pos="320,20,0" quest_id="190530164" time="0"/>
+			<row autocomplete_timeout="" autocomplete_timeout_str="-1" condition="" experience_coef="0"
+				 expiration_timeout_str="-1" is_exclusive="False" is_hidden="False" objective_id="11"
+				 objective_name="finishBattle" pos="420,450,0" quest_id="190530164" time="0"/>
+			<row autocomplete_timeout="" autocomplete_timeout_str="-1" condition="" experience_coef="0"
+				 expiration_timeout_str="-1" is_exclusive="False" is_hidden="False" objective_id="12"
+				 objective_name="testAsset" pos="410,680,0" quest_id="190530164" time="0"/>
+		</rows>
+	</table>
 </database>

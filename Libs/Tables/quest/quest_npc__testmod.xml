@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <database name="hammerheart">
-  <table name="quest_npc__testmod" version="1">
-    <header>
-      <column name="quest_asset_id" type="integer" />
-      <column name="quest_id" type="integer" />
-      <column name="soul_class_id" type="integer" />
-      <column name="soul_faction_id" type="integer" />
-      <column name="soul_id" type="uuid" />
-    </header>
-    <rows>
-      <row quest_asset_id="6" quest_id="190530164" soul_class_id="0" soul_faction_id="" soul_id="4861066f-1843-2ba9-42d5-05a5e34303ae" />
-    </rows>
-  </table>
+	<table name="quest_npc__testmod" version="1">
+		<header>
+			<column name="quest_asset_id" type="integer"/>
+			<column name="quest_id" type="integer"/>
+			<column name="soul_class_id" type="integer"/>
+			<column name="soul_faction_id" type="integer"/>
+			<column name="soul_id" type="uuid"/>
+		</header>
+		<rows>
+			<row quest_asset_id="6" quest_id="190530164" soul_class_id="0" soul_faction_id=""
+				 soul_id="4861066f-1843-2ba9-42d5-05a5e34303ae"/>
+		</rows>
+	</table>
 </database>

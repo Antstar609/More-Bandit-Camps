@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <database name="hammerheart">
-  <table name="quest_asset__warmod" version="1">
+  <table name="quest_asset__testmod" version="1">
     <header>
       <column name="pos" type="character varying" />
       <column name="quest_asset_id" type="integer" />

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <database name="hammerheart">
-  <table name="skald_objective_string__warmod" version="1">
+  <table name="skald_objective_string__testmod" version="1">
     <header>
       <column name="skald_element_id" type="integer" />
       <column name="skald_objective_string_type_id" type="integer" />
       <column name="string_name" type="character varying" />
     </header>
     <rows>
-      <row skald_element_id="6591000" skald_objective_string_type_id="1" string_name="warmod_startbattle" />
-      <row skald_element_id="6591001" skald_objective_string_type_id="1" string_name="warmod_finishbattle" />
+      <row skald_element_id="6591000" skald_objective_string_type_id="1" string_name="testmod_startbattle" />
+      <row skald_element_id="6591001" skald_objective_string_type_id="1" string_name="testmod_finishbattle" />
     </rows>
   </table>
 </database>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <database name="hammerheart">
-  <table name="skald_objective__warmod" version="1">
+  <table name="skald_objective__testmod" version="1">
     <header>
       <column name="is_save" type="integer" />
       <column name="localmap_location_id" type="uuid" />

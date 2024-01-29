@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <database name="hammerheart">
-  <table name="quest_item__warmod" version="1">
+  <table name="quest_item__testmod" version="1">
     <header>
       <column name="item_category_id" type="integer" />
       <column name="item_category_subtype_id" type="integer" />

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <database name="hammerheart">
-  <table name="quest_tracked_asset__warmod" version="1">
+  <table name="quest_tracked_asset__testmod" version="1">
     <header>
       <column name="count" type="integer" />
       <column name="map_asset_id" type="integer" />

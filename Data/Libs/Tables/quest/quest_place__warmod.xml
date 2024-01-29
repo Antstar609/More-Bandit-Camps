@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<database name="hammerheart">
+  <table name="quest_place__warmod" version="1">
+    <header>
+      <column name="entity" type="character varying" />
+      <column name="map" type="character varying" />
+      <column name="quest_asset_id" type="integer" />
+      <column name="quest_id" type="integer" />
+      <column name="show_as_area" type="boolean" />
+    </header>
+    <rows>
+      <row entity="quest_warmod_marker" map="" quest_asset_id="10" quest_id="190530164" show_as_area="False" />
+    </rows>
+  </table>
+</database>

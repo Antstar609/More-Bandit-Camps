@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<database name="hammerheart">
+  <table name="skald_objective__warmod" version="1">
+    <header>
+      <column name="is_save" type="integer" />
+      <column name="localmap_location_id" type="uuid" />
+      <column name="objective_id" type="integer" />
+      <column name="objective_type_id" type="integer" />
+      <column name="quest_id" type="integer" />
+      <column name="skald_element_id" type="integer" />
+    </header>
+    <rows>
+      <row is_save="0" localmap_location_id="" objective_id="4" objective_type_id="0" quest_id="190530164" skald_element_id="6591000" />
+      <row is_save="0" localmap_location_id="" objective_id="11" objective_type_id="0" quest_id="190530164" skald_element_id="6591001" />
+    </rows>
+  </table>
+</database>

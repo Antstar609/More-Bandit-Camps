@@ -50,6 +50,13 @@ function ModCamps:SpawnCamp(_campName, _locationName, _difficulty)
 
 	self:SpawnMeshes(_campName, self.locations[_locationName])
 
+	--QuestSystem.ResetQuest("quest_warmod")
+	--QuestSystem.ActivateQuest("quest_warmod")
+	--if (not QuestSystem.IsQuestStarted("quest_warmod")) then
+	--	QuestSystem.StartQuest("quest_warmod")
+	--	QuestSystem.StartObjective("quest_warmod", "startBattle", false)
+	--end
+
 	return camp
 end
 

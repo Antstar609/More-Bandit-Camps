@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<database name="hammerheart">
+  <table name="quest_transition__warmod" version="1">
+    <header>
+      <column name="enabled" type="boolean" />
+      <column name="from_objective_id" type="integer" />
+      <column name="quest_id" type="integer" />
+      <column name="to_objective_id" type="integer" />
+    </header>
+    <rows>
+      <row enabled="True" from_objective_id="2" quest_id="190530164" to_objective_id="4" />
+      <row enabled="True" from_objective_id="4" quest_id="190530164" to_objective_id="11" />
+      <row enabled="True" from_objective_id="11" quest_id="190530164" to_objective_id="3" />
+    </rows>
+  </table>
+</database>

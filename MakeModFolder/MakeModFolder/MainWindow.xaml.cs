@@ -73,29 +73,38 @@ public partial class MainWindow : INotifyPropertyChanged
 				MessageBoxImage.Warning);
 		}
 
-
 		// Copy the data folder and zip it
 		var directories = Directory.GetDirectories(RepoPath);
 		var isDatazipped = false;
 		var isLocalizationzipped = false;
+		var isTablesZipped = false;
 		foreach (var directory in directories)
 		{
 			if (directory.Contains("Data") && !isDatazipped)
 			{
-				ZipFile.CreateFromDirectory(directory, modPath + "\\Data\\data" + ".pak", CompressionLevel.Optimal,
+				var dataPath = modPath + "\\Data\\data.pak";
+				ZipFile.CreateFromDirectory(directory, dataPath, CompressionLevel.Optimal,
 					false);
 				isDatazipped = true;
 			}
 
-			//Optional
+			if (directory.Contains("Libs") && !isTablesZipped)
+			{
+				var tablesPath = modPath + "\\Data\\tables_patch.pak";
+				ZipFile.CreateFromDirectory(directory, tablesPath, CompressionLevel.Optimal,
+					true);
+				isTablesZipped = true;
+			}
+			
 			if (directory.Contains("Localization") && !isLocalizationzipped)
 			{
-				ZipFile.CreateFromDirectory(directory, modPath + "\\Localization\\English_xml" + ".pak",
+				var localizationPath = modPath + "\\Localization\\English_xml.pak";
+				ZipFile.CreateFromDirectory(directory, localizationPath,
 					CompressionLevel.Optimal, false);
 				isLocalizationzipped = true;
 			}
 
-			if (isDatazipped && isLocalizationzipped)
+			if (isDatazipped && isLocalizationzipped && isTablesZipped)
 				break;
 		}
 
@@ -232,7 +241,7 @@ public partial class MainWindow : INotifyPropertyChanged
 					return;
 				}
 			}
-			
+
 			MakeModFolder();
 		}
 		else
@@ -333,7 +342,7 @@ public partial class MainWindow : INotifyPropertyChanged
 		Regex regex = new Regex("[^0-9.]+");
 		e.Handled = regex.IsMatch(e.Text);
 	}
-	
+
 	private void NonSpecialCharValidationTextBox(object sender, TextCompositionEventArgs e)
 	{
 		Regex regex = new Regex("[^a-zA-Z0-9_]+");

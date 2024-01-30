@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<database name="hammerheart">
+	<table name="quest_tracked_asset__testmod" version="1">
+		<header>
+			<column name="count" type="integer"/>
+			<column name="map_asset_id" type="integer"/>
+			<column name="objective_id" type="integer"/>
+			<column name="on_map" type="boolean"/>
+			<column name="pos" type="character varying"/>
+			<column name="quest_asset_id" type="integer"/>
+			<column name="quest_id" type="integer"/>
+			<column name="user_id" type="integer"/>
+		</header>
+		<rows>
+			<row count="1" map_asset_id="" objective_id="4" on_map="True" pos="137,337,0" quest_asset_id="6"
+				 quest_id="190530164" user_id="0"/>
+		</rows>
+	</table>
+</database>

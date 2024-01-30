@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<database name="hammerheart">
+	<table name="quest_asset__testmod" version="1">
+		<header>
+			<column name="pos" type="character varying"/>
+			<column name="quest_asset_id" type="integer"/>
+			<column name="quest_id" type="integer"/>
+			<column name="type" type="integer"/>
+		</header>
+		<rows>
+			<row pos="-140,340,0" quest_asset_id="6" quest_id="190530164" type="2"/>
+			<row pos="-130,500,0" quest_asset_id="7" quest_id="190530164" type="1"/>
+			<row pos="-120,660,0" quest_asset_id="10" quest_id="190530164" type="3"/>
+		</rows>
+	</table>
+</database>

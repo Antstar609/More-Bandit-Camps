@@ -1,8 +1,0 @@
-<Table>
-<Row><Cell>warmod_quest_title</Cell><Cell>Cuman War</Cell><Cell>Cuman War</Cell></Row>
-<Row><Cell>warmod_quest_description</Cell><Cell>Cumans are launching assaults all over Bohemia. We must fight them back and retake lands that were lost.</Cell><Cell>Cumans are launching assaults all over Bohemia. We must fight them back and retake lands that were lost.</Cell></Row>
-<Row><Cell>warmod_startbattle</Cell><Cell>Speak to the Marshal to start the battle.</Cell><Cell>Speak to the Marshal to start the battle.</Cell></Row>
-<Row><Cell>warmod_finishbattle</Cell><Cell>Fight through the enemy forces to kill their commander. You must not let too many friendly forces die or allow your commander to be killed.</Cell><Cell>Fight through the enemy forces to kill their commander. You must not let too many friendly forces die or allow your commander to be killed.</Cell></Row>
-<Row><Cell>WarMarshal</Cell><Cell>War Marshal</Cell><Cell>War Marshal</Cell></Row>
-<Row><Cell>LogisticsOfficer</Cell><Cell>Logistics Officer</Cell><Cell>Logistics Officer</Cell></Row>
-</Table>

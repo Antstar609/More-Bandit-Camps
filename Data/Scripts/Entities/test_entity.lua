@@ -34,7 +34,7 @@ end
 function TestEntity.Client:OnUpdate()
 	--ModUtils:Log("TestEntity OnUpdate")
 	local playerPos = player:GetWorldPos()
-	ModUtils:LogOnScreen("Entity Pos\n X: " .. playerPos.x .. " Y: " .. playerPos.y .. " Z: " .. playerPos.z, true)
+	ModUtils:LogOnScreen("X: " .. playerPos.x .. " Y: " .. playerPos.y .. " Z: " .. playerPos.z, true)
 end
 
 -- this is called when the player saves or updates a save state - storing values for your entities

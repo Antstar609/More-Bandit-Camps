@@ -45,7 +45,7 @@ end
 -- this is called once, use this for initializing stuff
 function CampEntity:OnReset()
 	--ModUtils:Log("CampEntity OnReset")
-	self:Activate(0)
+	self:Activate(1)
 end
 
 -- this is called every frame given the entity has been spawned

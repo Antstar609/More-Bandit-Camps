@@ -65,19 +65,14 @@ end
 --- @param _position table Position of the camp entity (x, y, z)
 function ModCamps:SpawnMeshes(_campName, _position)
 
-	local tentOffset, tentOrientation = { x = 0, y = 0, z = 0 }
-	local crateOffset, crateOrientation = { x = 0, y = 0, z = 0 }
+	local tentPosition, tentOrientation, cratePosition, crateOrientation = { x = 0, y = 0, z = 0 }
 	
 	if (_campName == "TestCamp") then
-		tentOffset = { x = -1, y = 3, z = 0 }
-		tentOrientation = { x = 0, y = 360, z = 0 }
-		crateOffset = { x = -3, y = -1, z = 0 }
-		crateOrientation = { x = 10, y = 10, z = 0 }
+		tentPosition = { x = 525, y = 3563, z = 27 }; tentOrientation = { x = 0, y = 360, z = 0 }
+		cratePosition = { x = 523, y = 3559, z = 27 }; crateOrientation = { x = 10, y = 10, z = 0 }
 	elseif (_campName == "") then
-		tentOffset = { x = 1, y = 1, z = 0 }
-		tentOrientation = { x = 0, y = 0, z = 0 }
-		crateOffset = { x = -1, y = -1, z = 0 }
-		crateOrientation = { x = 0, y = 0, z = 0 }
+		tentPosition = { x = 0, y = 0, z = 0 }; tentOrientation = { x = 0, y = 0, z = 0 }
+		cratePosition = { x = 0, y = 0, z = 0 }; crateOrientation = { x = 0, y = 0, z = 0 }
 	end
 
 	-- fireplace
@@ -85,13 +80,11 @@ function ModCamps:SpawnMeshes(_campName, _position)
 	fireplace:LoadObject(0, self.meshes.fireplace)
 
 	-- tents
-	local tentPosition = { x = _position.x + tentOffset.x, y = _position.y + tentOffset.y, z = _position.z + tentOffset.z }
 	local tent = System.SpawnEntity({ class = "BasicEntity", name = "tent", position = tentPosition, orientation = tentOrientation })
 	local randomTent = math.random(1, #self.meshes.tents)
 	tent:LoadObject(0, self.meshes.tents[randomTent])
 
 	-- crates
-	local cratePosition = { x = _position.x + crateOffset.x, y = _position.y + crateOffset.y, z = _position.z + crateOffset.z }
 	local crate = System.SpawnEntity({ class = "BasicEntity", name = "crate", position = cratePosition, orientation = crateOrientation })
 	local randomCrate = math.random(1, #self.meshes.crates)
 	crate:LoadObject(0, self.meshes.crates[randomCrate])

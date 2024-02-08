@@ -15,6 +15,13 @@ function ModUtils:LogOnScreen(_message, _forceClear, _time)
 	Game.SendInfoText(tostring(_message), _forceClear or false, nil, _time or 3)
 end
 
+function ModUtils:PrintLoc()
+	local pos = player:GetWorldPos()
+	self:Log("X: " .. pos.x .. " Y: " .. pos.y .. " Z: " .. pos.z)
+	self:LogOnScreen("X: " .. pos.x .. " Y: " .. pos.y .. " Z: " .. pos.z, true, 10)
+end
+System.AddCCommand(ModMain.prefix .. 'Loc', 'ModUtils:PrintLoc()', "Prints the player's location")
+
 --- Shows the intro banner from startup (temporary)
 function ModUtils:ShowTextbox()
 	local message = "<font color='#ff8b00' size='28'>TestMod</font>" .. "\n"

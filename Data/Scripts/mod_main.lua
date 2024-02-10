@@ -18,7 +18,7 @@ function ModMain:sceneInitListener(_actionName, _eventName, _eventArgs)
 		-- When the scene is loaded
 		ModUtils:Log(self.name .. " loaded " .. "(v" .. self.version .. ")")
 
-		--local testEntity = System.SpawnEntity({ class = "TestEntity", name = "TestEntity", position = { x = 0, y = 0, z = 0 } })
+		--System.SpawnEntity({name = "LocEntity", class = "TestEntity", position = {x = 0, y = 0, z = 0}})
 		ModCamps:SpawnCamp("TestCamp", "test", "easy")
 	end
 end

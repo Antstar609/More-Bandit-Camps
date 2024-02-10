@@ -15,10 +15,11 @@ function ModUtils:LogOnScreen(_message, _forceClear, _time)
 	Game.SendInfoText(tostring(_message), _forceClear or false, nil, _time or 3)
 end
 
+--- Prints the player's location to the console and the screen
 function ModUtils:PrintLoc()
 	local pos = player:GetWorldPos()
-	self:Log("X: " .. pos.x .. " Y: " .. pos.y .. " Z: " .. pos.z)
-	self:LogOnScreen("X: " .. pos.x .. " Y: " .. pos.y .. " Z: " .. pos.z, true, 10)
+	self:Log(Vec2Str(pos))
+	self:LogOnScreen(Vec2Str(pos), true, 10)
 end
 System.AddCCommand(ModMain.prefix .. 'Loc', 'ModUtils:PrintLoc()', "Prints the player's location")
 

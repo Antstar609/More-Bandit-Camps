@@ -18,10 +18,17 @@ end
 --- Prints the player's location to the console and the screen
 function ModUtils:PrintLoc()
 	local pos = player:GetWorldPos()
-	self:Log(Vec2Str(pos))
+	self:Log(string.format("{ x = %.3f, y = %.3f, z = %.3f }", pos.x, pos.y, pos.z))
 	self:LogOnScreen(Vec2Str(pos), true, 10)
 end
 System.AddCCommand(ModMain.prefix .. 'Loc', 'ModUtils:PrintLoc()', "Prints the player's location")
+
+function ModUtils:Teleport(_xyz)
+	--TODO
+	self:Log("Teleported to " .. Vec2Str(pos))
+	player:SetWorldPos(pos);
+end
+System.AddCCommand(ModMain.prefix .. 'Teleport', 'ModUtils:Teleport(%line)', "Teleports the player to the given position")
 
 --- Shows the intro banner from startup (temporary)
 function ModUtils:ShowTextbox()

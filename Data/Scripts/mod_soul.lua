@@ -127,7 +127,6 @@ System.AddCCommand(ModMain.prefix .. 'SpawnEntityByType', 'ModSoul:SpawnEntityBy
 --- Spawn an entity with the given line number at the given position or at the player position
 --- @param _lineNumber number Line number of the entity in the xml file
 --- @param _position table Position of the entity (x, y, z)
---- @return table Entity spawned data (nil if no entity found)
 function ModSoul:SpawnEntityByLine(_lineNumber, _position)
 	local soul = Database.GetTableLine(self.tableName, _lineNumber - self.rowOffset)
 	if (soul == nil) then
@@ -168,3 +167,21 @@ function ModSoul:SpawnWanderingGuard()
 	entity.AI.invulnerable = true
 end
 System.AddCCommand(ModMain.prefix .. 'SpawnWanderingGuard', 'ModSoul:SpawnWanderingGuard()', "Spawn a wandering guard")
+
+--- Spawn the commander
+--- @param _position table Position of the entity (x, y, z)
+--- @param _orientation table Orientation of the entity (x, y, z)
+function ModSoul:SpawnCommander(_position, _orientation)
+	local spawnParams = {
+		class = "NPC",
+		name = "commander",
+		position = _position,
+		orientation = _orientation,
+		properties = {
+			--TODO: Find a other id and don't forget to also change it in the database (quest_npc)
+			sharedSoulGuid = "4861066f-1843-2ba9-42d5-05a5e34303ae",
+		},
+	}
+	local entity = System.SpawnEntity(spawnParams)
+	entity.AI.invulnerable = false
+end

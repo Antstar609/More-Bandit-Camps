@@ -34,7 +34,6 @@ ModCamps = {
 --- @param _campName string Name of the camp entity
 --- @param _locationName string Name of the location
 --- @param _difficulty string Difficulty of the camp (default: easy)
---- @return table Camp entity
 function ModCamps:SpawnCamp(_campName, _locationName, _difficulty)
 	local spawnParams = {
 		class = "CampEntity",
@@ -42,6 +41,7 @@ function ModCamps:SpawnCamp(_campName, _locationName, _difficulty)
 		position = self.locations[_locationName],
 	}
 	local camp = System.SpawnEntity(spawnParams)
+	camp.name = _campName
 
 	if (not (type(_difficulty) == "string")) then
 		ModUtils:Log(_campName .. " spawned with default difficulty")
@@ -50,6 +50,9 @@ function ModCamps:SpawnCamp(_campName, _locationName, _difficulty)
 
 	self:SpawnMeshes(_campName, self.locations[_locationName])
 
+	--TODO: make sure that it doesnt spawn an second time
+	ModSoul:SpawnCommander({ x = 983.452, y = 1554.807, z = 25.205 }, { x = 0, y = 90, z = 0 })
+
 	QuestSystem.ResetQuest("quest_testmod")
 	QuestSystem.ActivateQuest("quest_testmod")
 	if (not QuestSystem.IsQuestStarted("quest_testmod")) then
@@ -57,7 +60,8 @@ function ModCamps:SpawnCamp(_campName, _locationName, _difficulty)
 		QuestSystem.StartObjective("quest_testmod", "startBattle", false)
 	end
 
-	return camp
+	table.insert(self.campEntities, camp)
+	ModUtils:Log("Size of campEntities list : " .. #self.campEntities)
 end
 
 --- Spawn all meshes for the camp entity
@@ -66,13 +70,13 @@ end
 function ModCamps:SpawnMeshes(_campName, _position)
 
 	local tentPosition, tentOrientation, cratePosition, crateOrientation = { x = 0, y = 0, z = 0 }
-	
+
 	if (_campName == "TestCamp") then
-		tentPosition = { x = 525, y = 3563, z = 27 }; tentOrientation = { x = 0, y = 360, z = 0 }
-		cratePosition = { x = 523, y = 3559, z = 27 }; crateOrientation = { x = 10, y = 10, z = 0 }
-	elseif (_campName == "") then
-		tentPosition = { x = 0, y = 0, z = 0 }; tentOrientation = { x = 0, y = 0, z = 0 }
-		cratePosition = { x = 0, y = 0, z = 0 }; crateOrientation = { x = 0, y = 0, z = 0 }
+		tentPosition = { x = 525, y = 3563, z = 27 }
+		tentOrientation = { x = 0, y = 360, z = 0 }
+
+		cratePosition = { x = 523, y = 3559, z = 27 }
+		crateOrientation = { x = 10, y = 10, z = 0 }
 	end
 
 	-- fireplace

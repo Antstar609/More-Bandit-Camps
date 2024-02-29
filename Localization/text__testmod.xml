@@ -1,16 +1,17 @@
 <Table>
 	<Row>
 		<Cell>testmod_quest_title</Cell>
-		<Cell>Cuman War</Cell>
+		<Cell>Destroy Bandit Camps</Cell>
 	</Row>
 	<Row>
 		<Cell>testmod_quest_description</Cell>
-		<Cell>Cumans are launching assaults all over Bohemia. We must fight them back and retake lands that were lost.
+		<Cell>There's news of new bandit camp that has been attacking caravans and travelers. The Marshal has asked you to talk to him to get more information about the bandit camp and to help him destroy it.
 		</Cell>
 	</Row>
 	<Row>
 		<Cell>testmod_startbattle</Cell>
-		<Cell>Speak to the Marshal to start the battle.</Cell>
+		<Cell>Speak to the Marshal to get the location of the bandit camp.
+		</Cell>
 	</Row>
 	<Row>
 		<Cell>testmod_finishbattle</Cell>

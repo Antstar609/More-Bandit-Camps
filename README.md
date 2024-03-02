@@ -1,4 +1,4 @@
-# Kingdom Come: Deliverance - Bandit Camps Mod (In Development)
+# Kingdom Come: Deliverance - More Bandit Camps Mod (In Development)
 
 This is a mod currently in development for the popular game Kingdom Come: Deliverance created by Warhorse. It will introduce new bandit camps around the map for the player to discover and destroy. Each destroyed camp will yield rewards for the player, enhancing the gameplay experience.
 

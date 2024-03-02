@@ -251,7 +251,7 @@ public partial class MainWindow : INotifyPropertyChanged
 		}
 	}
 
-	private string _modName = "TestMod";
+	private string _modName = "MoreBanditCamps";
 
 	public string ModName
 	{

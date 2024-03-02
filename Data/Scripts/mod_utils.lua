@@ -23,16 +23,28 @@ function ModUtils:PrintLoc()
 end
 System.AddCCommand(ModMain.prefix .. 'Loc', 'ModUtils:PrintLoc()', "Prints the player's location")
 
+--- Teleports the player to the given position
+--- @param _xyz string Position to teleport to (x, y, z)
 function ModUtils:Teleport(_xyz)
-	--TODO
-	self:Log("Teleported to " .. Vec2Str(pos))
-	player:SetWorldPos(pos);
+	local function SplitStringToCoordinates(_string)
+		local coordinates = { "x", "y", "z" }
+		local result = {}
+		local i = 1
+		for value in string.gmatch(_string, "%d+") do
+			result[coordinates[i]] = tonumber(value)
+			i = i + 1
+		end
+		return result
+	end
+	local pos = SplitStringToCoordinates(_xyz)
+	self:LogOnScreen("Teleported to " .. pos.x .. ", " .. pos.y .. ", " .. pos.z, true, 5)
+	player:SetWorldPos(pos)
 end
 System.AddCCommand(ModMain.prefix .. 'Teleport', 'ModUtils:Teleport(%line)', "Teleports the player to the given position")
 
 --- Shows the intro banner from startup (temporary)
 function ModUtils:ShowTextbox()
-	local message = "<font color='#ff8b00' size='28'>TestMod</font>" .. "\n"
+	local message = "<font color='#ff8b00' size='28'>MoreBanditCamps</font>" .. "\n"
 			.. "<font color='#333333' size='20'>Antstar609</font>"
 
 	Game.ShowTutorial(message, 20, false, true);

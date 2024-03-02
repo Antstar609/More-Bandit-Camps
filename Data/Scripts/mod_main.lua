@@ -3,7 +3,7 @@
 --- @field version string Version of the mod
 --- @field prefix string Prefix for the console commands
 ModMain = {
-	name = "TestMod",
+	name = "MoreBanditCamps",
 	version = "0.0.1",
 	prefix = '',
 }

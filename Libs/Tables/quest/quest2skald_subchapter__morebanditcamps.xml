@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <database name="hammerheart">
-	<table name="quest2skald_subchapter__testmod" version="1">
+	<table name="quest2skald_subchapter__morebanditcamps" version="1">
 		<header>
 			<column name="quest_id" type="integer"/>
 			<column name="quest_level" type="integer"/>

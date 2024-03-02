@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <database name="hammerheart">
-	<table name="quest_objective__testmod" version="1">
+	<table name="quest_objective__morebanditcamps" version="1">
 		<header>
 			<column name="autocomplete_timeout" type="integer"/>
 			<column name="autocomplete_timeout_str" type="character varying"/>

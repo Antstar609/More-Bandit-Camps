@@ -1,20 +1,20 @@
 <Table>
 	<Row>
-		<Cell>testmod_quest_title</Cell>
+		<Cell>morebanditcamps_quest_title</Cell>
 		<Cell>Destroy Bandit Camps</Cell>
 	</Row>
 	<Row>
-		<Cell>testmod_quest_description</Cell>
+		<Cell>morebanditcamps_quest_description</Cell>
 		<Cell>There's news of new bandit camp that has been attacking caravans and travelers. The Marshal has asked you to talk to him to get more information about the bandit camp and to help him destroy it.
 		</Cell>
 	</Row>
 	<Row>
-		<Cell>testmod_startbattle</Cell>
+		<Cell>morebanditcamps_startbattle</Cell>
 		<Cell>Speak to the Marshal to get the location of the bandit camp.
 		</Cell>
 	</Row>
 	<Row>
-		<Cell>testmod_finishbattle</Cell>
+		<Cell>morebanditcamps_finishbattle</Cell>
 		<Cell>Fight through the enemy forces to kill their commander. You must not let too many friendly forces die or
 			allow your commander to be killed.
 		</Cell>

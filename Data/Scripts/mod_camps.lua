@@ -53,13 +53,14 @@ function ModCamps:SpawnCamp(_campName, _locationName, _difficulty)
 	--TODO: make sure that it doesnt spawn an second time
 	ModSoul:SpawnCommander({ x = 983.452, y = 1554.807, z = 25.205 }, { x = 0, y = 90, z = 0 })
 
-	QuestSystem.ResetQuest("quest_testmod")
-	QuestSystem.ActivateQuest("quest_testmod")
-	if (not QuestSystem.IsQuestStarted("quest_testmod")) then
-		QuestSystem.StartQuest("quest_testmod")
-		QuestSystem.StartObjective("quest_testmod", "startBattle", false)
+	QuestSystem.ResetQuest("quest_morebanditcamps")
+	QuestSystem.ActivateQuest("quest_morebanditcamps")
+	if (not QuestSystem.IsQuestStarted("quest_morebanditcamps")) then
+		QuestSystem.StartQuest("quest_morebanditcamps")
+		QuestSystem.StartObjective("quest_morebanditcamps", "startBattle", false)
 	end
 
+	--TODO: This function is actually called every time there's a loading screen and i don't want to add a new camp to the list every time
 	table.insert(self.campEntities, camp)
 	ModUtils:Log("Size of campEntities list : " .. #self.campEntities)
 end

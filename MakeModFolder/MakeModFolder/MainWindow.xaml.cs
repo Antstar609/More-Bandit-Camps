@@ -109,7 +109,7 @@ public partial class MainWindow : INotifyPropertyChanged
 				
 				foreach (var localizationDirectory in localizationDirectories)
 				{
-					var localizationPath = modPath + "\\Localization\\" + Path.GetFileName(localizationDirectory) + "_xml.pak";
+					var localizationPath = modPath + "\\Localization\\" + Path.GetFileName(localizationDirectory).ToLower() + "_xml.pak";
 					ZipFile.CreateFromDirectory(localizationDirectory, localizationPath,
 						CompressionLevel.Optimal, false);
 				}

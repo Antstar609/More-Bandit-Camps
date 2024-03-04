@@ -11,7 +11,7 @@ TestEntity = {
 
 -- this is called when the player loads a save state - use this for restoring values when a game gets loaded
 function TestEntity:OnLoad(tbl)
-	--ModUtils:Log("TestEntity OnLoad")
+	--ModUtils:Log("TestEntity - OnLoad")
 end
 
 -- this is called once, use this for initializing stuff
@@ -25,14 +25,14 @@ end
 
 -- this is called once, use this for initializing stuff
 function TestEntity:OnReset()
-	--ModUtils:Log("TestEntity OnReset")
+	--ModUtils:Log("TestEntity - OnReset")
 	self:Activate(1)
 	ModUtils:ShowTextbox()
 end
 
 -- this is called every frame given the entity has been spawned
 function TestEntity.Client:OnUpdate()
-	--ModUtils:Log("TestEntity OnUpdate")
+	--ModUtils:Log("TestEntity - OnUpdate")
 	local playerPos = player:GetWorldPos()
 	ModUtils:LogOnScreen(Vec2Str(playerPos), true)
 end
@@ -40,16 +40,16 @@ end
 -- this is called when the player saves or updates a save state - storing values for your entities
 function TestEntity:OnPropertyChange()
 	self:OnReset()
-	--ModUtils:Log("TestEntity opc")
+	--ModUtils:Log("TestEntity - opc")
 end
 
 function TestEntity:OnAction(action, activation, value)
-	--ModUtils:Log("TestEntity OnAction")
+	--ModUtils:Log("TestEntity - OnAction")
 end
 
 -- this is called when the player saves or updates a save state - storing values for your entities
 function TestEntity:OnSave(tbl)
-	--ModUtils:Log("TestEntity OnSave")
+	--ModUtils:Log("TestEntity - OnSave")
 end
 
 TestEntity.Server.TurnedOn = {

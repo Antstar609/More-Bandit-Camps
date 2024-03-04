@@ -50,21 +50,12 @@ function ModCamps:SpawnCamp(_campName, _locationName, _difficulty)
 	camp.difficulty = self.difficulty[_difficulty] or self.difficulty.easy
 
 	self:SpawnMeshes(_campName, self.locations[_locationName])
-
-	--TODO: make sure that it doesnt spawn an second time
-	ModSoul:SpawnMarechal(self.locations.marechal, { x = 0, y = 0, z = 90 })
-
-	QuestSystem.ResetQuest("quest_morebanditcamps")
-	QuestSystem.ActivateQuest("quest_morebanditcamps")
-	if (not QuestSystem.IsQuestStarted("quest_morebanditcamps")) then
-		QuestSystem.StartQuest("quest_morebanditcamps")
-		QuestSystem.StartObjective("quest_morebanditcamps", "firsttalk", false)
-	end
 	
 	table.insert(self.campEntities, camp)
-	--for i, v in ipairs(camp) do
-	--	ModUtils:Log("campEntities[" .. i .. "]: " .. v.name)
-	--end
+	
+	for i, v in ipairs(self.campEntities) do
+		ModUtils:Log("campEntities[" .. i .. "]: " .. v.name)
+	end
 end
 
 --- Spawn all meshes for the camp entity

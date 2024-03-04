@@ -31,7 +31,7 @@ CampEntity = {
 
 -- this is called when the player loads a save state - use this for restoring values when a game gets loaded
 function CampEntity:OnLoad(tbl)
-	--ModUtils:Log("CampEntity OnLoad")
+	--ModUtils:Log("CampEntity - OnLoad")
 end
 
 -- this is called once, use this for initializing stuff
@@ -44,13 +44,13 @@ end
 
 -- this is called once, use this for initializing stuff
 function CampEntity:OnReset()
-	--ModUtils:Log("CampEntity OnReset")
+	--ModUtils:Log("CampEntity - OnReset")
 	self:Activate(1)
 end
 
 -- this is called every frame given the entity has been spawned
 function CampEntity.Client:OnUpdate()
-	--ModUtils:Log("CampEntity OnUpdate")
+	--ModUtils:Log("CampEntity - OnUpdate")
 	if (not self.isSpawned) then
 		self:CreateCamp()
 	else
@@ -138,17 +138,17 @@ end
 
 -- this is called when the player saves or updates a save state - storing values for your entities
 function CampEntity:OnPropertyChange()
-	--ModUtils:Log("CampEntity opc ")
+	--ModUtils:Log("CampEntity - opc ")
 	self:OnReset()
 end
 
 function CampEntity:OnAction(action, activation, value)
-	--ModUtils:Log("CampEntity OnAction ")
+	--ModUtils:Log("CampEntity - OnAction ")
 end
 
 -- this is called when the player saves or updates a save state - storing values for your entities
 function CampEntity:OnSave(tbl)
-	--ModUtils:Log("CampEntity OnSave ")
+	--ModUtils:Log("CampEntity - OnSave ")
 end
 
 CampEntity.Server.TurnedOn = {

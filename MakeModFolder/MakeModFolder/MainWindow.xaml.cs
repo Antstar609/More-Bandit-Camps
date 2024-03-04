@@ -109,7 +109,7 @@ public partial class MainWindow : INotifyPropertyChanged
 				
 				foreach (var localizationDirectory in localizationDirectories)
 				{
-					var localizationPath = modPath + "\\Localization\\" + Path.GetFileName(localizationDirectory) + "_patch.pak";
+					var localizationPath = modPath + "\\Localization\\" + Path.GetFileName(localizationDirectory) + "_xml.pak";
 					ZipFile.CreateFromDirectory(localizationDirectory, localizationPath,
 						CompressionLevel.Optimal, false);
 				}
@@ -165,7 +165,7 @@ public partial class MainWindow : INotifyPropertyChanged
 		writer.WriteStartElement("kcd_mod"); // kcd_mod
 		writer.WriteStartElement("info"); // info
 		writer.WriteStartElement("name"); // name
-		writer.WriteValue(ModName.Replace(" ", ""));
+		writer.WriteValue(ModName);
 		writer.WriteEndElement(); // /name
 		writer.WriteStartElement("modid"); // modid
 		writer.WriteValue(ModName.Replace(" ", "").ToLower());

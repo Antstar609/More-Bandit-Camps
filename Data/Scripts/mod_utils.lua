@@ -24,8 +24,22 @@ end
 System.AddCCommand(ModMain.prefix .. 'Loc', 'ModUtils:PrintLoc()', "Prints the player's location")
 
 --- Teleports the player to the given position
---- @param _xyz string Position to teleport to (x, y, z)
+--- @param _xyz string Position to teleport to (x y z) or camp name (test)
 function ModUtils:Teleport(_xyz)
+	if (_xyz == "quest") then
+		local pos = { x = ModCamps.locations.marechal.x, y = ModCamps.locations.marechal.y + 2, z = ModCamps.locations.marechal.z}
+		self:LogOnScreen("Teleported to quest objective", true)
+		player:SetWorldPos(pos)
+		return
+	end
+
+	if (_xyz == "test") then
+		local pos = ModCamps.locations["test"]
+		self:LogOnScreen("Teleported to test camp", true)
+		player:SetWorldPos(pos)
+		return
+	end
+	
 	local function SplitStringToCoordinates(_string)
 		local coordinates = { "x", "y", "z" }
 		local result = {}

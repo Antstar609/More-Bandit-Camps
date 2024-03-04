@@ -19,6 +19,8 @@ function ModMain:sceneInitListener(_actionName, _eventName, _eventArgs)
 		ModUtils:Log(self.name .. " loaded " .. "(v" .. self.version .. ")")
 
 		--System.SpawnEntity({name = "LocEntity", class = "TestEntity", position = {x = 0, y = 0, z = 0}})
+		
+		--TODO: This function is actually called every time there's a loading screen (reload save or player death) and i don't want to add or create a new camp to the list everytime
 		ModCamps:SpawnCamp("TestCamp", "test", "easy")
 	end
 end

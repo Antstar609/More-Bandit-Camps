@@ -8,6 +8,7 @@ ModCamps = {
 
 	locations = {
 		test = { x = 526, y = 3560, z = 27 },
+		marechal = { x = 983.452, y = 1554.807, z = 25.205 },
 	},
 
 	difficulty = {
@@ -51,7 +52,7 @@ function ModCamps:SpawnCamp(_campName, _locationName, _difficulty)
 	self:SpawnMeshes(_campName, self.locations[_locationName])
 
 	--TODO: make sure that it doesnt spawn an second time
-	ModSoul:SpawnCommander({ x = 983.452, y = 1554.807, z = 25.205 }, { x = 0, y = 90, z = 0 })
+	ModSoul:SpawnCommander(self.locations.marechal, { x = 0, y = 0, z = 90 })
 
 	QuestSystem.ResetQuest("quest_morebanditcamps")
 	QuestSystem.ActivateQuest("quest_morebanditcamps")
@@ -59,10 +60,11 @@ function ModCamps:SpawnCamp(_campName, _locationName, _difficulty)
 		QuestSystem.StartQuest("quest_morebanditcamps")
 		QuestSystem.StartObjective("quest_morebanditcamps", "startBattle", false)
 	end
-
-	--TODO: This function is actually called every time there's a loading screen and i don't want to add a new camp to the list every time
+	
 	table.insert(self.campEntities, camp)
-	ModUtils:Log("Size of campEntities list : " .. #self.campEntities)
+	for i, v in ipairs(camp) do
+		ModUtils:Log("campEntities[" .. i .. "]: " .. v.name)
+	end
 end
 
 --- Spawn all meshes for the camp entity

@@ -90,7 +90,7 @@ public partial class MainWindow : INotifyPropertyChanged
 
 			if (directory.Contains("Libs") && !isTablesZipped)
 			{
-				var tablesPath = modPath + "\\Data\\tables_patch.pak";
+				var tablesPath = modPath + "\\Data\\tables.pak";
 				ZipFile.CreateFromDirectory(directory, tablesPath, CompressionLevel.Optimal,
 					true);
 				isTablesZipped = true;

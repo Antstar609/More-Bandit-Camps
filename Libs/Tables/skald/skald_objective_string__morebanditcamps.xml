@@ -7,8 +7,8 @@
 			<column name="string_name" type="character varying"/>
 		</header>
 		<rows>
-			<row skald_element_id="6591000" skald_objective_string_type_id="1" string_name="morebanditcamps_startbattle"/>
-			<row skald_element_id="6591001" skald_objective_string_type_id="1" string_name="morebanditcamps_finishbattle"/>
+			<row skald_element_id="6591000" skald_objective_string_type_id="1" string_name="morebanditcamps_firsttalk"/>
+			<row skald_element_id="6591001" skald_objective_string_type_id="1" string_name="morebanditcamps_destroycamp"/>
 		</rows>
 	</table>
 </database>

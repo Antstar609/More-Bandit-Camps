@@ -171,7 +171,7 @@ System.AddCCommand(ModMain.prefix .. 'SpawnWanderingGuard', 'ModSoul:SpawnWander
 --- Spawn the commander
 --- @param _position table Position of the entity (x, y, z)
 --- @param _orientation table Orientation of the entity (x, y, z)
-function ModSoul:SpawnCommander(_position, _orientation)
+function ModSoul:SpawnMarechal(_position, _orientation)
 	local spawnParams = {
 		class = "NPC",
 		name = "commander",

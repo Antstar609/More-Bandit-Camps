@@ -27,7 +27,7 @@ System.AddCCommand(ModMain.prefix .. 'Loc', 'ModUtils:PrintLoc()', "Prints the p
 --- @param _xyz string Position to teleport to (x y z) or camp name (test)
 function ModUtils:Teleport(_xyz)
 	if (_xyz == "quest") then
-		local pos = { x = ModCamps.locations.marechal.x, y = ModCamps.locations.marechal.y + 2, z = ModCamps.locations.marechal.z}
+		local pos = { x = ModCamps.locations.marechal.x, y = ModCamps.locations.marechal.y + 2, z = ModCamps.locations.marechal.z }
 		self:LogOnScreen("Teleported to quest objective", true)
 		player:SetWorldPos(pos)
 		return
@@ -39,7 +39,7 @@ function ModUtils:Teleport(_xyz)
 		player:SetWorldPos(pos)
 		return
 	end
-	
+
 	local function SplitStringToCoordinates(_string)
 		local coordinates = { "x", "y", "z" }
 		local result = {}
@@ -64,3 +64,10 @@ function ModUtils:ShowTextbox()
 	Game.ShowTutorial(message, 20, false, true);
 end
 System.AddCCommand(ModMain.prefix .. 'ShowText', 'ModUtils:ShowText()', "Shows the intro banner from startup")
+
+function ModUtils:Quest()
+	--TODO
+	QuestSystem.CompleteObjective("quest_morebanditcamps", "firsttalk", false)
+	QuestSystem.StartObjective("quest_morebanditcamps", "destroycamp", false)
+end
+System.AddCCommand(ModMain.prefix .. 'Quest', 'ModUtils:Quest()', "Starts the quest objective")

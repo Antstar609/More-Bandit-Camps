@@ -9,12 +9,12 @@
 		</Cell>
 	</Row>
 	<Row>
-		<Cell>morebanditcamps_startbattle</Cell>
+		<Cell>morebanditcamps_firsttalk</Cell>
 		<Cell>Parlez au maréchal pour connaître l'emplacement du camp de bandits.
 		</Cell>
 	</Row>
 	<Row>
-		<Cell>morebanditcamps_finishbattle</Cell>
+		<Cell>morebanditcamps_destroycamp</Cell>
 		<Cell>Combattez les forces ennemies pour tuer leur commandant. Vous ne devez pas laisser trop de forces amies mourir ni permettre que votre commandant soit tué.
 		</Cell>
 	</Row>

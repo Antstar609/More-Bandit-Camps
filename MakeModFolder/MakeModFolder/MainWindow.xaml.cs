@@ -98,9 +98,21 @@ public partial class MainWindow : INotifyPropertyChanged
 			
 			if (directory.Contains("Localization") && !isLocalizationzipped)
 			{
-				var localizationPath = modPath + "\\Localization\\English_xml.pak";
-				ZipFile.CreateFromDirectory(directory, localizationPath,
-					CompressionLevel.Optimal, false);
+				var localizationDirectories = Directory.GetDirectories(directory);
+
+				if (localizationDirectories.Length == 0)
+				{
+					MessageBox.Show("The localization folder is empty", "Warning", MessageBoxButton.OK,
+						MessageBoxImage.Warning);
+					return;
+				}
+				
+				foreach (var localizationDirectory in localizationDirectories)
+				{
+					var localizationPath = modPath + "\\Localization\\" + Path.GetFileName(localizationDirectory) + "_patch.pak";
+					ZipFile.CreateFromDirectory(localizationDirectory, localizationPath,
+						CompressionLevel.Optimal, false);
+				}
 				isLocalizationzipped = true;
 			}
 
@@ -111,6 +123,20 @@ public partial class MainWindow : INotifyPropertyChanged
 		if (!isDatazipped)
 		{
 			MessageBox.Show("The data folder is missing", "Warning", MessageBoxButton.OK,
+				MessageBoxImage.Warning);
+			return;
+		}
+		
+		if (!isTablesZipped)
+		{
+			MessageBox.Show("The tables folder is missing", "Warning", MessageBoxButton.OK,
+				MessageBoxImage.Warning);
+			return;
+		}
+		
+		if (!isLocalizationzipped)
+		{
+			MessageBox.Show("The localization folder is missing", "Warning", MessageBoxButton.OK,
 				MessageBoxImage.Warning);
 			return;
 		}
@@ -139,10 +165,10 @@ public partial class MainWindow : INotifyPropertyChanged
 		writer.WriteStartElement("kcd_mod"); // kcd_mod
 		writer.WriteStartElement("info"); // info
 		writer.WriteStartElement("name"); // name
-		writer.WriteValue(ModName);
+		writer.WriteValue(ModName.Replace(" ", ""));
 		writer.WriteEndElement(); // /name
 		writer.WriteStartElement("modid"); // modid
-		writer.WriteValue(ModName.ToLower());
+		writer.WriteValue(ModName.Replace(" ", "").ToLower());
 		writer.WriteEndElement(); // /modid
 		writer.WriteStartElement("description"); // description
 		writer.WriteValue("A mod for Kingdom Come: Deliverance");
@@ -251,7 +277,7 @@ public partial class MainWindow : INotifyPropertyChanged
 		}
 	}
 
-	private string _modName = "MoreBanditCamps";
+	private string _modName = "More Bandit Camps";
 
 	public string ModName
 	{

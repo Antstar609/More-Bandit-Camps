@@ -34,11 +34,11 @@ function QuestEntity:OnReset()
 	--TODO: make sure that it doesnt spawn an second time
 	ModSoul:SpawnMarechal(ModCamps.locations.marechal, { x = 0, y = 0, z = 90 })
 	
-	QuestSystem.ResetQuest("quest_morebanditcamps")
-	QuestSystem.ActivateQuest("quest_morebanditcamps")
-	if (not QuestSystem.IsQuestStarted("quest_morebanditcamps")) then
-		QuestSystem.StartQuest("quest_morebanditcamps")
-		QuestSystem.StartObjective("quest_morebanditcamps", "firsttalk", false)
+	QuestSystem.ResetQuest("q_morebanditcamps")
+	QuestSystem.ActivateQuest("q_morebanditcamps")
+	if (not QuestSystem.IsQuestStarted("q_morebanditcamps")) then
+		QuestSystem.StartQuest("q_morebanditcamps")
+		QuestSystem.StartObjective("q_morebanditcamps", "o_firsttalk", false)
 	end
 end
 

@@ -185,7 +185,7 @@ function ModSoul:SpawnMarechal(_position, _orientation)
 	local entity = System.SpawnEntity(spawnParams)
 	entity.lootable = false
 	entity.AI.invulnerable = true
-	
+
 	-- To add interaction with the entity
 	entity.GetActions = function(user, firstFast)
 		local output = {}
@@ -195,6 +195,17 @@ function ModSoul:SpawnMarechal(_position, _orientation)
 
 	-- Function called when the player interacts with the entity
 	entity.Interact = function()
-		QuestSystem.CompleteObjective("quest_morebanditcamps", "firsttalk")
+		if (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_firsttalk")) then
+			QuestSystem.CompleteObjective("q_morebanditcamps", "o_firsttalk")
+			QuestSystem.StartObjective("q_morebanditcamps", "o_destroycamp")
+			ModUtils:LogOnScreen("Here's the location of the bandit camp (firsttalk Completed)")
+		elseif (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_destroycamp")) then
+			QuestSystem.CompleteObjective("q_morebanditcamps", "o_destroycamp")
+			QuestSystem.StartObjective("q_morebanditcamps", "o_reward")
+			ModUtils:LogOnScreen("You've destroyed the bandit camp (destroycamp Completed)")
+		else
+			QuestSystem.CompleteObjective("q_morebanditcamps", "o_reward")
+			ModUtils:LogOnScreen("You've collected your o_reward (reward Completed) - Need to restart the quest")
+		end
 	end
 end

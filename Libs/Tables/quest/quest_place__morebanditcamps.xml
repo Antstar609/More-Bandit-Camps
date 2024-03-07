@@ -9,7 +9,7 @@
 			<column name="show_as_area" type="boolean"/>
 		</header>
 		<rows>
-			<row entity="quest_morebanditcamps_marker" map="" quest_asset_id="10" quest_id="190530164" show_as_area="False"/>
+			<row entity="q_morebanditcamps_marker" map="" quest_asset_id="1" quest_id="999999999" show_as_area="False"/>
 		</rows>
 	</table>
 </database>

@@ -7,8 +7,8 @@
 			<column name="string_name" type="character varying"/>
 		</header>
 		<rows>
-			<row skald_quest_string_type_id="1" skald_subchapter_id="66666" string_name="morebanditcamps_quest_title"/>
-			<row skald_quest_string_type_id="2" skald_subchapter_id="66666" string_name="morebanditcamps_quest_description"/>
+			<row skald_quest_string_type_id="1" skald_subchapter_id="66666" string_name="q_morebanditcamps_title"/>
+			<row skald_quest_string_type_id="2" skald_subchapter_id="66666" string_name="q_morebanditcamps_description"/>
 		</rows>
 	</table>
 </database>

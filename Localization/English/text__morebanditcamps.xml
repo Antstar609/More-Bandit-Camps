@@ -1,21 +1,26 @@
 <Table>
 	<Row>
-		<Cell>morebanditcamps_quest_title</Cell>
+		<Cell>q_morebanditcamps_title</Cell>
 		<Cell>Destroy Bandit Camps</Cell>
 	</Row>
 	<Row>
-		<Cell>morebanditcamps_quest_description</Cell>
+		<Cell>q_morebanditcamps_description</Cell>
 		<Cell>There's news of new bandit camp that has been attacking caravans and travelers. The Marshal has asked you to talk to him to get more information about the bandit camp and to help him destroy it.
 		</Cell>
 	</Row>
 	<Row>
-		<Cell>morebanditcamps_firsttalk</Cell>
+		<Cell>q_morebanditcamps_o_firsttalk</Cell>
 		<Cell>Speak to the Marshal to get the location of the bandit camp.
 		</Cell>
 	</Row>
 	<Row>
-		<Cell>morebanditcamps_destroycamp</Cell>
+		<Cell>q_morebanditcamps_o_destroycamp</Cell>
 		<Cell>Go to the bandit camp and kill all the bandits to destroy it.
+		</Cell>
+	</Row>
+	<Row>
+		<Cell>q_morebanditcamps_o_reward</Cell>
+		<Cell>Return to the Marshal to get your o_reward.
 		</Cell>
 	</Row>
 </Table>

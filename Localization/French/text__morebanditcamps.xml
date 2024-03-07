@@ -1,21 +1,26 @@
 <Table>
 	<Row>
-		<Cell>morebanditcamps_quest_title</Cell>
+		<Cell>q_morebanditcamps_title</Cell>
 		<Cell>Détruire les camps de bandits</Cell>
 	</Row>
 	<Row>
-		<Cell>morebanditcamps_quest_description</Cell>
+		<Cell>q_morebanditcamps_description</Cell>
 		<Cell>Il y a des nouvelles d'un nouveau camp de bandits qui attaque les caravanes et les voyageurs. Le maréchal vous a demandé de lui parler pour obtenir plus d'informations sur le camp de bandits et l'aider à le détruire.
 		</Cell>
 	</Row>
 	<Row>
-		<Cell>morebanditcamps_firsttalk</Cell>
+		<Cell>q_morebanditcamps_o_firsttalk</Cell>
 		<Cell>Parlez au maréchal pour connaître l'emplacement du camp de bandits.
 		</Cell>
 	</Row>
 	<Row>
-		<Cell>morebanditcamps_destroycamp</Cell>
+		<Cell>q_morebanditcamps_o_destroycamp</Cell>
 		<Cell>Rendez vous au camp de bandits et tuez tous les bandits pour le détruire.
+		</Cell>
+	</Row>
+	<Row>
+		<Cell>q_morebanditcamps_o_reward</Cell>
+		<Cell>Retournez voir le maréchal pour obtenir votre récompense.
 		</Cell>
 	</Row>
 </Table>

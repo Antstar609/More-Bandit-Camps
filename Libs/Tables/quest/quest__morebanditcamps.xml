@@ -19,9 +19,9 @@
 			<column name="timestamp" type="character varying"/>
 		</header>
 		<rows>
-			<row comment="" computer_name="DESKTOP-QFS5IDS" counter="1" group="New" is_activated="True"
-				 is_progress_visible="True" long_desc="" pos1="-50,20,0" pos2="560,20,0" pos3="" quest_id="190530164"
-				 quest_name="quest_morebanditcamps" quest_type_id="2" smart_object="" timestamp="13/09/2020 22:03"/>
+			<row comment="" computer_name="" counter="1" group="New" is_activated="True"
+				 is_progress_visible="True" long_desc="" pos1="" pos2="" pos3="" quest_id="999999999"
+				 quest_name="q_morebanditcamps" quest_type_id="2" smart_object="" timestamp=""/>
 		</rows>
 	</table>
 </database>

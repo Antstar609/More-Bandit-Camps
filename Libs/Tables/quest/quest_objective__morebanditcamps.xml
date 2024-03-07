@@ -17,14 +17,14 @@
 		</header>
 		<rows>
 			<row autocomplete_timeout="" autocomplete_timeout_str="-1" condition="" experience_coef="0"
-				 expiration_timeout_str="-1" is_exclusive="False" is_hidden="False" objective_id="4"
-				 objective_name="firsttalk" pos="320,20,0" quest_id="190530164" time="0"/>
+				 expiration_timeout_str="-1" is_exclusive="False" is_hidden="False" objective_id="1"
+				 objective_name="o_firsttalk" pos="" quest_id="999999999" time="0"/>
 			<row autocomplete_timeout="" autocomplete_timeout_str="-1" condition="" experience_coef="0"
-				 expiration_timeout_str="-1" is_exclusive="False" is_hidden="False" objective_id="11"
-				 objective_name="destroycamp" pos="420,450,0" quest_id="190530164" time="0"/>
+				 expiration_timeout_str="-1" is_exclusive="False" is_hidden="False" objective_id="2"
+				 objective_name="o_destroycamp" pos="" quest_id="999999999" time="0"/>
 			<row autocomplete_timeout="" autocomplete_timeout_str="-1" condition="" experience_coef="0"
-				 expiration_timeout_str="-1" is_exclusive="False" is_hidden="False" objective_id="12"
-				 objective_name="testAsset" pos="410,680,0" quest_id="190530164" time="0"/>
+				 expiration_timeout_str="-1" is_exclusive="False" is_hidden="False" objective_id="3"
+				 objective_name="o_reward" pos="" quest_id="999999999" time="0"/>
 		</rows>
 	</table>
 </database>

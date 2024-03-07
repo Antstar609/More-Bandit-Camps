@@ -8,9 +8,7 @@
 			<column name="type" type="integer"/>
 		</header>
 		<rows>
-			<row pos="-140,340,0" quest_asset_id="6" quest_id="190530164" type="2"/>
-			<row pos="-130,500,0" quest_asset_id="7" quest_id="190530164" type="1"/>
-			<row pos="-120,660,0" quest_asset_id="10" quest_id="190530164" type="3"/>
+			<row pos="" quest_asset_id="1" quest_id="999999999" type="2"/>
 		</rows>
 	</table>
 </database>

@@ -64,10 +64,3 @@ function ModUtils:ShowTextbox()
 	Game.ShowTutorial(message, 20, false, true);
 end
 System.AddCCommand(ModMain.prefix .. 'ShowText', 'ModUtils:ShowText()', "Shows the intro banner from startup")
-
-function ModUtils:Quest()
-	--TODO
-	QuestSystem.CompleteObjective("quest_morebanditcamps", "firsttalk", false)
-	QuestSystem.StartObjective("quest_morebanditcamps", "destroycamp", false)
-end
-System.AddCCommand(ModMain.prefix .. 'Quest', 'ModUtils:Quest()', "Starts the quest objective")

@@ -183,5 +183,18 @@ function ModSoul:SpawnMarechal(_position, _orientation)
 		},
 	}
 	local entity = System.SpawnEntity(spawnParams)
-	entity.AI.invulnerable = false
+	entity.lootable = false
+	entity.AI.invulnerable = true
+	
+	-- To add interaction with the entity
+	entity.GetActions = function(user, firstFast)
+		local output = {}
+		AddInteractorAction(output, firstFast, Action():hint("Interact"):action("use"):func(entity.Interact):interaction(inr_talk))
+		return output
+	end
+
+	-- Function called when the player interacts with the entity
+	entity.Interact = function()
+		QuestSystem.CompleteObjective("quest_morebanditcamps", "firsttalk")
+	end
 end

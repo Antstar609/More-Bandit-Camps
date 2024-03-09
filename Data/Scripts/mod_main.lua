@@ -19,8 +19,7 @@ function ModMain:sceneInitListener(_actionName, _eventName, _eventArgs)
 		ModUtils:Log(self.name .. " loaded " .. "(v" .. self.version .. ")")
 
 		--System.SpawnEntity({name = "LocEntity", class = "TestEntity", position = {x = 0, y = 0, z = 0}})
-		
-		System.SpawnEntity({name = "QuestEntity", class = "QuestEntity", position = {x = 0, y = 0, z = 0}})
+		ModQuest:StartQuest()
 	end
 end
 

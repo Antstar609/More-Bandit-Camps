@@ -179,7 +179,8 @@ function ModSoul:SpawnMarechal(_position, _orientation)
 		orientation = _orientation,
 		properties = {
 			--TODO: Find a other id and don't forget to also change it in the database (quest_npc)
-			sharedSoulGuid = "4c3d7dfa-de2e-8ac7-3d7c-077a8eddb892",
+			--sharedSoulGuid = "4c3d7dfa-de2e-8ac7-3d7c-077a8eddb892",
+			sharedSoulGuid = "f9fcb273-bc36-469d-b67e-e510d69e094c",
 		},
 	}
 	local entity = System.SpawnEntity(spawnParams)
@@ -189,23 +190,7 @@ function ModSoul:SpawnMarechal(_position, _orientation)
 	-- To add interaction with the entity
 	entity.GetActions = function(user, firstFast)
 		local output = {}
-		AddInteractorAction(output, firstFast, Action():hint("Interact"):action("use"):func(entity.Interact):interaction(inr_talk))
+		AddInteractorAction(output, firstFast, Action():hint("Talk"):action("use"):func(ModQuest.NCPInteract):interaction(inr_talk))
 		return output
-	end
-
-	-- Function called when the player interacts with the entity
-	entity.Interact = function()
-		if (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_firsttalk")) then
-			QuestSystem.CompleteObjective("q_morebanditcamps", "o_firsttalk")
-			QuestSystem.StartObjective("q_morebanditcamps", "o_destroycamp")
-			ModUtils:LogOnScreen("Here's the location of the bandit camp (firsttalk Completed)")
-		elseif (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_destroycamp")) then
-			QuestSystem.CompleteObjective("q_morebanditcamps", "o_destroycamp")
-			QuestSystem.StartObjective("q_morebanditcamps", "o_reward")
-			ModUtils:LogOnScreen("You've destroyed the bandit camp (destroycamp Completed)")
-		else
-			QuestSystem.CompleteObjective("q_morebanditcamps", "o_reward")
-			ModUtils:LogOnScreen("You've collected your o_reward (reward Completed) - Need to restart the quest")
-		end
 	end
 end

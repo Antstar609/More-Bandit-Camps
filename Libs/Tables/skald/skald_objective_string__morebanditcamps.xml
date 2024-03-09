@@ -7,9 +7,10 @@
 			<column name="string_name" type="character varying"/>
 		</header>
 		<rows>
-			<row skald_element_id="6666661" skald_objective_string_type_id="1" string_name="q_morebanditcamps_o_firsttalk"/>
+			<row skald_element_id="6666661" skald_objective_string_type_id="1" string_name="q_morebanditcamps_o_initialtalk"/>
 			<row skald_element_id="6666662" skald_objective_string_type_id="1" string_name="q_morebanditcamps_o_destroycamp"/>
 			<row skald_element_id="6666663" skald_objective_string_type_id="1" string_name="q_morebanditcamps_o_reward"/>
+			<row skald_element_id="6666664" skald_objective_string_type_id="1" string_name="q_morebanditcamps_o_temp"/>
 		</rows>
 	</table>
 </database>

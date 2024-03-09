@@ -1,8 +1,12 @@
+---@class ModQuest Quest manager
+---@field isNPCSpawned boolean Is the NPC spawned
+---@field isFirstTime boolean Is the first time the player talks to the NPC
 ModQuest = {
 	isNPCSpawned = false,
-	isFirstTime = false
+	isFirstTime = true
 }
 
+--- Start the quest
 function ModQuest:StartQuest()
 	ModUtils:Log("Starting the quest")
 
@@ -14,30 +18,69 @@ function ModQuest:StartQuest()
 
 	QuestSystem.ResetQuest("q_morebanditcamps")
 	QuestSystem.ActivateQuest("q_morebanditcamps")
+
 	if (not QuestSystem.IsQuestStarted("q_morebanditcamps")) then
 		QuestSystem.StartQuest("q_morebanditcamps")
-		if (isFirstTime == false) then
+
+		if (self.isFirstTime == true) then
 			QuestSystem.StartObjective("q_morebanditcamps", "o_initialtalk", false)
-			self.isFirstTime = true
+			ModUtils:LogOnScreen("Inital Talk started")
+		else
+			QuestSystem.StartObjective("q_morebanditcamps", "o_temp", false)
+			ModUtils:LogOnScreen("Temp started")
 		end
-		QuestSystem.StartObjective("q_morebanditcamps", "o_temp", false)
 	end
 end
 
+-- TODO: Add a description
 function ModQuest:NCPInteract()
-	if (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_initialtalk")) then
-		ModCamps:SpawnCamp("TestCamp", "test", "easy")
-		QuestSystem.CompleteObjective("q_morebanditcamps", "o_initialtalk")
-		QuestSystem.StartObjective("q_morebanditcamps", "o_destroycamp")
-		ModUtils:LogOnScreen("Here's the location of the bandit camp (initialtalk Completed)")
-	elseif (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_destroycamp")) then
-		QuestSystem.CompleteObjective("q_morebanditcamps", "o_destroycamp")
-		QuestSystem.StartObjective("q_morebanditcamps", "o_reward")
-		ModUtils:LogOnScreen("You've destroyed the bandit camp (destroycamp Completed)")
+	-- self doesn't work here
+	
+	if (ModQuest.isFirstTime == true) then
+		if (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_initialtalk")) then
+			-- if the initialtalk is not completed complete it and start the objective to destroy the camp
+			
+			ModCamps:SpawnCamp("TestCamp", "test", "easy")
+
+			QuestSystem.CompleteObjective("q_morebanditcamps", "o_initialtalk")
+			QuestSystem.StartObjective("q_morebanditcamps", "o_destroycamp")
+
+			ModUtils:LogOnScreen("Here's the location of the bandit camp (initialtalk Completed)")
+		elseif (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_destroycamp")) then
+			-- if the destroycamp is not completed complete it and start the objective to collect the reward
+
+			QuestSystem.CompleteObjective("q_morebanditcamps", "o_destroycamp")
+			QuestSystem.StartObjective("q_morebanditcamps", "o_reward")
+
+			ModUtils:LogOnScreen("You've destroyed the bandit camp (destroycamp Completed)")
+		else
+			-- else complete the reward and start the quest again
+			
+			QuestSystem.CompleteObjective("q_morebanditcamps", "o_reward")
+			ModQuest.isFirstTime = false
+			ModQuest:StartQuest()
+			ModUtils:LogOnScreen("You've collected your reward (reward Completed)")
+		end
 	else
-		QuestSystem.CompleteObjective("q_morebanditcamps", "o_reward")
-		-- self doesn't work here
-		ModQuest:StartQuest()
-		ModUtils:LogOnScreen("You've collected your reward (reward Completed) - Need to restart the quest")
+		-- same here but with if its not the time the player has talked to the npc
+		if (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_temp")) then
+
+			ModCamps:SpawnCamp("TestCamp", "test", "easy")
+
+			QuestSystem.CompleteObjective("q_morebanditcamps", "o_temp")
+			QuestSystem.StartObjective("q_morebanditcamps", "o_destroycamp")
+
+			ModUtils:LogOnScreen("Here's the location of the bandit camp (temp Completed)")
+		elseif (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_destroycamp")) then
+
+			QuestSystem.CompleteObjective("q_morebanditcamps", "o_destroycamp")
+			QuestSystem.StartObjective("q_morebanditcamps", "o_reward")
+
+			ModUtils:LogOnScreen("You've destroyed the bandit camp (destroycamp Completed)")
+		else
+			QuestSystem.CompleteObjective("q_morebanditcamps", "o_reward")
+			ModQuest:StartQuest()
+			ModUtils:LogOnScreen("You've collected your reward (reward Completed)")
+		end
 	end
 end

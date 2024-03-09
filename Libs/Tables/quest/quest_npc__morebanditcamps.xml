@@ -9,7 +9,7 @@
 			<column name="soul_id" type="uuid"/>
 		</header>
 		<rows>
-			<row quest_asset_id="1" quest_id="999999999" soul_class_id="0" soul_faction_id="" soul_id="4c3d7dfa-de2e-8ac7-3d7c-077a8eddb892"/>
+			<row quest_asset_id="1" quest_id="999999999" soul_class_id="0" soul_faction_id="" soul_id="f9fcb273-bc36-469d-b67e-e510d69e094c"/>
 		</rows>
 	</table>
 </database>

@@ -1,4 +1,0 @@
-<Entity
-        Name="QuestEntity"
-        Script="scripts/entities/quest_entity.lua"
-/>

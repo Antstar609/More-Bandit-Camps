@@ -1,8 +1,6 @@
 ---@class ModQuest Quest manager
----@field isNPCSpawned boolean Is the NPC spawned
 ---@field isFirstTime boolean Is the first time the player talks to the NPC
 ModQuest = {
-	isNPCSpawned = false,
 	isFirstTime = true
 }
 
@@ -10,10 +8,9 @@ ModQuest = {
 function ModQuest:StartQuest()
 	ModUtils:Log("Starting the quest")
 
-	if (self.isNPCSpawned == false) then
+	if (System.GetEntityByName("marechal") == nil) then
 		ModSoul:SpawnMarechal(ModCamps.locations.marechal, { x = 0, y = 0, z = 90 })
 		ModUtils:LogOnScreen("The marechal has been spawned (StartQuest)")
-		self.isNPCSpawned = true
 	end
 
 	QuestSystem.ResetQuest("q_morebanditcamps")

@@ -1,11 +1,8 @@
 --- @class ModCamps Manage camps entities
---- @field campEntities table List of camp entities
 --- @field locations table List of different spawning locations
 --- @field difficulty table List of different difficulties
 --- @field meshes table List of different meshes to spawn (string)
 ModCamps = {
-	campEntities = {},
-
 	locations = {
 		test = { x = 526, y = 3560, z = 27 },
 		marechal = { x = 983.452, y = 1554.807, z = 25.205 },
@@ -43,21 +40,14 @@ function ModCamps:SpawnCamp(_campName, _locationName, _difficulty)
 	}
 	local camp = System.SpawnEntity(spawnParams)
 	camp.name = _campName
-	
-	self:SpawnTagPoint(self.locations[_locationName])
 
 	if (not (type(_difficulty) == "string")) then
 		ModUtils:Log(_campName .. " spawned with default difficulty")
 	end
 	camp.difficulty = self.difficulty[_difficulty] or self.difficulty.easy
 
+	self:SpawnTagPoint(self.locations[_locationName])
 	self:SpawnMeshes(_campName, self.locations[_locationName])
-	
-	table.insert(self.campEntities, camp)
-	
-	for i, v in ipairs(self.campEntities) do
-		ModUtils:Log("campEntities[" .. i .. "]: " .. v.name)
-	end
 end
 
 --- Spawn all meshes for the camp entity
@@ -98,11 +88,10 @@ function ModCamps:SpawnTagPoint(_position)
 		position = { x = _position.x, y = _position.y, z = _position.z },
 		properties = {
 			sharedSoulGuid = "00000000-6666-0000-9999-000000000000",
-			-- fileModel = ""
+			fileModel = ""
 		},
 	}
 	local entity = System.SpawnEntity(spawnParams)
 	entity.AI.invulnerable = false
 	entity.lootable = false
-	entity:Hide()
 end 

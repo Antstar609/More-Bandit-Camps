@@ -9,7 +9,7 @@ ModSoul = {
 	rowOffset = 81,
 
 	soulType = {
-		"villager", "bandit", "guard", "soldier", "cuman", "towns", "miner", "mason",
+		"event_spawn_bandit", "villager", "bandit", "guard", "soldier", "cuman", "towns", "miner", "mason",
 		"wanderer", "bailiff", "merchant", "weaponsmith", "circator", "lumberjack", "baker",
 		"collier", "herold", "watchman", "innkeeper", "monk", "priest", "beggar",
 		"executioner", "tanner", "armorer", "tailor", "blacksmith", "butcher", "shopGuard", "mercenary"
@@ -115,6 +115,7 @@ function ModSoul:SpawnEntityByType(_entityType, _position, _numberOfEntities, _o
 
 		local entity = System.SpawnEntity(spawnParams)
 		entity.AI.invulnerable = true
+		entity.lootable = true
 		entity.lootIsLegal = true
 
 		table.insert(entities, entity)
@@ -146,6 +147,7 @@ function ModSoul:SpawnEntityByLine(_lineNumber, _position)
 
 	local entity = System.SpawnEntity(spawnParams)
 	entity.AI.invulnerable = true
+	entity.lootable = true
 	entity.lootIsLegal = true
 end
 System.AddCCommand(ModMain.prefix .. 'SpawnEntityByLine', 'ModSoul:SpawnEntityByLine(%line)', "")
@@ -174,7 +176,7 @@ System.AddCCommand(ModMain.prefix .. 'SpawnWanderingGuard', 'ModSoul:SpawnWander
 function ModSoul:SpawnMarechal(_position, _orientation)
 	local spawnParams = {
 		class = "NPC",
-		name = "commander",
+		name = "marechal",
 		position = _position,
 		orientation = _orientation,
 		properties = {
@@ -185,7 +187,7 @@ function ModSoul:SpawnMarechal(_position, _orientation)
 	}
 	local entity = System.SpawnEntity(spawnParams)
 	entity.lootable = false
-	entity.AI.invulnerable = true
+	entity.AI.invulnerable = false
 
 	-- To add interaction with the entity
 	entity.GetActions = function(user, firstFast)

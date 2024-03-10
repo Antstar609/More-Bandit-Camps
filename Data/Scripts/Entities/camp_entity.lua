@@ -69,7 +69,7 @@ function CampEntity:CreateCamp()
 	local distance = player:GetDistance(self.id)
 	if (distance <= self.spawnRadius) then
 		if (not self.isFirstSpawn) then
-			self.bandits = ModSoul:SpawnEntityByType("bandit", self:GetWorldPos(), self.difficulty, 3)
+			self.bandits = ModSoul:SpawnEntityByType("event_spawn_bandit", self:GetWorldPos(), self.difficulty, 3)
 			self.isFirstSpawn = true
 			ModUtils:LogOnScreen("INITIAL SPAWN: " .. self.name .. " spawned with " .. self.difficulty .. " bandits")
 		else

@@ -41,7 +41,7 @@ function ModQuest:NCPInteract()
 			-- if the initialtalk is not completed complete it and start the objective to destroy the camp
 			
 			ModCamps:SpawnCamp("TestCamp", "test", "easy")
-
+			
 			QuestSystem.CompleteObjective("q_morebanditcamps", "o_initialtalk")
 			QuestSystem.StartObjective("q_morebanditcamps", "o_destroycamp")
 

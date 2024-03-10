@@ -10,6 +10,7 @@
 		</header>
 		<rows>
 			<row quest_asset_id="1" quest_id="999999999" soul_class_id="0" soul_faction_id="" soul_id="f9fcb273-bc36-469d-b67e-e510d69e094c"/>
+			<row quest_asset_id="2" quest_id="999999999" soul_class_id="0" soul_faction_id="" soul_id="00000000-6666-0000-9999-000000000000"/>
 		</rows>
 	</table>
 </database>

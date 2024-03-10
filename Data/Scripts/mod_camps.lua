@@ -43,6 +43,8 @@ function ModCamps:SpawnCamp(_campName, _locationName, _difficulty)
 	}
 	local camp = System.SpawnEntity(spawnParams)
 	camp.name = _campName
+	
+	self:SpawnTagPoint(self.locations[_locationName])
 
 	if (not (type(_difficulty) == "string")) then
 		ModUtils:Log(_campName .. " spawned with default difficulty")
@@ -87,3 +89,20 @@ function ModCamps:SpawnMeshes(_campName, _position)
 	local randomCrate = math.random(1, #self.meshes.crates)
 	crate:LoadObject(0, self.meshes.crates[randomCrate])
 end
+
+--- Spawn an invisible npc to use it as a tag point for the camp entity
+function ModCamps:SpawnTagPoint(_position)
+	local spawnParams = {
+		class = "NPC",
+		name = "tagpoint",
+		position = { x = _position.x, y = _position.y, z = _position.z },
+		properties = {
+			sharedSoulGuid = "00000000-6666-0000-9999-000000000000",
+			-- fileModel = ""
+		},
+	}
+	local entity = System.SpawnEntity(spawnParams)
+	entity.AI.invulnerable = false
+	entity.lootable = false
+	entity:Hide()
+end 

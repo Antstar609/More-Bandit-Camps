@@ -9,7 +9,7 @@
 			<column name="show_as_area" type="boolean"/>
 		</header>
 		<rows>
-			<row entity="CampEntity" map="" quest_asset_id="1" quest_id="999999999" show_as_area="False"/>
+<!--			<row entity="tagPoint" map="" quest_asset_id="2" quest_id="999999999" show_as_area="False"/>-->
 		</rows>
 	</table>
 </database>

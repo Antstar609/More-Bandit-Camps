@@ -4,8 +4,7 @@
 --- @field meshes table List of different meshes to spawn (string)
 ModCamps = {
 	locations = {
-		test = { x = 526, y = 3560, z = 27 },
-		marechal = { x = 983.452, y = 1554.807, z = 25.205 },
+		test = { x = 526, y = 3560, z = 27 }
 	},
 
 	difficulty = {

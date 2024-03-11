@@ -27,7 +27,7 @@ System.AddCCommand(ModMain.prefix .. 'Loc', 'ModUtils:PrintLoc()', "Prints the p
 --- @param _xyz string Position to teleport to (x y z) or camp name (test)
 function ModUtils:Teleport(_xyz)
 	if (_xyz == "quest") then
-		local pos = { x = ModCamps.locations.marechal.x, y = ModCamps.locations.marechal.y + 2, z = ModCamps.locations.marechal.z }
+		local pos = { x = ModQuest.npcLocation.x, y = ModQuest.npcLocation.y + 2, z = ModQuest.npcLocation.z }
 		self:LogOnScreen("Teleported to quest objective", true)
 		player:SetWorldPos(pos)
 		return
@@ -93,14 +93,14 @@ function ModUtils:QuestSequence()
 		end
 	else
 		-- same here but with if its not the time the player has talked to the npc
-		if (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_temp")) then
+		if (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_talk")) then
 
 			ModCamps:SpawnCamp("TestCamp", "test", "easy")
 
-			QuestSystem.CompleteObjective("q_morebanditcamps", "o_temp")
+			QuestSystem.CompleteObjective("q_morebanditcamps", "o_talk")
 			QuestSystem.StartObjective("q_morebanditcamps", "o_destroycamp")
 
-			ModUtils:LogOnScreen("Here's the location of the bandit camp (temp Completed)")
+			ModUtils:LogOnScreen("Here's the location of the bandit camp (talk Completed)")
 		elseif (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_destroycamp")) then
 
 			QuestSystem.CompleteObjective("q_morebanditcamps", "o_destroycamp")

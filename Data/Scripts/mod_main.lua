@@ -18,7 +18,10 @@ function ModMain:sceneInitListener(_actionName, _eventName, _eventArgs)
 		-- When the scene is loaded
 		ModUtils:Log(self.name .. " loaded " .. "(v" .. self.version .. ")")
 
-		--System.SpawnEntity({name = "LocEntity", class = "TestEntity", position = {x = 0, y = 0, z = 0}})
+		if (System.GetEntityByName("saveEntity") == nil) then
+			System.SpawnEntity({ name = "saveEntity", class = "SaveEntity", position = { x = 0, y = 0, z = 0 } })
+		end
+		
 		ModQuest:StartQuest()
 	end
 end

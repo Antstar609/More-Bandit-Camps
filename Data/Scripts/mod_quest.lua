@@ -1,9 +1,7 @@
 ---@class ModQuest Quest manager
 ---@field npcPosition table Position of the NPC (x, y, z)
----@field isFirstTime boolean Is the first time the player talks to the NPC
 ModQuest = {
 	npcPosition = { x = 983.452, y = 1554.807, z = 25.205 },
-	isFirstTime = true
 }
 
 --- Start the quest
@@ -13,20 +11,13 @@ function ModQuest:StartQuest()
 	if (System.GetEntityByName("marechal") == nil) then
 		-- spawn npc
 		ModSoul:SpawnMarechal(self.npcPosition, { x = 0, y = 0, z = 90 })
+		SaveEntity.isFirstTalk = true
 		-- reset and activate the quest
 		QuestSystem.ResetQuest("q_morebanditcamps")
 		QuestSystem.ActivateQuest("q_morebanditcamps")
-		ModUtils:Log("The marechal has been spawned")
 	else
-		-- the entity has been cleared i have to set the attributes again
+		-- the entity has been cleared, have to set the attributes again
 		ModSoul:SetMarechalAttributes(System.GetEntityByName("marechal"))
-		-- the state of the quest is saved in the entity
-		
-		-- TODO: save the state of isFirstTime
-		
-		self.isFirstTime = System.GetEntityByName("marechal").questState
-		ModUtils:Log("isFirstTime value : " .. tostring(self.isFirstTime))
-		ModUtils:Log("The marechal is already spawned")
 	end
 
 	-- if the quest is not started, start it and start the objective initialtalk
@@ -40,8 +31,7 @@ end
 --- Restart the quest
 function ModQuest:RestartQuest()
 	ModUtils:Log("Restarting the quest")
-	self.isFirstTime = false
-	System.GetEntityByName("marechal").questState = self.isFirstTime
+	SaveEntity.isFirstTalk = false
 
 	-- reset and activate the quest, no need to spawn a new npc its already there
 	QuestSystem.ResetQuest("q_morebanditcamps")
@@ -58,9 +48,11 @@ end
 --- Interact with the NPC to progress the quest
 function ModQuest:NCPInteract()
 	-- self doesn't work here
-	if (ModQuest.isFirstTime == true) then
+	if (SaveEntity.isFirstTalk == true) then
+		ModUtils:Log("First Talk")
 		ModQuest:QuestSequenceFirstTime()
 	else
+		ModUtils:Log("Talk")
 		ModQuest:QuestSequence()
 	end
 end

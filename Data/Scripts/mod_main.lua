@@ -17,12 +17,8 @@ function ModMain:sceneInitListener(_actionName, _eventName, _eventArgs)
 	if (_actionName == "sys_loadingimagescreen") and (_eventName == "OnEnd") then
 		-- When the scene is loaded
 		ModUtils:Log(self.name .. " loaded " .. "(v" .. self.version .. ")")
-
-		if (System.GetEntityByName("saveEntity") == nil) then
-			System.SpawnEntity({ name = "saveEntity", class = "SaveEntity", position = { x = 0, y = 0, z = 0 } })
-		end
 		
-		ModQuest:StartQuest()
+		ModQuest:InitQuest()
 	end
 end
 

@@ -9,7 +9,7 @@
 		</Cell>
 	</Row>
 	<Row>
-		<Cell>q_morebanditcamps_o_initialtalk</Cell>
+		<Cell>q_morebanditcamps_o_talk</Cell>
 		<Cell>Speak to the Marshal to get the location of the bandit camp.
 		</Cell>
 	</Row>
@@ -21,11 +21,6 @@
 	<Row>
 		<Cell>q_morebanditcamps_o_reward</Cell>
 		<Cell>Return to the Marshal to get your reward.
-		</Cell>
-	</Row>
-	<Row>
-		<Cell>q_morebanditcamps_o_talk</Cell>
-		<Cell>There's more camps to destroy. Go back to the Marshal to get the location of the next bandit camp.
 		</Cell>
 	</Row>
 </Table>

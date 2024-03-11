@@ -18,16 +18,13 @@
 		<rows>
 			<row autocomplete_timeout="" autocomplete_timeout_str="-1" condition="" experience_coef="0"
 				 expiration_timeout_str="-1" is_exclusive="False" is_hidden="False" objective_id="1"
-				 objective_name="o_initialtalk" pos="" quest_id="999999999" time="0"/>
+				 objective_name="o_talk" pos="" quest_id="999999999" time="0"/>
 			<row autocomplete_timeout="" autocomplete_timeout_str="-1" condition="" experience_coef="0"
 				 expiration_timeout_str="-1" is_exclusive="False" is_hidden="False" objective_id="2"
 				 objective_name="o_destroycamp" pos="" quest_id="999999999" time="0"/>
 			<row autocomplete_timeout="" autocomplete_timeout_str="-1" condition="" experience_coef="0"
 				 expiration_timeout_str="-1" is_exclusive="False" is_hidden="False" objective_id="3"
 				 objective_name="o_reward" pos="" quest_id="999999999" time="0"/>
-			<row autocomplete_timeout="" autocomplete_timeout_str="-1" condition="" experience_coef="0"
-				 expiration_timeout_str="-1" is_exclusive="False" is_hidden="False" objective_id="4"
-				 objective_name="o_talk" pos="" quest_id="999999999" time="0"/>
 		</rows>
 	</table>
 </database>

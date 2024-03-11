@@ -173,7 +173,6 @@ System.AddCCommand(ModMain.prefix .. 'SpawnWanderingGuard', 'ModSoul:SpawnWander
 --- Spawn the commander
 --- @param _position table Position of the entity (x, y, z)
 --- @param _orientation table Orientation of the entity (x, y, z)
---- @return table Entity spawned
 function ModSoul:SpawnMarechal(_position, _orientation)
 	local spawnParams = {
 		class = "NPC",
@@ -184,14 +183,15 @@ function ModSoul:SpawnMarechal(_position, _orientation)
 			--TODO: Find a other id and don't forget to also change it in the database (quest_npc)
 			sharedSoulGuid = "4a1e5145-5f2d-51f0-0e90-fab39fc323b0",
 			bSaved_by_game = 1,
+			Saved_by_game = 1,
 		},
 	}
 	local entity = System.SpawnEntity(spawnParams)
 	self:SetMarechalAttributes(entity)
-	
-	return entity
 end
 
+--- Set the marechal attributes
+--- @param _entity table Entity to set the attributes
 function ModSoul:SetMarechalAttributes(_entity)
 	_entity.AI.invulnerable = true
 	_entity.lootable = false

@@ -66,10 +66,6 @@ end
 System.AddCCommand(ModMain.prefix .. 'ShowText', 'ModUtils:ShowText()', "Shows the intro banner from startup")
 
 function ModUtils:DebugQuest()
-	if (SaveEntity.isFirstTalk == true) then
-		ModQuest:QuestSequenceFirstTime()
-	else
-		ModQuest:QuestSequence()
-	end
+	ModQuest:QuestSequence()
 end
 System.AddCCommand(ModMain.prefix .. 'NextObjective', 'ModUtils:DebugQuest()', "Next objective of the quest")

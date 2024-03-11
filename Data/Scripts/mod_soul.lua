@@ -182,17 +182,25 @@ function ModSoul:SpawnMarechal(_position, _orientation)
 		properties = {
 			--TODO: Find a other id and don't forget to also change it in the database (quest_npc)
 			--sharedSoulGuid = "4c3d7dfa-de2e-8ac7-3d7c-077a8eddb892",
-			sharedSoulGuid = "f9fcb273-bc36-469d-b67e-e510d69e094c",
+			sharedSoulGuid = "4a1e5145-5f2d-51f0-0e90-fab39fc323b0",
+			bSaved_by_game = 1,
 		},
+		questState = ModQuest.isFirstTime,
+		test = "ceci est un test"
 	}
 	local entity = System.SpawnEntity(spawnParams)
-	entity.lootable = false
-	entity.AI.invulnerable = false
+	self:SetMarechalAttributes(entity)
+	
+	return entity
+end
 
-	-- To add interaction with the entity
-	entity.GetActions = function(user, firstFast)
+function ModSoul:SetMarechalAttributes(_entity)
+	_entity.AI.invulnerable = true
+	_entity.lootable = false
+
+	_entity.GetActions = function(user, firstFast)
 		local output = {}
 		AddInteractorAction(output, firstFast, Action():hint("Talk"):action("use"):func(ModQuest.NCPInteract):interaction(inr_talk))
 		return output
 	end
-end
+end 

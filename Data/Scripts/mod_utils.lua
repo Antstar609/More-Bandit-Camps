@@ -27,7 +27,7 @@ System.AddCCommand(ModMain.prefix .. 'Loc', 'ModUtils:PrintLoc()', "Prints the p
 --- @param _xyz string Position to teleport to (x y z) or camp name (test)
 function ModUtils:Teleport(_xyz)
 	if (_xyz == "quest") then
-		local pos = { x = ModQuest.npcLocation.x, y = ModQuest.npcLocation.y + 2, z = ModQuest.npcLocation.z }
+		local pos = { x = ModQuest.npcPosition.x, y = ModQuest.npcPosition.y + 2, z = ModQuest.npcPosition.z }
 		self:LogOnScreen("Teleported to quest objective", true)
 		player:SetWorldPos(pos)
 		return

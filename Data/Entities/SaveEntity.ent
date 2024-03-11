@@ -1,0 +1,4 @@
+<Entity
+        Name="SaveEntity"
+        Script="scripts/entities/save_entity.lua"
+/>

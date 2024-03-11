@@ -1,22 +1,24 @@
-TestEntity = {
+SaveEntity = {
 	Client = {},
 	Server = {},
 	Properties = {
-		bSaved_by_game = 0,
+		bSaved_by_game = 1,
 		Saved_by_game = 0,
 		bSerialize = 0
 	},
 	States = {},
+
+	isFirstTalk = false
 }
 
 -- this is called when the player loads a save state - use this for restoring values when a game gets loaded
-function TestEntity:OnLoad(tbl)
-	--ModUtils:Log("TestEntity - OnLoad")
+function SaveEntity:OnLoad(tbl)
+	self.isFirstTalk = tbl.isFirstTalk
 end
 
 -- this is called once, use this for initializing stuff
-function TestEntity.Server:OnInit()
-	ModUtils:Log("TestEntity spawned (shows textbox)")
+function SaveEntity.Server:OnInit()
+	--ModUtils:Log("SaveEntity - OnInit")
 	if (not self.bInitialized) then
 		self:OnReset()
 		self.bInitialized = 1
@@ -24,35 +26,32 @@ function TestEntity.Server:OnInit()
 end
 
 -- this is called once, use this for initializing stuff
-function TestEntity:OnReset()
-	--ModUtils:Log("TestEntity - OnReset")
-	self:Activate(1)
-	ModUtils:ShowTextbox()
+function SaveEntity:OnReset()
+	--ModUtils:Log("SaveEntity - OnReset")
+	self:Activate(0)
 end
 
 -- this is called every frame given the entity has been spawned
-function TestEntity.Client:OnUpdate()
-	--ModUtils:Log("TestEntity - OnUpdate")
-	local playerPos = player:GetWorldPos()
-	ModUtils:LogOnScreen(Vec2Str(playerPos), true)
+function SaveEntity.Client:OnUpdate()
+	--ModUtils:Log("SaveEntity - OnUpdate")
 end
 
 -- this is called when the player saves or updates a save state - storing values for your entities
-function TestEntity:OnPropertyChange()
+function SaveEntity:OnPropertyChange()
 	self:OnReset()
-	--ModUtils:Log("TestEntity - opc")
+	--ModUtils:Log("SaveEntity - opc")
 end
 
-function TestEntity:OnAction(action, activation, value)
-	--ModUtils:Log("TestEntity - OnAction")
+function SaveEntity:OnAction(action, activation, value)
+	--ModUtils:Log("SaveEntity - OnAction")
 end
 
 -- this is called when the player saves or updates a save state - storing values for your entities
-function TestEntity:OnSave(tbl)
-	--ModUtils:Log("TestEntity - OnSave")
+function SaveEntity:OnSave(tbl)
+	tbl.isFirstTalk = self.isFirstTalk
 end
 
-TestEntity.Server.TurnedOn = {
+SaveEntity.Server.TurnedOn = {
 	OnBeginState = function(self)
 		BroadcastEvent(self, "TurnOn")
 	end,
@@ -63,7 +62,7 @@ TestEntity.Server.TurnedOn = {
 	end
 }
 
-TestEntity.Server.TurnedOff = {
+SaveEntity.Server.TurnedOff = {
 	OnBeginState = function(self)
 		BroadcastEvent(self, "TurnOff")
 	end,
@@ -71,10 +70,10 @@ TestEntity.Server.TurnedOff = {
 	end
 }
 
-TestEntity.FlowEvents = {
+SaveEntity.FlowEvents = {
 	Inputs = {
-		TurnOn = { TestEntity.Event_TurnOn, "bool" },
-		TurnOff = { TestEntity.Event_TurnOff, "bool" },
+		TurnOn = { SaveEntity.Event_TurnOn, "bool" },
+		TurnOff = { SaveEntity.Event_TurnOff, "bool" },
 	},
 	Outputs = {
 		TurnOn = "bool",

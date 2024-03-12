@@ -11,7 +11,7 @@ function ModQuest:InitQuest()
 		ModSoul:SpawnMarechal(self.npcPosition, { x = 0, y = 0, z = 90 })
 		-- reset and activate the quest
 		QuestSystem.ResetQuest("q_morebanditcamps")
-		QuestSystem.ActivateQuest("q_morebanditcamps")
+		QuestSystem.ActivateQuest("q_morebanditcamps", false)
 	else
 		-- the entity has been cleared, have to set the attributes again
 		ModSoul:SetMarechalAttributes(System.GetEntityByName("marechal"))
@@ -28,7 +28,7 @@ end
 function ModQuest:RestartQuest()
 	-- reset and activate the quest, no need to spawn a new npc its already there
 	QuestSystem.ResetQuest("q_morebanditcamps")
-	QuestSystem.ActivateQuest("q_morebanditcamps")
+	QuestSystem.ActivateQuest("q_morebanditcamps", false)
 
 	-- if the quest is not started, start it and start the objective talk
 	if (not QuestSystem.IsQuestStarted("q_morebanditcamps")) then
@@ -50,18 +50,18 @@ function ModQuest:QuestSequence()
 
 		ModCamps:SpawnCamp("TestCamp", "test", "easy")
 
-		QuestSystem.CompleteObjective("q_morebanditcamps", "o_talk")
-		QuestSystem.StartObjective("q_morebanditcamps", "o_destroycamp")
+		QuestSystem.CompleteObjective("q_morebanditcamps", "o_talk", false)
+		QuestSystem.StartObjective("q_morebanditcamps", "o_destroycamp", false)
 
 		ModUtils:LogOnScreen("Here's the location of the bandit camp")
 	elseif (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_destroycamp")) then
 
-		QuestSystem.CompleteObjective("q_morebanditcamps", "o_destroycamp")
-		QuestSystem.StartObjective("q_morebanditcamps", "o_reward")
+		QuestSystem.CompleteObjective("q_morebanditcamps", "o_destroycamp", false)
+		QuestSystem.StartObjective("q_morebanditcamps", "o_reward", false)
 
 		ModUtils:LogOnScreen("You've destroyed the bandit camp")
 	else
-		QuestSystem.CompleteObjective("q_morebanditcamps", "o_reward")
+		QuestSystem.CompleteObjective("q_morebanditcamps", "o_reward", false)
 
 		ModQuest:RestartQuest()
 

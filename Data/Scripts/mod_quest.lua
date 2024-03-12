@@ -68,3 +68,9 @@ function ModQuest:QuestSequence()
 		ModUtils:LogOnScreen("You've collected your reward")
 	end
 end
+
+--- Command to debug the quest
+function ModQuest:DebugQuest()
+	self:QuestSequence()
+end
+System.AddCCommand(ModMain.prefix .. 'NextObjective', 'ModQuest:DebugQuest()', "Next objective of the quest")

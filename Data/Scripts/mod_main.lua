@@ -17,7 +17,7 @@ function ModMain:sceneInitListener(_actionName, _eventName, _eventArgs)
 	if (_actionName == "sys_loadingimagescreen") and (_eventName == "OnEnd") then
 		-- When the scene is loaded
 		ModUtils:Log(self.name .. " loaded " .. "(v" .. self.version .. ")")
-		
+		ModUtils:ShowTextbox()
 		ModQuest:InitQuest()
 	end
 end

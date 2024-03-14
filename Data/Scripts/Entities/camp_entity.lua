@@ -4,9 +4,9 @@
 --- @field difficulty number Difficulty of the camp
 --- @field spawnRadius number Radius around the camp to spawn entities when the player is within
 --- @field despawnRadius number Radius around the camp to despawn entities when the player is outside
---- @field isFirstSpawn boolean True if the camp has been spawned at least once
---- @field isSpawned boolean True if the camp is spawned
---- @field isDestroyed boolean True if the camp is destroyed
+--- @field isFirstEntitiesSpawning boolean True if the camp has been spawned at least once
+--- @field isEntitiesSpawned boolean True if the camp is spawned
+--- @field isDefeated boolean True if the camp is defeated
 CampEntity = {
 	Client = {},
 	Server = {},
@@ -20,13 +20,18 @@ CampEntity = {
 	bandits = {},
 	name = "",
 	difficulty = 0,
+
 	spawnRadius = 5,
 	despawnRadius = 20,
-	isFirstSpawn = false,
-	isSpawned = false,
+
+	meshes = {},
+	tagpoint = nil,
+
+	isFirstEntitiesSpawning = false,
+	isEntitiesSpawned = false,
 
 	-- to be saved
-	isDestroyed = false,
+	isDefeated = false,
 }
 
 -- this is called when the player loads a save state - use this for restoring values when a game gets loaded
@@ -51,15 +56,22 @@ end
 -- this is called every frame given the entity has been spawned
 function CampEntity.Client:OnUpdate()
 	--ModUtils:Log("CampEntity - OnUpdate")
-	if (not self.isSpawned) then
+	if (not self.isEntitiesSpawned) then
 		self:CreateCamp()
 	else
-		if (not self.isDestroyed) then
+		if (not self.isDefeated) then
 			-- check if the player is outside the despawn radius then despawn the camp
-			self:DespawnEntites()
-			-- check if the camp is destroyed
+			self:DespawnEntities()
+			-- check if the camp is defeated
 			self:CheckCampStatus()
 		end
+	end
+
+	if (self.isDefeated == true) then
+		-- validate the quest sequence
+		ModQuest:DestroyCamp()
+		-- check if the player is outside the despawn radius then destroy the camp
+		self:DestroyCamp()
 	end
 end
 
@@ -68,14 +80,14 @@ function CampEntity:CreateCamp()
 	-- check if the player is within the spawn radius
 	local distance = player:GetDistance(self.id)
 	if (distance <= self.spawnRadius) then
-		if (not self.isFirstSpawn) then
+		if (not self.isFirstEntitiesSpawning) then
 			self.bandits = ModSoul:SpawnEntityByType("event_spawn_bandit", self:GetWorldPos(), self.difficulty, 3)
-			self.isFirstSpawn = true
-			ModUtils:LogOnScreen("INITIAL SPAWN: " .. self.name .. " spawned with " .. self.difficulty .. " bandits")
+			self.isFirstEntitiesSpawning = true
+			--ModUtils:LogOnScreen("INITIAL SPAWN: " .. self.name .. " spawned with " .. self.difficulty .. " bandits")
 		else
 			self:RespawnEntities(self:GetWorldPos())
 		end
-		self.isSpawned = true
+		self.isEntitiesSpawned = true
 	end
 end
 
@@ -88,8 +100,8 @@ function CampEntity:CheckCampStatus()
 	end
 
 	if (next(self.bandits) == nil) then
-		self.isDestroyed = true
-		ModUtils:LogOnScreen(self.name .. " destroyed ")
+		self.isDefeated = true
+		--ModUtils:LogOnScreen(self.name .. " defeated")
 	end
 end
 
@@ -119,11 +131,11 @@ function CampEntity:RespawnEntities(_position)
 		-- replace the old entity with the new one
 		self.bandits[i] = entity
 	end
-	ModUtils:LogOnScreen(self.name .. " spawned with " .. #self.bandits .. " bandits ")
+	--ModUtils:LogOnScreen(self.name .. " spawned with " .. #self.bandits .. " bandits")
 end
 
 --- Despawn the camp if the player is outside the despawn radius
-function CampEntity:DespawnEntites()
+function CampEntity:DespawnEntities()
 	local distance = player:GetDistance(self.id)
 	if (distance >= self.despawnRadius) then
 		for _, bandit in pairs(self.bandits) do
@@ -131,8 +143,23 @@ function CampEntity:DespawnEntites()
 				System.RemoveEntity(bandit.id)
 			end
 		end
-		ModUtils:LogOnScreen(self.name .. " despawned ")
-		self.isSpawned = false
+		--ModUtils:LogOnScreen(self.name .. " despawned")
+		self.isEntitiesSpawned = false
+	end
+end
+
+function CampEntity:DestroyCamp()
+	local distance = player:GetDistance(self.id)
+	if (distance >= self.despawnRadius) then
+		for _, bandit in pairs(self.bandits) do
+			System.RemoveEntity(bandit.id)
+		end
+		for _, mesh in pairs(self.meshes) do
+			System.RemoveEntity(mesh.id)
+		end
+		System.RemoveEntity(self.tagpoint.id)
+		System.RemoveEntity(self.id)
+		--ModUtils:LogOnScreen(self.name .. " destroyed")
 	end
 end
 
@@ -153,7 +180,7 @@ end
 
 CampEntity.Server.TurnedOn = {
 	OnBeginState = function(self)
-		BroadcastEvent(self, "TurnOn ")
+		BroadcastEvent(self, "TurnOn")
 	end,
 	OnUpdate = function(self, dt)
 		--[[ do something every frame, like rendering, ai, ..]]
@@ -164,7 +191,7 @@ CampEntity.Server.TurnedOn = {
 
 CampEntity.Server.TurnedOff = {
 	OnBeginState = function(self)
-		BroadcastEvent(self, "TurnOff ")
+		BroadcastEvent(self, "TurnOff")
 	end,
 	OnEndState = function(self)
 	end
@@ -172,11 +199,11 @@ CampEntity.Server.TurnedOff = {
 
 CampEntity.FlowEvents = {
 	Inputs = {
-		TurnOn = { CampEntity.Event_TurnOn, "bool " },
-		TurnOff = { CampEntity.Event_TurnOff, "bool " },
+		TurnOn = { CampEntity.Event_TurnOn, "bool" },
+		TurnOff = { CampEntity.Event_TurnOff, "bool" },
 	},
 	Outputs = {
-		TurnOn = "bool ",
-		TurnOff = "bool ",
+		TurnOn = "bool",
+		TurnOff = "bool",
 	}
 }

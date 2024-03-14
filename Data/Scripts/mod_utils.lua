@@ -58,9 +58,9 @@ System.AddCCommand(ModMain.prefix .. 'Teleport', 'ModUtils:Teleport(%line)', "Te
 
 --- Shows the intro banner from startup (temporary)
 function ModUtils:ShowTextbox()
-	local message = "<font color='#ff8b00' size='28'>MoreBanditCamps</font>" .. "\n"
+	local message = "<font color='#ff8b00' size='28'>More Bandit Camps</font>" .. "\n"
 			.. "<font color='#333333' size='20'>Antstar609</font>"
 
-	Game.ShowTutorial(message, 20, false, true);
+	Game.ShowTutorial(message, 10, false, true);
 end
 System.AddCCommand(ModMain.prefix .. 'ShowText', 'ModUtils:ShowText()', "Shows the intro banner from startup")

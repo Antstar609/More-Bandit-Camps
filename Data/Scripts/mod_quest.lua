@@ -45,7 +45,20 @@ end
 
 --- Manage the quest sequence
 function ModQuest:QuestSequence()
-	-- same here but with if its not the time the player has talked to the npc
+	if (QuestSystem.IsQuestStarted("q_morebanditcamps")) then
+		if (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_talk")) then
+			ModQuest:Talk()
+		elseif (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_destroycamp")) then
+			ModQuest:DestroyCamp()
+		elseif (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_reward")) then
+			ModQuest:Reward()
+		end
+	end
+end
+System.AddCCommand(ModMain.prefix .. 'NextObjective', 'ModQuest:QuestSequence()', "Pass to the next objective of the quest")
+
+--- Talk to the NPC sequence
+function ModQuest:Talk()
 	if (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_talk")) then
 
 		ModCamps:SpawnCamp("TestCamp", "test", "easy")
@@ -54,13 +67,24 @@ function ModQuest:QuestSequence()
 		QuestSystem.StartObjective("q_morebanditcamps", "o_destroycamp", false)
 
 		ModUtils:LogOnScreen("Here's the location of the bandit camp")
-	elseif (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_destroycamp")) then
+	end
+end
+
+--- Destroy the camp sequence
+function ModQuest:DestroyCamp()
+	if (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_destroycamp")) then
 
 		QuestSystem.CompleteObjective("q_morebanditcamps", "o_destroycamp", false)
 		QuestSystem.StartObjective("q_morebanditcamps", "o_reward", false)
 
 		ModUtils:LogOnScreen("You've destroyed the bandit camp")
-	else
+	end
+end
+
+--- Reward sequence
+function ModQuest:Reward()
+	if (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_reward")) then
+
 		QuestSystem.CompleteObjective("q_morebanditcamps", "o_reward", false)
 
 		ModQuest:RestartQuest()
@@ -68,9 +92,3 @@ function ModQuest:QuestSequence()
 		ModUtils:LogOnScreen("You've collected your reward")
 	end
 end
-
---- Command to debug the quest
-function ModQuest:DebugQuest()
-	self:QuestSequence()
-end
-System.AddCCommand(ModMain.prefix .. 'NextObjective', 'ModQuest:DebugQuest()', "Next objective of the quest")

@@ -59,6 +59,6 @@ function ModUtils:ShowTextbox()
 	local message = "<font color='#ff8b00' size='28'>More Bandit Camps</font>" .. "\n"
 			.. "<font color='#333333' size='20'>Antstar609</font>"
 
-	Game.ShowTutorial(message, 5, false, true);
+	Game.ShowTutorial(message, 3, false, true);
 end
 System.AddCCommand(ModMain.prefix .. 'ShowText', 'ModUtils:ShowText()', "Shows the intro banner from startup")

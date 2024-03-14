@@ -95,7 +95,7 @@ function ModCamps:SpawnTagPoint(_position)
 		position = { x = _position.x, y = _position.y, z = _position.z },
 		properties = {
 			sharedSoulGuid = "00000000-6666-0000-9999-000000000000",
-			fileModel = ""
+			fileModel = "none",
 		},
 	}
 	local entity = System.SpawnEntity(spawnParams)

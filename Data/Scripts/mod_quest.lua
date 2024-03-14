@@ -11,10 +11,20 @@ function ModQuest:InitQuest()
 		ModSoul:SpawnMarechal(self.npcPosition, { x = 0, y = 0, z = 90 })
 		-- reset and activate the quest
 		QuestSystem.ResetQuest("q_morebanditcamps")
-		QuestSystem.ActivateQuest("q_morebanditcamps", false)
+		--QuestSystem.ActivateQuest("q_morebanditcamps", false)
 	else
-		-- the entity has been cleared, have to set the attributes again
-		ModSoul:SetMarechalAttributes(System.GetEntityByName("marechal"))
+		-- remove the old npc and spawn a new one to prevent the entity from being faded when the player is far away
+		System.RemoveEntity(System.GetEntityByName("marechal").id)
+		ModSoul:SpawnMarechal(self.npcPosition, { x = 0, y = 0, z = 90 })
+	end
+
+	-- if there already is a camp spawned, remove it and reset the quest to avoid the tagpoint not showing up
+	if (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_destroycamp")) then
+		if (System.GetEntityByName("TestCamp") ~= nil) then
+			System.RemoveEntity(System.GetEntityByName("TestCamp").id)
+		end
+		-- TODO: Test to start the talk objective instead of restarting the quest
+		QuestSystem.ResetQuest("q_morebanditcamps")
 	end
 
 	-- if the quest is not started, start it and start the objective talk
@@ -28,7 +38,7 @@ end
 function ModQuest:RestartQuest()
 	-- reset and activate the quest, no need to spawn a new npc its already there
 	QuestSystem.ResetQuest("q_morebanditcamps")
-	QuestSystem.ActivateQuest("q_morebanditcamps", false)
+	--QuestSystem.ActivateQuest("q_morebanditcamps", false)
 
 	-- if the quest is not started, start it and start the objective talk
 	if (not QuestSystem.IsQuestStarted("q_morebanditcamps")) then
@@ -40,18 +50,29 @@ end
 --- Interact with the NPC to progress the quest
 function ModQuest:NCPInteract()
 	-- self doesn't work here
-	ModQuest:QuestSequence()
+	ModQuest:DialogueSequence()
 end
 
---- Manage the quest sequence
-function ModQuest:QuestSequence()
+function ModQuest:DialogueSequence()
 	if (QuestSystem.IsQuestStarted("q_morebanditcamps")) then
 		if (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_talk")) then
 			ModQuest:Talk()
 		elseif (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_destroycamp")) then
-			ModQuest:DestroyCamp()
+			ModUtils:LogOnScreen("Destroy the bandit camp first and then come back to me")
 		elseif (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_reward")) then
 			ModQuest:Reward()
+		end
+	end
+end
+
+function ModQuest:QuestSequence()
+	if (QuestSystem.IsQuestStarted("q_morebanditcamps")) then
+		if (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_talk")) then
+			self:Talk()
+		elseif (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_destroycamp")) then
+			self:DestroyCamp()
+		elseif (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_reward")) then
+			self:Reward()
 		end
 	end
 end

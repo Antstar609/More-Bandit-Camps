@@ -6,7 +6,7 @@
 --- @field tagpoint table Tag point for the camp entity
 ModCamps = {
 	spawnedCamp = nil,
-	
+
 	locations = {
 		test = { x = 526, y = 3560, z = 27 }
 	},
@@ -16,7 +16,7 @@ ModCamps = {
 		medium = 3,
 		hard = 4,
 	},
-	
+
 	meshesFilePath = {
 		fireplace = "Objects/buildings/refugee_camp/fireplace.cgf",
 		tents = {
@@ -70,18 +70,18 @@ function ModCamps:SpawnMeshes(_campName, _position)
 	end
 
 	-- fireplace
-	local fireplace = System.SpawnEntity({ class = "BasicEntity", name = "fireplace", position = _position })
+	local fireplace = System.SpawnEntity({ class = "BasicEntity", name = "fireplace", position = _position, properties = { bSaved_by_game = 0 } })
 	fireplace:LoadObject(0, self.meshesFilePath.fireplace)
 	table.insert(self.spawnedCamp.meshes, fireplace)
 
 	-- tents
-	local tent = System.SpawnEntity({ class = "BasicEntity", name = "tent", position = tentPosition, orientation = tentOrientation })
+	local tent = System.SpawnEntity({ class = "BasicEntity", name = "tent", position = tentPosition, orientation = tentOrientation, properties = { bSaved_by_game = 0 } })
 	local randomTent = math.random(1, #self.meshesFilePath.tents)
 	tent:LoadObject(0, self.meshesFilePath.tents[randomTent])
 	table.insert(self.spawnedCamp.meshes, tent)
 
 	-- crates
-	local crate = System.SpawnEntity({ class = "BasicEntity", name = "crate", position = cratePosition, orientation = crateOrientation })
+	local crate = System.SpawnEntity({ class = "BasicEntity", name = "crate", position = cratePosition, orientation = crateOrientation, properties = { bSaved_by_game = 0 } })
 	local randomCrate = math.random(1, #self.meshesFilePath.crates)
 	crate:LoadObject(0, self.meshesFilePath.crates[randomCrate])
 	table.insert(self.spawnedCamp.meshes, crate)

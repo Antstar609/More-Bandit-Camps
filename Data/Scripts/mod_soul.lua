@@ -180,10 +180,8 @@ function ModSoul:SpawnMarechal(_position, _orientation)
 		position = _position,
 		orientation = _orientation,
 		properties = {
-			--TODO: Find a other id and don't forget to also change it in the database (quest_npc)
-			sharedSoulGuid = "4a1e5145-5f2d-51f0-0e90-fab39fc323b0",
+			sharedSoulGuid = "48e0f0d5-27f4-ab1c-8ed4-887830e828a7",
 			bSaved_by_game = 1,
-			Saved_by_game = 1,
 		},
 	}
 	local entity = System.SpawnEntity(spawnParams)

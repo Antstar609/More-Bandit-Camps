@@ -232,7 +232,6 @@ public partial class MainWindow : INotifyPropertyChanged
 			// if in the folder there is a mod.manifest file and a modding_eula.txt file, then it's the right folder
 			var files = Directory.GetFiles(openFileDialog.FileName);
 			var isGame = false;
-			// TODO: find a better way to check if it's the right folder
 			if (files.Any(file => file.Contains("kcd.log")))
 			{
 				isGame = true;

@@ -16,7 +16,6 @@ function ModInventory:DumpPlayerInventory()
 			name = lineInfo.item_name,
 			id = lineInfo.item_id,
 		}
-		-- TODO: Find a way to get the player's items list or to check if the player has a specific item
 		--if (player.inventory:HasItem(ItemManager.GetItem(item.id))) then
 		--	ModUtils:Log("Item: " .. itemID .. " (" .. lineInfo.item_name .. ")")
 		--end

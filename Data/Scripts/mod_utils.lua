@@ -26,16 +26,14 @@ System.AddCCommand(ModMain.prefix .. 'Loc', 'ModUtils:PrintLoc()', "Prints the p
 --- Teleports the player to the given position
 --- @param _xyz string Position to teleport to (x y z) or camp name (test)
 function ModUtils:Teleport(_xyz)
-	if (_xyz == "quest") then
+	if (_xyz == "npc") then
 		local pos = { x = ModQuest.npcPosition.x, y = ModQuest.npcPosition.y + 2, z = ModQuest.npcPosition.z }
-		self:LogOnScreen("Teleported to quest objective", true)
 		player:SetWorldPos(pos)
 		return
 	end
 
 	if (_xyz == "camp") then
 		local pos = ModCamps.locations["test"]
-		self:LogOnScreen("Teleported to test camp", true)
 		player:SetWorldPos(pos)
 		return
 	end
@@ -61,6 +59,6 @@ function ModUtils:ShowTextbox()
 	local message = "<font color='#ff8b00' size='28'>More Bandit Camps</font>" .. "\n"
 			.. "<font color='#333333' size='20'>Antstar609</font>"
 
-	Game.ShowTutorial(message, 10, false, true);
+	Game.ShowTutorial(message, 5, false, true);
 end
 System.AddCCommand(ModMain.prefix .. 'ShowText', 'ModUtils:ShowText()', "Shows the intro banner from startup")

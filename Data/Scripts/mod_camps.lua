@@ -49,14 +49,14 @@ function ModCamps:SpawnCamp(_locationName, _difficulty, _isWithoutTagpoint)
 	camp.difficulty = self.difficulty[_difficulty] or self.difficulty.easy
 	self.spawnedCamp = camp
 
+	self:SpawnMeshes(_locationName, self.locations[_locationName])
+	
 	if (not _isWithoutTagpoint) then
 		self:SpawnTagPoint(self.locations[_locationName])
 		ModUtils:Log("Spawned camp with tagpoint")
 	else
 		ModUtils:Log("Spawned camp without tagpoint")
 	end
-	
-	self:SpawnMeshes(_campName, self.locations[_locationName])
 end
 
 --- Spawn all meshes for the camp entity

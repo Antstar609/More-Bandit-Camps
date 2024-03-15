@@ -20,11 +20,11 @@ function ModQuest:InitQuest()
 
 	-- if there already is a camp spawned, remove it and reset the quest to avoid the tagpoint not showing up
 	if (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_destroycamp")) then
-		if (System.GetEntityByName("TestCamp") ~= nil) then
-			System.RemoveEntity(System.GetEntityByName("TestCamp").id)
+		if (System.GetEntityByName("Camp") ~= nil) then
+			System.RemoveEntity(System.GetEntityByName("Camp").id)
+			ModCamps:SpawnCamp("test", "easy", true)
+			ModUtils:Log("Camp removed")
 		end
-		-- TODO: Test to start the talk objective instead of restarting the quest
-		QuestSystem.ResetQuest("q_morebanditcamps")
 	end
 
 	-- if the quest is not started, start it and start the objective talk
@@ -82,7 +82,7 @@ System.AddCCommand(ModMain.prefix .. 'NextObjective', 'ModQuest:QuestSequence()'
 function ModQuest:Talk()
 	if (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_talk")) then
 
-		ModCamps:SpawnCamp("TestCamp", "test", "easy")
+		ModCamps:SpawnCamp("test", "easy", false)
 
 		QuestSystem.CompleteObjective("q_morebanditcamps", "o_talk", false)
 		QuestSystem.StartObjective("q_morebanditcamps", "o_destroycamp", false)

@@ -32,13 +32,12 @@ ModCamps = {
 }
 
 --- Spawn a camp entity at the given location with the given difficulty
---- @param _campName string Name of the camp entity
 --- @param _locationName string Name of the location
 --- @param _difficulty string Difficulty of the camp (default: easy)
-function ModCamps:SpawnCamp(_campName, _locationName, _difficulty)
+function ModCamps:SpawnCamp(_locationName, _difficulty, _isWithoutTagpoint)
 	local spawnParams = {
 		class = "CampEntity",
-		name = _campName,
+		name = "Camp",
 		position = self.locations[_locationName],
 	}
 	local camp = System.SpawnEntity(spawnParams)
@@ -50,18 +49,24 @@ function ModCamps:SpawnCamp(_campName, _locationName, _difficulty)
 	camp.difficulty = self.difficulty[_difficulty] or self.difficulty.easy
 	self.spawnedCamp = camp
 
-	self:SpawnTagPoint(self.locations[_locationName])
+	if (not _isWithoutTagpoint) then
+		self:SpawnTagPoint(self.locations[_locationName])
+		ModUtils:Log("Spawned camp with tagpoint")
+	else
+		ModUtils:Log("Spawned camp without tagpoint")
+	end
+	
 	self:SpawnMeshes(_campName, self.locations[_locationName])
 end
 
 --- Spawn all meshes for the camp entity
---- @param _campName string Name of the camp entity
+--- @param _locationName string Name of the camp entity
 --- @param _position table Position of the camp entity (x, y, z)
-function ModCamps:SpawnMeshes(_campName, _position)
+function ModCamps:SpawnMeshes(_locationName, _position)
 
 	local tentPosition, tentOrientation, cratePosition, crateOrientation = { x = 0, y = 0, z = 0 }
 
-	if (_campName == "TestCamp") then
+	if (_locationName == "test") then
 		tentPosition = { x = 525, y = 3563, z = 27 }
 		tentOrientation = { x = 0, y = 360, z = 0 }
 

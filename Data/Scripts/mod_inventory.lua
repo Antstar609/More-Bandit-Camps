@@ -1,10 +1,15 @@
 --- @class ModInventory Manages player inventory and items
-ModInventory = {}
+ModInventory = {
+	inventory = {
+		name = "",
+		id = "",
+	}
+}
 
 --- Dump the player's inventory to the log
 function ModInventory:DumpPlayerInventory()
-	local count = player.inventory:GetCount()
-	ModUtils:Log("Inventory count: " .. count)
+	--local count = player.inventory:GetCount()
+	--ModUtils:Log("Inventory count: " .. count)
 
 	Database.LoadTable("item")
 	local tableData = Database.GetTableInfo("item")
@@ -18,7 +23,7 @@ function ModInventory:DumpPlayerInventory()
 		}
 
 		if (Utils.HasItem(player, item.id)) then
-			ModUtils:Log("Item: " .. item.name .. " (" .. item.id .. ")")
+			table.insert(self.inventory, item)
 		end
 	end
 end
@@ -33,3 +38,16 @@ function ModInventory:EquipItem(_itemID)
 	player.actor:EquipInventoryItem(id)
 end
 System.AddCCommand(ModMain.prefix .. 'EquipItem', 'ModInventory:EquipItem(%line)', "Equips an item to the player")
+
+function ModInventory:TestInventory()
+	if (self.inventory == nil) then
+		ModUtils:Log("Run DumpPlayerInventory first")
+		return
+	end
+	
+	ModUtils:Log("Inventory count: " .. #self.inventory .. " / Count from player: " .. player.inventory:GetCount())
+	for _, item in ipairs(self.inventory) do
+		ModUtils:Log("Item: " .. item.name .. " (" .. item.id .. ")")
+	end
+end
+System.AddCCommand(ModMain.prefix .. 'TestInventory', 'ModInventory:TestInventory()', "Tests the inventory")

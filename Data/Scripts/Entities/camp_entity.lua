@@ -157,7 +157,9 @@ function CampEntity:DestroyCamp()
 		for _, mesh in pairs(self.meshes) do
 			System.RemoveEntity(mesh.id)
 		end
-		System.RemoveEntity(self.tagpoint.id)
+		if (self.tagpoint ~= nil) then
+			System.RemoveEntity(self.tagpoint.id)
+		end
 		System.RemoveEntity(self.id)
 		--ModUtils:LogOnScreen(self.name .. " destroyed")
 	end

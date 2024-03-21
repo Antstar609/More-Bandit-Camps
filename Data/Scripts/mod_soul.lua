@@ -196,7 +196,7 @@ function ModSoul:SetMarechalAttributes(_entity)
 
 	_entity.GetActions = function(user, firstFast)
 		local output = {}
-		AddInteractorAction(output, firstFast, Action():hint("Talk"):action("use"):func(ModQuest.NCPInteract):interaction(inr_talk))
+		AddInteractorAction(output, firstFast, Action():hint("@ui_hud_talk"):action("use"):func(ModQuest.NCPInteract):interaction(inr_talk))
 		return output
 	end
 end 

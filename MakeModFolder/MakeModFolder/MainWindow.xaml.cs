@@ -82,7 +82,7 @@ public partial class MainWindow : INotifyPropertyChanged
 		{
 			if (directory.Contains("Data") && !isDatazipped)
 			{
-				var dataPath = modPath + "\\Data\\data.pak";
+				var dataPath = modPath + "\\Data\\Data.pak";
 				ZipFile.CreateFromDirectory(directory, dataPath, CompressionLevel.Optimal,
 					false);
 				isDatazipped = true;
@@ -90,7 +90,7 @@ public partial class MainWindow : INotifyPropertyChanged
 
 			if (directory.Contains("Libs") && !isTablesZipped)
 			{
-				var tablesPath = modPath + "\\Data\\tables.pak";
+				var tablesPath = modPath + "\\Data\\Tables.pak";
 				ZipFile.CreateFromDirectory(directory, tablesPath, CompressionLevel.Optimal,
 					true);
 				isTablesZipped = true;
@@ -109,7 +109,7 @@ public partial class MainWindow : INotifyPropertyChanged
 				
 				foreach (var localizationDirectory in localizationDirectories)
 				{
-					var localizationPath = modPath + "\\Localization\\" + Path.GetFileName(localizationDirectory).ToLower() + "_xml.pak";
+					var localizationPath = modPath + "\\Localization\\" + Path.GetFileName(localizationDirectory) + "_xml.pak";
 					ZipFile.CreateFromDirectory(localizationDirectory, localizationPath,
 						CompressionLevel.Optimal, false);
 				}

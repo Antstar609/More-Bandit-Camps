@@ -58,7 +58,7 @@ function ModQuest:DialogueSequence()
 		if (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_talk")) then
 			ModQuest:Talk()
 		elseif (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_destroycamp")) then
-			ModUtils:LogOnScreen("Destroy the bandit camp first and then come back to me")
+			ModUtils:LogOnScreen("@logOnScreen_waiting")
 		elseif (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_reward")) then
 			ModQuest:Reward()
 		end
@@ -87,7 +87,7 @@ function ModQuest:Talk()
 		QuestSystem.CompleteObjective("q_morebanditcamps", "o_talk", false)
 		QuestSystem.StartObjective("q_morebanditcamps", "o_destroycamp", false)
 
-		ModUtils:LogOnScreen("Here's the location of the bandit camp")
+		ModUtils:LogOnScreen("@logOnScreen_location")
 	end
 end
 
@@ -98,7 +98,7 @@ function ModQuest:DestroyCamp()
 		QuestSystem.CompleteObjective("q_morebanditcamps", "o_destroycamp", false)
 		QuestSystem.StartObjective("q_morebanditcamps", "o_reward", false)
 
-		ModUtils:LogOnScreen("You've destroyed the bandit camp")
+		ModUtils:LogOnScreen("@logOnScreen_destroyed")
 	end
 end
 
@@ -107,9 +107,8 @@ function ModQuest:Reward()
 	if (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_reward")) then
 
 		QuestSystem.CompleteObjective("q_morebanditcamps", "o_reward", false)
+		AddMoneyToInventory(player, 1000 * 10)
 
 		ModQuest:RestartQuest()
-
-		ModUtils:LogOnScreen("You've collected your reward")
 	end
 end

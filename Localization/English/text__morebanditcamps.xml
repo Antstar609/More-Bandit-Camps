@@ -5,22 +5,33 @@
 	</Row>
 	<Row>
 		<Cell>q_morebanditcamps_description</Cell>
-		<Cell>[Infinite Quest] There's news of new bandit camp that has been attacking caravans and travelers. The Marshal has asked you to talk to him to get more information about the bandit camp and to help him destroy it.
+		<Cell>[Infinite Quest] There's news of new bandit camp that has been attacking caravans and travelers. The
+			Marshal has asked you to talk to him to get more information about the bandit camp and to help him destroy
+			it.
 		</Cell>
 	</Row>
 	<Row>
 		<Cell>q_morebanditcamps_o_talk</Cell>
-		<Cell>Speak to the Marshal to get the location of the bandit camp.
-		</Cell>
+		<Cell>Speak to the Marshal to get the location of the bandit camp.</Cell>
 	</Row>
 	<Row>
 		<Cell>q_morebanditcamps_o_destroycamp</Cell>
-		<Cell>Go to the bandit camp and kill all the bandits to destroy it.
-		</Cell>
+		<Cell>Go to the bandit camp and kill all the bandits to destroy it.</Cell>
 	</Row>
 	<Row>
 		<Cell>q_morebanditcamps_o_reward</Cell>
-		<Cell>Return to the Marshal to get your reward.
-		</Cell>
+		<Cell>Return to the Marshal to get your reward.</Cell>
+	</Row>
+	<Row>
+		<Cell>logOnScreen_location</Cell>
+		<Cell>Here's the location of the bandit camp.</Cell>
+	</Row>
+	<Row>
+		<Cell>logOnScreen_waiting</Cell>
+		<Cell>Destroy the bandit camp first and then come back to me.</Cell>
+	</Row>
+	<Row>
+		<Cell>logOnScreen_destroyed</Cell>
+		<Cell>You've destroyed the bandit camp.</Cell>
 	</Row>
 </Table>

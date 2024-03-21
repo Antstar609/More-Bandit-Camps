@@ -5,22 +5,33 @@
 	</Row>
 	<Row>
 		<Cell>q_morebanditcamps_description</Cell>
-		<Cell>[Quête Infinie] Il y a des nouvelles d'un nouveau camp de bandits qui attaque les caravanes et les voyageurs. Le maréchal vous a demandé de lui parler pour obtenir plus d'informations sur le camp de bandits et l'aider à le détruire.
+		<Cell>[Quête Infinie] Il y a des nouvelles d'un nouveau camp de bandits qui attaque les caravanes et les
+			voyageurs. Le maréchal vous a demandé de lui parler pour obtenir plus d'informations sur le camp de bandits
+			et l'aider à le détruire.
 		</Cell>
 	</Row>
 	<Row>
 		<Cell>q_morebanditcamps_o_talk</Cell>
-		<Cell>Parlez au maréchal pour connaître l'emplacement du camp de bandits.
-		</Cell>
+		<Cell>Parlez au maréchal pour connaître l'emplacement du camp de bandits.</Cell>
 	</Row>
 	<Row>
 		<Cell>q_morebanditcamps_o_destroycamp</Cell>
-		<Cell>Rendez vous au camp de bandits et tuez tous les bandits pour le détruire.
-		</Cell>
+		<Cell>Rendez vous au camp de bandits et tuez tous les bandits pour le détruire.</Cell>
 	</Row>
 	<Row>
 		<Cell>q_morebanditcamps_o_reward</Cell>
-		<Cell>Retournez voir le maréchal pour obtenir votre récompense.
-		</Cell>
+		<Cell>Retournez voir le maréchal pour obtenir votre récompense.</Cell>
+	</Row>
+	<Row>
+		<Cell>logOnScreen_location</Cell>
+		<Cell>Voici l'emplacement du camp de bandits.</Cell>
+	</Row>
+	<Row>
+		<Cell>logOnScreen_waiting</Cell>
+		<Cell>Détruisez d'abord le camp de bandits et revenez ensuite vers moi.</Cell>
+	</Row>
+	<Row>
+		<Cell>logOnScreen_destroyed</Cell>
+		<Cell>You've destroyed the bandit camp</Cell>
 	</Row>
 </Table>

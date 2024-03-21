@@ -22,15 +22,15 @@
 		<Cell>Return to the soldier to get your reward.</Cell>
 	</Row>
 	<Row>
-		<Cell>LogOnScreen_location</Cell>
+		<Cell>ui_text_npc_location</Cell>
 		<Cell>Here's the location of the camp.</Cell>
 	</Row>
 	<Row>
-		<Cell>LogOnScreen_waiting</Cell>
+		<Cell>ui_text_npc_waiting</Cell>
 		<Cell>Destroy the bandit camp first and then come back to me.</Cell>
 	</Row>
 	<Row>
-		<Cell>LogOnScreen_destroyed</Cell>
+		<Cell>ui_text_npc_destroyed</Cell>
 		<Cell>You've destroyed the camp.</Cell>
 	</Row>
 </Table>

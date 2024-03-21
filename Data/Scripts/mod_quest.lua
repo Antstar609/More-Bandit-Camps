@@ -58,7 +58,7 @@ function ModQuest:DialogueSequence()
 		if (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_talk")) then
 			ModQuest:Talk()
 		elseif (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_destroycamp")) then
-			ModUtils:LogOnScreen("@LogOnScreen_waiting")
+			ModUtils:LogOnScreen("@ui_text_npc_waiting")
 		elseif (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_reward")) then
 			ModQuest:Reward()
 		end
@@ -87,7 +87,7 @@ function ModQuest:Talk()
 		QuestSystem.CompleteObjective("q_morebanditcamps", "o_talk", false)
 		QuestSystem.StartObjective("q_morebanditcamps", "o_destroycamp", false)
 
-		ModUtils:LogOnScreen("@LogOnScreen_location")
+		ModUtils:LogOnScreen("@ui_text_npc_location")
 	end
 end
 
@@ -98,7 +98,7 @@ function ModQuest:DestroyCamp()
 		QuestSystem.CompleteObjective("q_morebanditcamps", "o_destroycamp", false)
 		QuestSystem.StartObjective("q_morebanditcamps", "o_reward", false)
 
-		ModUtils:LogOnScreen("@LogOnScreen_destroyed")
+		ModUtils:LogOnScreen("@ui_text_npc_destroyed")
 	end
 end
 

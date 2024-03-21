@@ -40,7 +40,7 @@ end
 System.AddCCommand(ModMain.prefix .. 'EquipItem', 'ModInventory:EquipItem(%line)', "Equips an item to the player")
 
 function ModInventory:TestInventory()
-	if (self.inventory == nil) then
+	if (#self.inventory == 0) then
 		ModUtils:Log("Run DumpPlayerInventory first")
 		return
 	end

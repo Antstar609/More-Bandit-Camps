@@ -16,9 +16,10 @@ function ModInventory:DumpPlayerInventory()
 			name = lineInfo.item_name,
 			id = lineInfo.item_id,
 		}
-		--if (player.inventory:HasItem(ItemManager.GetItem(item.id))) then
-		--	ModUtils:Log("Item: " .. itemID .. " (" .. lineInfo.item_name .. ")")
-		--end
+
+		if (Utils.HasItem(player, item.id)) then
+			ModUtils:Log("Item: " .. item.name .. " (" .. item.id .. ")")
+		end
 	end
 end
 System.AddCCommand(ModMain.prefix .. 'DumpPlayerInventory', 'ModInventory:DumpPlayerInventory()', "Dumps the player's inventory to the log")
@@ -26,6 +27,7 @@ System.AddCCommand(ModMain.prefix .. 'DumpPlayerInventory', 'ModInventory:DumpPl
 --- Equip an item to the player
 --- @param _itemID string The item ID
 function ModInventory:EquipItem(_itemID)
+	-- ItemManager.CreateItem(_itemID, _health, _amount)
 	local id = ItemManager.CreateItem(tostring(_itemID), 100, 1)
 	player.inventory:AddItem(id)
 	player.actor:EquipInventoryItem(id)

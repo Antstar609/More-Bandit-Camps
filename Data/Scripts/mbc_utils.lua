@@ -33,9 +33,14 @@ function MBCUtils:Teleport(_xyz)
 	end
 
 	if (_xyz == "camp") then
-		local pos = ModCamps.locations["test"]
-		player:SetWorldPos(pos)
-		return
+		if (MBCQuest.spawnedCamp.name == "") then
+			MBCUtils:LogOnScreen("No camp spawned")
+			return
+		else
+			local pos = MBCCamps.locations[MBCQuest.spawnedCamp.name]
+			player:SetWorldPos(pos)
+			return
+		end
 	end
 
 	local function SplitStringToCoordinates(_string)

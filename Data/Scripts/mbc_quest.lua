@@ -2,6 +2,15 @@
 ---@field npcPosition table Position of the NPC (x, y, z)
 MBCQuest = {
 	npcPosition = { x = 983.452, y = 1554.807, z = 25.205 },
+	spawnedCamp = {
+		name = "",
+		difficulty = ""
+	},
+	difficultyRewards = {
+		easy = 1000,
+		medium = 2000,
+		hard = 3000
+	}
 }
 
 --- Start the quest
@@ -14,16 +23,21 @@ function MBCQuest:InitQuest()
 		--QuestSystem.ActivateQuest("q_morebanditcamps", false)
 	else
 		-- remove the old npc and spawn a new one to prevent the entity from being faded when the player is far away
-		System.RemoveEntity(System.GetEntityByName("marechal").id)
+		System.RemoveEntity(System.GetEntityIdByName("marechal"))
 		MBCSoul:SpawnMarechal(self.npcPosition, { x = 0, y = 0, z = 90 })
 	end
 
 	-- if there already is a camp spawned, remove it and reset the quest to avoid the tagpoint not showing up
 	if (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_destroycamp")) then
-		if (System.GetEntityByName("Camp") ~= nil) then
-			System.RemoveEntity(System.GetEntityByName("Camp").id)
-			ModCamps:SpawnCamp("test", "easy", true)
+		if (System.GetEntityByName("MBCCamp") ~= nil) then
+
+			-- Remove the old camp entity to prevent the tagpoint from being duplicated
+			System.RemoveEntity(System.GetEntityIdByName("MBCCamp"))
 			MBCUtils:Log("Camp removed")
+			
+			-- Spawn a new camp
+			--TODO: Difficulty is not set correctly
+			MBCCamps:SpawnCamp(self.spawnedCamp.name, MBCCamps.difficulty[self.spawnedCamp.difficulty], true)
 		end
 	end
 
@@ -82,7 +96,7 @@ System.AddCCommand(MBCMain.prefix .. 'NextObjective', 'MBCQuest:QuestSequence()'
 function MBCQuest:Talk()
 	if (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_talk")) then
 
-		ModCamps:SpawnCamp("test", "easy", false)
+		self.spawnedCamp.name, self.spawnedCamp.difficulty = MBCQuest:RandomCamp()
 
 		QuestSystem.CompleteObjective("q_morebanditcamps", "o_talk", false)
 		QuestSystem.StartObjective("q_morebanditcamps", "o_destroycamp", false)
@@ -106,9 +120,34 @@ end
 function MBCQuest:Reward()
 	if (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_reward")) then
 
+		local reward = self.difficultyRewards[self.spawnedCamp.difficulty] or 0
+		AddMoneyToInventory(player, reward * 10)
+
 		QuestSystem.CompleteObjective("q_morebanditcamps", "o_reward", false)
-		AddMoneyToInventory(player, 1000 * 10)
 
 		MBCQuest:RestartQuest()
 	end
+end
+
+function MBCQuest:RandomCamp()
+
+	-- Location
+	local keys = {}
+	for key in pairs(MBCCamps.locations) do
+		table.insert(keys, key)
+	end
+	local location = keys[math.random(2, #keys)]
+
+	-- Difficulty
+	keys = {}
+	for key in pairs(MBCCamps.difficulty) do
+		table.insert(keys, key)
+	end
+	local difficulty = keys[math.random(2, #keys)]
+
+	-- Spawn the camp
+	MBCCamps:SpawnCamp(location, difficulty, false)
+	MBCUtils:Log("Random camp spawned at " .. location .. " with " .. difficulty .. " difficulty")
+
+	return location, difficulty
 end

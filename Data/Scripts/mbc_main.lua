@@ -19,6 +19,10 @@ function MBCMain:sceneInitListener(_actionName, _eventName, _eventArgs)
 		MBCUtils:Log(self.name .. " loaded " .. "(v" .. self.version .. ")")
 		MBCUtils:ShowTextbox()
 		MBCQuest:InitQuest()
+
+		--for locationName in pairs(MBCCamps.locations) do
+		--	MBCCamps:SpawnCamp(locationName, "none", false)
+		--end
 	end
 end
 

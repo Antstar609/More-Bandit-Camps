@@ -11,9 +11,9 @@ MBCCampEntity = {
 	Client = {},
 	Server = {},
 	Properties = {
-		bSaved_by_game = 0,
-		Saved_by_game = 0,
-		bSerialize = 0,
+		bSaved_by_game = 1,
+		Saved_by_game = 1,
+		bSerialize = 1,
 	},
 	States = {},
 
@@ -37,6 +37,10 @@ MBCCampEntity = {
 -- this is called when the player loads a save state - use this for restoring values when a game gets loaded
 function MBCCampEntity:OnLoad(tbl)
 	--MBCUtils:Log("MBCCampEntity - OnLoad")
+	
+	-- Retrieve the camp name and difficulty from the save state
+	MBCQuest.spawnedCamp.name = tbl.name
+	MBCQuest.spawnedCamp.difficulty = tbl.difficulty
 end
 
 -- this is called once, use this for initializing stuff
@@ -178,6 +182,8 @@ end
 -- this is called when the player saves or updates a save state - storing values for your entities
 function MBCCampEntity:OnSave(tbl)
 	--MBCUtils:Log("MBCCampEntity - OnSave ")
+	tbl.name = self.name
+	tbl.difficulty = self.difficulty
 end
 
 MBCCampEntity.Server.TurnedOn = {

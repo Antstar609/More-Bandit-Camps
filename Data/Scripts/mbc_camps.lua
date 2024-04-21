@@ -1,17 +1,25 @@
---- @class ModCamps Manage camps entities
+--- @class MBCCamps Manage camps entities
 --- @field locations table List of different spawning locations
 --- @field difficulty table List of different difficulties
 --- @field meshes table List of spawned meshes
 --- @field meshesFilePath table List of file paths for the meshes
 --- @field tagpoint table Tag point for the camp entity
-ModCamps = {
+MBCCamps = {
 	spawnedCamp = nil,
 
 	locations = {
-		test = { x = 526, y = 3560, z = 27 }
+		test = { x = 526, y = 3560, z = 27 },
+		uzhitz = { x = 3504.877, y = 3766.421, z = 161.006 },
+		forest = { x = 1933.638, y = 1941.377, z = 135.456 },
+		vranik = { x = 540.977, y = 418.813, z = 178.359 },
+		forest2 = { x = 493.028, y = 2234.995, z = 54.999 },
+		forest3 = { x = 1918.524, y = 3379.129, z = 103.369 },
+		idk = { x = 3393.676, y = 2375.124, z = 161.180 },
+		lastone = { x = 3348.984, y = 332.899, z = 78.839 }
 	},
 
 	difficulty = {
+		none = 0,
 		easy = 2,
 		medium = 3,
 		hard = 4,
@@ -21,8 +29,8 @@ ModCamps = {
 		fireplace = "Objects/buildings/refugee_camp/fireplace.cgf",
 		tents = {
 			"Objects/structures/tent_cuman/tent_cuman_small_v1.cgf",
-			--"Objects/structures/tent_cuman/tent_cuman_v6.cgf",
-			--"Objects/structures/tent/tent.cgf",
+			"Objects/structures/tent_cuman/tent_cuman_v6.cgf",
+			"Objects/structures/tent/tent.cgf",
 		},
 		crates = {
 			"Objects/props/crates/crate_long.cgf",
@@ -34,23 +42,23 @@ ModCamps = {
 --- Spawn a camp entity at the given location with the given difficulty
 --- @param _locationName string Name of the location
 --- @param _difficulty string Difficulty of the camp (default: easy)
-function ModCamps:SpawnCamp(_locationName, _difficulty, _isWithoutTagpoint)
+function MBCCamps:SpawnCamp(_locationName, _difficulty, _isWithoutTagpoint)
 	local spawnParams = {
 		class = "MBCCampEntity",
-		name = "Camp",
+		name = "MBCCamp",
 		position = self.locations[_locationName],
 	}
 	local camp = System.SpawnEntity(spawnParams)
-	camp.name = _campName
+	camp.name = _locationName
 
 	if (not (type(_difficulty) == "string")) then
-		MBCUtils:Log(_campName .. " spawned with default difficulty")
+		MBCUtils:Log(_locationName .. " spawned with default difficulty")
 	end
 	camp.difficulty = self.difficulty[_difficulty] or self.difficulty.easy
 	self.spawnedCamp = camp
 
 	self:SpawnMeshes(_locationName, self.locations[_locationName])
-	
+
 	if (not _isWithoutTagpoint) then
 		self:SpawnTagPoint(self.locations[_locationName])
 		MBCUtils:Log("Spawned camp with tagpoint")
@@ -62,7 +70,7 @@ end
 --- Spawn all meshes for the camp entity
 --- @param _locationName string Name of the camp entity
 --- @param _position table Position of the camp entity (x, y, z)
-function ModCamps:SpawnMeshes(_locationName, _position)
+function MBCCamps:SpawnMeshes(_locationName, _position)
 
 	local tentPosition, tentOrientation, cratePosition, crateOrientation = { x = 0, y = 0, z = 0 }
 
@@ -72,6 +80,55 @@ function ModCamps:SpawnMeshes(_locationName, _position)
 
 		cratePosition = { x = 523, y = 3559, z = 27 }
 		crateOrientation = { x = 10, y = 10, z = 0 }
+
+	elseif (_locationName == "uzhitz") then
+		tentPosition = { x = 3504.877, y = 3766.421, z = 161.006 }
+		tentOrientation = { x = 0, y = 0, z = 0 }
+
+		cratePosition = { x = 3504.877, y = 3766.421, z = 161.006 }
+		crateOrientation = { x = 0, y = 0, z = 0 }
+
+	elseif (_locationName == "forest") then
+		tentPosition = { x = 1933.638, y = 1941.377, z = 135.456 }
+		tentOrientation = { x = 0, y = 0, z = 0 }
+
+		cratePosition = { x = 1933.638, y = 1941.377, z = 135.456 }
+		crateOrientation = { x = 0, y = 0, z = 0 }
+
+	elseif (_locationName == "vranik") then
+		tentPosition = { x = 540.977, y = 418.813, z = 178.359 }
+		tentOrientation = { x = 0, y = 0, z = 0 }
+
+		cratePosition = { x = 540.977, y = 418.813, z = 178.359 }
+		crateOrientation = { x = 0, y = 0, z = 0 }
+
+	elseif (_locationName == "forest2") then
+		tentPosition = { x = 493.028, y = 2234.995, z = 54.999 }
+		tentOrientation = { x = 0, y = 0, z = 0 }
+
+		cratePosition = { x = 493.028, y = 2234.995, z = 54.999 }
+		crateOrientation = { x = 0, y = 0, z = 0 }
+
+	elseif (_locationName == "forest3") then
+		tentPosition = { x = 1918.524, y = 3379.129, z = 103.369 }
+		tentOrientation = { x = 0, y = 0, z = 0 }
+
+		cratePosition = { x = 1918.524, y = 3379.129, z = 103.369 }
+		crateOrientation = { x = 0, y = 0, z = 0 }
+
+	elseif (_locationName == "idk") then
+		tentPosition = { x = 3393.676, y = 2375.124, z = 161.180 }
+		tentOrientation = { x = 0, y = 0, z = 0 }
+
+		cratePosition = { x = 3393.676, y = 2375.124, z = 161.180 }
+		crateOrientation = { x = 0, y = 0, z = 0 }
+
+	elseif (_locationName == "lastone") then
+		tentPosition = { x = 3348.984, y = 332.899, z = 78.839 }
+		tentOrientation = { x = 0, y = 0, z = 0 }
+
+		cratePosition = { x = 3348.984, y = 332.899, z = 78.839 }
+		crateOrientation = { x = 0, y = 0, z = 0 }
 	end
 
 	-- fireplace
@@ -93,7 +150,7 @@ function ModCamps:SpawnMeshes(_locationName, _position)
 end
 
 --- Spawn an invisible npc to use it as a tag point for the camp entity
-function ModCamps:SpawnTagPoint(_position)
+function MBCCamps:SpawnTagPoint(_position)
 	local spawnParams = {
 		class = "NPC",
 		name = "tagpoint",

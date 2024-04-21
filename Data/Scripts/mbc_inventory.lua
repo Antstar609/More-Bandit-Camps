@@ -1,5 +1,5 @@
---- @class ModInventory Manages player inventory and items
-ModInventory = {
+--- @class MBCInventory Manages player inventory and items
+MBCInventory = {
 	inventory = {
 		name = "",
 		id = "",
@@ -7,9 +7,9 @@ ModInventory = {
 }
 
 --- Dump the player's inventory to the log
-function ModInventory:DumpPlayerInventory()
+function MBCInventory:DumpPlayerInventory()
 	--local count = player.inventory:GetCount()
-	--ModUtils:Log("Inventory count: " .. count)
+	--MBCUtils:Log("Inventory count: " .. count)
 
 	Database.LoadTable("item")
 	local tableData = Database.GetTableInfo("item")
@@ -27,27 +27,27 @@ function ModInventory:DumpPlayerInventory()
 		end
 	end
 end
-System.AddCCommand(ModMain.prefix .. 'DumpPlayerInventory', 'ModInventory:DumpPlayerInventory()', "Dumps the player's inventory to the log")
+System.AddCCommand(MBCMain.prefix .. 'DumpPlayerInventory', 'MBCInventory:DumpPlayerInventory()', "Dumps the player's inventory to the log")
 
 --- Equip an item to the player
 --- @param _itemID string The item ID
-function ModInventory:EquipItem(_itemID)
+function MBCInventory:EquipItem(_itemID)
 	-- ItemManager.CreateItem(_itemID, _health, _amount)
 	local id = ItemManager.CreateItem(tostring(_itemID), 100, 1)
 	player.inventory:AddItem(id)
 	player.actor:EquipInventoryItem(id)
 end
-System.AddCCommand(ModMain.prefix .. 'EquipItem', 'ModInventory:EquipItem(%line)', "Equips an item to the player")
+System.AddCCommand(MBCMain.prefix .. 'EquipItem', 'MBCInventory:EquipItem(%line)', "Equips an item to the player")
 
-function ModInventory:TestInventory()
+function MBCInventory:TestInventory()
 	if (#self.inventory == 0) then
-		ModUtils:Log("Run DumpPlayerInventory first")
+		MBCUtils:Log("Run DumpPlayerInventory first")
 		return
 	end
 	
-	ModUtils:Log("Inventory count: " .. #self.inventory .. " / Count from player: " .. player.inventory:GetCount())
+	MBCUtils:Log("Inventory count: " .. #self.inventory .. " / Count from player: " .. player.inventory:GetCount())
 	for _, item in ipairs(self.inventory) do
-		ModUtils:Log("Item: " .. item.name .. " (" .. item.id .. ")")
+		MBCUtils:Log("Item: " .. item.name .. " (" .. item.id .. ")")
 	end
 end
-System.AddCCommand(ModMain.prefix .. 'TestInventory', 'ModInventory:TestInventory()', "Tests the inventory")
+System.AddCCommand(MBCMain.prefix .. 'TestInventory', 'MBCInventory:TestInventory()', "Tests the inventory")

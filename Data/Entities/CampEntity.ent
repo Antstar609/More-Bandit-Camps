@@ -1,4 +1,4 @@
 <Entity
-        Name="CampEntity"
+        Name="MBCCampEntity"
         Script="scripts/entities/camp_entity.lua"
 />

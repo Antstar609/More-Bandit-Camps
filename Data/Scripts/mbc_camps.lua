@@ -36,7 +36,7 @@ ModCamps = {
 --- @param _difficulty string Difficulty of the camp (default: easy)
 function ModCamps:SpawnCamp(_locationName, _difficulty, _isWithoutTagpoint)
 	local spawnParams = {
-		class = "CampEntity",
+		class = "MBCCampEntity",
 		name = "Camp",
 		position = self.locations[_locationName],
 	}
@@ -44,7 +44,7 @@ function ModCamps:SpawnCamp(_locationName, _difficulty, _isWithoutTagpoint)
 	camp.name = _campName
 
 	if (not (type(_difficulty) == "string")) then
-		ModUtils:Log(_campName .. " spawned with default difficulty")
+		MBCUtils:Log(_campName .. " spawned with default difficulty")
 	end
 	camp.difficulty = self.difficulty[_difficulty] or self.difficulty.easy
 	self.spawnedCamp = camp
@@ -53,9 +53,9 @@ function ModCamps:SpawnCamp(_locationName, _difficulty, _isWithoutTagpoint)
 	
 	if (not _isWithoutTagpoint) then
 		self:SpawnTagPoint(self.locations[_locationName])
-		ModUtils:Log("Spawned camp with tagpoint")
+		MBCUtils:Log("Spawned camp with tagpoint")
 	else
-		ModUtils:Log("Spawned camp without tagpoint")
+		MBCUtils:Log("Spawned camp without tagpoint")
 	end
 end
 

@@ -1,12 +1,12 @@
---- @class ModDatabase Used to get data from any database (.xml files) in the game
-ModDatabase = {}
+--- @class MBCDatabase Used to get data from any database (.xml files) in the game
+MBCDatabase = {}
 
 --- Get a database from the game
 --- @param _tableName string Name of the database
 --- @return table Database data
-function ModDatabase:GetDatabase(_tableName)
+function MBCDatabase:GetDatabase(_tableName)
 	if (not Database.LoadTable(_tableName)) then
-		ModUtils:Log("No database found")
+		MBCUtils:Log("No database found")
 		return nil
 	end
 
@@ -31,7 +31,7 @@ end
 
 --- Print a database to the console
 --- @param _databaseName string Name of the database
-function ModDatabase:PrintDatabase(_databaseName)
+function MBCDatabase:PrintDatabase(_databaseName)
 	local database = self:GetDatabase(_databaseName)
 
 	if (database == nil) then
@@ -39,10 +39,10 @@ function ModDatabase:PrintDatabase(_databaseName)
 	end
 
 	for i, data in ipairs(database) do
-		ModUtils:Log("Row " .. i .. ":")
+		MBCUtils:Log("Row " .. i .. ":")
 		for columnName, columnValue in pairs(data) do
-			ModUtils:Log("\t" .. columnName .. ": " .. tostring(columnValue))
+			MBCUtils:Log("\t" .. columnName .. ": " .. tostring(columnValue))
 		end
 	end
 end
-System.AddCCommand(ModMain.prefix .. 'PrintDatabase', 'ModDatabase:PrintDatabase(%line)', "Print a database")
+System.AddCCommand(MBCMain.prefix .. 'PrintDatabase', 'MBCDatabase:PrintDatabase(%line)', "Print a database")

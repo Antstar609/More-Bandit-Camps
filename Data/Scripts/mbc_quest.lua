@@ -1,21 +1,21 @@
----@class ModQuest Quest manager
+---@class MBCQuest Quest manager
 ---@field npcPosition table Position of the NPC (x, y, z)
-ModQuest = {
+MBCQuest = {
 	npcPosition = { x = 983.452, y = 1554.807, z = 25.205 },
 }
 
 --- Start the quest
-function ModQuest:InitQuest()
+function MBCQuest:InitQuest()
 	if (System.GetEntityByName("marechal") == nil) then
 		-- spawn npc
-		ModSoul:SpawnMarechal(self.npcPosition, { x = 0, y = 0, z = 90 })
+		MBCSoul:SpawnMarechal(self.npcPosition, { x = 0, y = 0, z = 90 })
 		-- reset and activate the quest
 		QuestSystem.ResetQuest("q_morebanditcamps")
 		--QuestSystem.ActivateQuest("q_morebanditcamps", false)
 	else
 		-- remove the old npc and spawn a new one to prevent the entity from being faded when the player is far away
 		System.RemoveEntity(System.GetEntityByName("marechal").id)
-		ModSoul:SpawnMarechal(self.npcPosition, { x = 0, y = 0, z = 90 })
+		MBCSoul:SpawnMarechal(self.npcPosition, { x = 0, y = 0, z = 90 })
 	end
 
 	-- if there already is a camp spawned, remove it and reset the quest to avoid the tagpoint not showing up
@@ -23,7 +23,7 @@ function ModQuest:InitQuest()
 		if (System.GetEntityByName("Camp") ~= nil) then
 			System.RemoveEntity(System.GetEntityByName("Camp").id)
 			ModCamps:SpawnCamp("test", "easy", true)
-			ModUtils:Log("Camp removed")
+			MBCUtils:Log("Camp removed")
 		end
 	end
 
@@ -35,7 +35,7 @@ function ModQuest:InitQuest()
 end
 
 --- Restart the quest
-function ModQuest:RestartQuest()
+function MBCQuest:RestartQuest()
 	-- reset and activate the quest, no need to spawn a new npc its already there
 	QuestSystem.ResetQuest("q_morebanditcamps")
 	--QuestSystem.ActivateQuest("q_morebanditcamps", false)
@@ -48,24 +48,24 @@ function ModQuest:RestartQuest()
 end
 
 --- Interact with the NPC to progress the quest
-function ModQuest:NCPInteract()
+function MBCQuest:NCPInteract()
 	-- self doesn't work here
-	ModQuest:DialogueSequence()
+	MBCQuest:DialogueSequence()
 end
 
-function ModQuest:DialogueSequence()
+function MBCQuest:DialogueSequence()
 	if (QuestSystem.IsQuestStarted("q_morebanditcamps")) then
 		if (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_talk")) then
-			ModQuest:Talk()
+			MBCQuest:Talk()
 		elseif (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_destroycamp")) then
-			ModUtils:LogOnScreen("@ui_text_npc_waiting")
+			MBCUtils:LogOnScreen("@ui_text_npc_waiting")
 		elseif (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_reward")) then
-			ModQuest:Reward()
+			MBCQuest:Reward()
 		end
 	end
 end
 
-function ModQuest:QuestSequence()
+function MBCQuest:QuestSequence()
 	if (QuestSystem.IsQuestStarted("q_morebanditcamps")) then
 		if (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_talk")) then
 			self:Talk()
@@ -76,10 +76,10 @@ function ModQuest:QuestSequence()
 		end
 	end
 end
-System.AddCCommand(ModMain.prefix .. 'NextObjective', 'ModQuest:QuestSequence()', "Pass to the next objective of the quest")
+System.AddCCommand(MBCMain.prefix .. 'NextObjective', 'MBCQuest:QuestSequence()', "Pass to the next objective of the quest")
 
 --- Talk to the NPC sequence
-function ModQuest:Talk()
+function MBCQuest:Talk()
 	if (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_talk")) then
 
 		ModCamps:SpawnCamp("test", "easy", false)
@@ -87,28 +87,28 @@ function ModQuest:Talk()
 		QuestSystem.CompleteObjective("q_morebanditcamps", "o_talk", false)
 		QuestSystem.StartObjective("q_morebanditcamps", "o_destroycamp", false)
 
-		ModUtils:LogOnScreen("@ui_text_npc_location")
+		MBCUtils:LogOnScreen("@ui_text_npc_location")
 	end
 end
 
 --- Destroy the camp sequence
-function ModQuest:DestroyCamp()
+function MBCQuest:DestroyCamp()
 	if (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_destroycamp")) then
 
 		QuestSystem.CompleteObjective("q_morebanditcamps", "o_destroycamp", false)
 		QuestSystem.StartObjective("q_morebanditcamps", "o_reward", false)
 
-		ModUtils:LogOnScreen("@ui_text_npc_destroyed")
+		MBCUtils:LogOnScreen("@ui_text_npc_destroyed")
 	end
 end
 
 --- Reward sequence
-function ModQuest:Reward()
+function MBCQuest:Reward()
 	if (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_reward")) then
 
 		QuestSystem.CompleteObjective("q_morebanditcamps", "o_reward", false)
 		AddMoneyToInventory(player, 1000 * 10)
 
-		ModQuest:RestartQuest()
+		MBCQuest:RestartQuest()
 	end
 end

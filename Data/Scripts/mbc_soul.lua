@@ -1,10 +1,10 @@
---- @class ModSoul Contains all the functions to spawn entities from the database (soul.xml)
+--- @class MBCSoul Contains all the functions to spawn entities from the database (soul.xml)
 --- @field tableName string Name of the database
 --- @field rowOffset number Offset to match the line number in the xml file
 --- @field soulType table List of all the types of entities (string)
 --- @field wanderingGuards table List of all the wandering guards ids (string)
 --- @field wanderingVillager table List of all the wandering villagers ids (string)
-ModSoul = {
+MBCSoul = {
 	tableName = "soul",
 	rowOffset = 81,
 
@@ -34,23 +34,23 @@ ModSoul = {
 --- Check if the type is in the list of valid types (soulType)
 --- @param _type string Type of the entity
 --- @return boolean Is the type valid
-function ModSoul:CheckValidType(_type)
+function MBCSoul:CheckValidType(_type)
 	return table.contains(self.soulType, _type)
 end
 
 --- Get the gender of the entity by the archetype id
 --- @param _id number Archetype id of the entity
 --- @return string Returns either "NPC" for male and "NPC_Female" for female
-function ModSoul:GetGender(_id)
+function MBCSoul:GetGender(_id)
 	return (_id == 1) and "NPC_Female" or "NPC" -- ternary test
 end
 
 --- Get all souls from the database with the given type
 --- @param _soulType string Type of the entity
 --- @return table Souls data (nil if the type is not valid)
-function ModSoul:GetSoulsFromDatabase(_soulType)
+function MBCSoul:GetSoulsFromDatabase(_soulType)
 	if (not self:CheckValidType(_soulType)) then
-		ModUtils:Log("Type not in the list")
+		MBCUtils:Log("Type not in the list")
 		return nil
 	end
 
@@ -86,10 +86,10 @@ end
 --- @param _numberOfEntities number Number of entities to spawn
 --- @param _offsetPosition number Offset of the position (default: 0)
 --- @return table Entities spawned data (nil if no entity found)
-function ModSoul:SpawnEntityByType(_entityType, _position, _numberOfEntities, _offsetPosition)
+function MBCSoul:SpawnEntityByType(_entityType, _position, _numberOfEntities, _offsetPosition)
 	local soul = self:GetSoulsFromDatabase(_entityType)
 	if (soul == nil) then
-		ModUtils:Log("No souls found")
+		MBCUtils:Log("No souls found")
 		return
 	end
 
@@ -123,15 +123,15 @@ function ModSoul:SpawnEntityByType(_entityType, _position, _numberOfEntities, _o
 
 	return entities
 end
-System.AddCCommand(ModMain.prefix .. 'SpawnEntityByType', 'ModSoul:SpawnEntityByType(%line)', "")
+System.AddCCommand(MBCMain.prefix .. 'SpawnEntityByType', 'MBCSoul:SpawnEntityByType(%line)', "")
 
 --- Spawn an entity with the given line number at the given position or at the player position
 --- @param _lineNumber number Line number of the entity in the xml file
 --- @param _position table Position of the entity (x, y, z)
-function ModSoul:SpawnEntityByLine(_lineNumber, _position)
+function MBCSoul:SpawnEntityByLine(_lineNumber, _position)
 	local soul = Database.GetTableLine(self.tableName, _lineNumber - self.rowOffset)
 	if (soul == nil) then
-		ModUtils:Log("No souls found")
+		MBCUtils:Log("No souls found")
 		return
 	end
 
@@ -150,10 +150,10 @@ function ModSoul:SpawnEntityByLine(_lineNumber, _position)
 	entity.lootable = true
 	entity.lootIsLegal = true
 end
-System.AddCCommand(ModMain.prefix .. 'SpawnEntityByLine', 'ModSoul:SpawnEntityByLine(%line)', "")
+System.AddCCommand(MBCMain.prefix .. 'SpawnEntityByLine', 'MBCSoul:SpawnEntityByLine(%line)', "")
 
 --- Spawn a wandering villager at the player position
-function ModSoul:SpawnWanderingGuard()
+function MBCSoul:SpawnWanderingGuard()
 	local randomNumber = math.random(1, #self.wanderingGuards)
 	local spawnParams = {
 		class = "NPC",
@@ -168,12 +168,12 @@ function ModSoul:SpawnWanderingGuard()
 	local entity = System.SpawnEntity(spawnParams)
 	entity.AI.invulnerable = true
 end
-System.AddCCommand(ModMain.prefix .. 'SpawnWanderingGuard', 'ModSoul:SpawnWanderingGuard()', "Spawn a wandering guard")
+System.AddCCommand(MBCMain.prefix .. 'SpawnWanderingGuard', 'MBCSoul:SpawnWanderingGuard()', "Spawn a wandering guard")
 
 --- Spawn the commander
 --- @param _position table Position of the entity (x, y, z)
 --- @param _orientation table Orientation of the entity (x, y, z)
-function ModSoul:SpawnMarechal(_position, _orientation)
+function MBCSoul:SpawnMarechal(_position, _orientation)
 	local spawnParams = {
 		class = "NPC",
 		name = "marechal",
@@ -190,13 +190,13 @@ end
 
 --- Set the marechal attributes
 --- @param _entity table Entity to set the attributes
-function ModSoul:SetMarechalAttributes(_entity)
+function MBCSoul:SetMarechalAttributes(_entity)
 	_entity.AI.invulnerable = true
 	_entity.lootable = false
 
 	_entity.GetActions = function(user, firstFast)
 		local output = {}
-		AddInteractorAction(output, firstFast, Action():hint("@ui_hud_talk"):action("use"):func(ModQuest.NCPInteract):interaction(inr_talk))
+		AddInteractorAction(output, firstFast, Action():hint("@ui_hud_talk"):action("use"):func(MBCQuest.NCPInteract):interaction(inr_talk))
 		return output
 	end
 end 

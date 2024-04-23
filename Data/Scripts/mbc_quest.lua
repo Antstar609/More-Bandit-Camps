@@ -4,7 +4,7 @@ MBCQuest = {
 	npcPosition = { x = 983.452, y = 1554.807, z = 25.205 },
 	spawnedCamp = {
 		name = "",
-		difficulty = ""
+		difficulty = 0
 	},
 	difficultyRewards = {
 		easy = 1000,
@@ -37,7 +37,7 @@ function MBCQuest:InitQuest()
 			
 			-- Spawn a new camp
 			--TODO: Difficulty is not set correctly
-			MBCCamps:SpawnCamp(self.spawnedCamp.name, MBCCamps.difficulty[self.spawnedCamp.difficulty], true)
+			MBCCamps:SpawnCamp(self.spawnedCamp.name, self.spawnedCamp.difficulty, true)
 		end
 	end
 
@@ -139,11 +139,7 @@ function MBCQuest:RandomCamp()
 	local location = keys[math.random(2, #keys)]
 
 	-- Difficulty
-	keys = {}
-	for key in pairs(MBCCamps.difficulty) do
-		table.insert(keys, key)
-	end
-	local difficulty = keys[math.random(2, #keys)]
+	local difficulty = MBCCamps.difficulty[math.random(2, #MBCCamps.difficulty)]
 
 	-- Spawn the camp
 	MBCCamps:SpawnCamp(location, difficulty, false)

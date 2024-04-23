@@ -19,10 +19,10 @@ MBCCamps = {
 	},
 
 	difficulty = {
-		none = 0,
-		easy = 2,
-		medium = 3,
-		hard = 4,
+		0, --none
+		2, --easy
+		3, --medium
+		4, --hard
 	},
 
 	meshesFilePath = {
@@ -50,11 +50,8 @@ function MBCCamps:SpawnCamp(_locationName, _difficulty, _isWithoutTagpoint)
 	}
 	local camp = System.SpawnEntity(spawnParams)
 	camp.name = _locationName
-
-	if (not (type(_difficulty) == "string")) then
-		MBCUtils:Log(_locationName .. " spawned with default difficulty")
-	end
-	camp.difficulty = self.difficulty[_difficulty] or self.difficulty.easy
+	
+	camp.difficulty = self.difficulty[_difficulty] or self.difficulty[2]
 	self.spawnedCamp = camp
 
 	self:SpawnMeshes(_locationName, self.locations[_locationName])

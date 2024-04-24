@@ -140,7 +140,7 @@ function MBCQuest:RandomCamp()
 	local location = keys[math.random(2, #keys)]
 
 	-- Difficulty
-	local difficulty = MBCCamps.difficulty[math.random(3, 3)]
+	local difficulty = MBCCamps.difficulty[math.random(2, #MBCCamps.difficulty)]
 
 	-- Spawn the camp
 	MBCCamps:SpawnCamp(location, difficulty, false)

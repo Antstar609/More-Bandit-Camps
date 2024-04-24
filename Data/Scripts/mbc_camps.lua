@@ -50,9 +50,11 @@ function MBCCamps:SpawnCamp(_locationName, _difficulty, _isWithoutTagpoint)
 	}
 	local camp = System.SpawnEntity(spawnParams)
 	camp.name = _locationName
-	
+
 	camp.difficulty = self.difficulty[_difficulty] or self.difficulty[2]
 	self.spawnedCamp = camp
+
+	MBCUtils:Log("Camp spawned at " .. camp.name .. " with " .. camp.difficulty .. " enemies")
 
 	self:SpawnMeshes(_locationName, self.locations[_locationName])
 

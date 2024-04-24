@@ -7,9 +7,10 @@ MBCQuest = {
 		difficulty = 0
 	},
 	difficultyRewards = {
-		easy = 1000,
-		medium = 2000,
-		hard = 3000
+		0, -- none
+		1000, -- easy
+		2000, -- medium
+		3000 -- hard
 	}
 }
 
@@ -34,7 +35,7 @@ function MBCQuest:InitQuest()
 			-- Remove the old camp entity to prevent the tagpoint from being duplicated
 			System.RemoveEntity(System.GetEntityIdByName("MBCCamp"))
 			MBCUtils:Log("Camp removed")
-			
+
 			-- Spawn a new camp
 			--TODO: Difficulty is not set correctly
 			MBCCamps:SpawnCamp(self.spawnedCamp.name, self.spawnedCamp.difficulty, true)
@@ -139,11 +140,10 @@ function MBCQuest:RandomCamp()
 	local location = keys[math.random(2, #keys)]
 
 	-- Difficulty
-	local difficulty = MBCCamps.difficulty[math.random(2, #MBCCamps.difficulty)]
+	local difficulty = MBCCamps.difficulty[math.random(3, 3)]
 
 	-- Spawn the camp
 	MBCCamps:SpawnCamp(location, difficulty, false)
-	MBCUtils:Log("Random camp spawned at " .. location .. " with " .. difficulty .. " difficulty")
 
 	return location, difficulty
 end

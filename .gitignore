@@ -1,3 +1,6 @@
+# Ignore .idea folder
+.idea/
+
 # Ignore the bin directory
 **/bin/
 
@@ -7,5 +10,8 @@
 # Contains specific path
 Data_reference.xml
 
-# Local paths stored for MMF
-MakeModFolder.saved.json
+# Ignore KCD Mod.iml
+KCD Mod.iml
+
+# Test file
+oop.lua

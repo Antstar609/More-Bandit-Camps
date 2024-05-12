@@ -6,6 +6,7 @@ using System.IO.Compression;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Xml;
@@ -17,360 +18,369 @@ namespace MakeModFolder;
 
 public partial class MainWindow : INotifyPropertyChanged
 {
-	public MainWindow()
-	{
-		DataContext = this;
-		InitializeComponent();
-		SetDefaultPath();
-	}
+    public MainWindow()
+    {
+        DataContext = this;
+        InitializeComponent();
+        GetJsonData();
+    }
 
-	private List<(string, string, string)> defaultPathList = new()
-	{
-		//PC Name,		Game Path,		Repo Path
-		("BALLSPIELVEREIN", "C:\\Games SSD\\steamapps\\common\\KingdomComeDeliverance", "D:\\Antoine\\Bazaar\\KCD Mod"),
-		("DELL22-58", "D:\\SteamLibrary\\steamapps\\common\\KingdomComeDeliverance", "D:\\KCD_Mod"),
-		("REVIERDERBY", "D:\\Games\\Steam\\steamapps\\common\\KingdomComeDeliverance", "D:\\Antoine\\Bazaar\\KCD_Mod")
-	};
+    private string JsonPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\MakeModFolder.saved.json";
 
-	private void SetDefaultPath()
-	{
-		var pcName = Environment.MachineName;
-		foreach (var value in defaultPathList)
-		{
-			if (value.Item1 == pcName)
-			{
-				GamePath = value.Item2;
-				RepoPath = value.Item3;
-				break;
-			}
+    private void SetJsonData()
+    {
+        var data = new Dictionary<string, string>
+        {
+            { "ModName", ModName },
+            { "GamePath", GamePath },
+            { "RepoPath", RepoPath },
+            { "ModVersion", ModVersion },
+            { "IsMapModified", IsMapModified }
+        };
 
-			GamePath = "";
-			RepoPath = "";
-		}
-	}
+        var json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
+        File.WriteAllText(JsonPath, json);
+    }
 
-	private void MakeModFolder()
-	{
-		var modPath = GamePath + "\\Mods\\" + ModName;
+    private void GetJsonData()
+    {
+        if (File.Exists(JsonPath))
+        {
+            var json = File.ReadAllText(JsonPath);
+            var data = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
+            ModName = data["ModName"];
+            GamePath = data["GamePath"];
+            RepoPath = data["RepoPath"];
+            ModVersion = data["ModVersion"];
+            IsMapModified = data["IsMapModified"];
+        }
+    }
 
-		// Create the mod folder
-		Directory.CreateDirectory(modPath);
+    private void MakeModFolder()
+    {
+        var modPath = GamePath + "\\Mods\\" + ModName;
 
-		// Create the main folders
-		Directory.CreateDirectory(modPath + "\\Data");
-		Directory.CreateDirectory(modPath + "\\Localization");
+        // Create the mod folder
+        Directory.CreateDirectory(modPath);
 
-		// Copy the modding_eula.txt
-		var exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-		var moddingEulaPath = Path.GetDirectoryName(exePath) + "\\modding_eula.txt";
-		if (File.Exists(moddingEulaPath))
-		{
-			File.Copy(moddingEulaPath, modPath + "\\modding_eula.txt");
-		}
-		else
-		{
-			MessageBox.Show("The modding_eula.txt file is missing", "Warning", MessageBoxButton.OK,
-				MessageBoxImage.Warning);
-		}
+        // Create the main folders
+        Directory.CreateDirectory(modPath + "\\Data");
+        Directory.CreateDirectory(modPath + "\\Localization");
 
-		// Copy the data folder and zip it
-		var directories = Directory.GetDirectories(RepoPath);
-		var isDatazipped = false;
-		var isLocalizationzipped = false;
-		var isTablesZipped = false;
-		foreach (var directory in directories)
-		{
-			if (directory.Contains("Data") && !isDatazipped)
-			{
-				var dataPath = modPath + "\\Data\\Data.pak";
-				ZipFile.CreateFromDirectory(directory, dataPath, CompressionLevel.Optimal,
-					false);
-				isDatazipped = true;
-			}
+        // Copy the modding_eula.txt
+        var exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+        var moddingEulaPath = Path.GetDirectoryName(exePath) + "\\modding_eula.txt";
+        if (File.Exists(moddingEulaPath))
+        {
+            File.Copy(moddingEulaPath, modPath + "\\modding_eula.txt");
+        }
+        else
+        {
+            MessageBox.Show("The modding_eula.txt file is missing", "Warning", MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+        }
 
-			if (directory.Contains("Libs") && !isTablesZipped)
-			{
-				var tablesPath = modPath + "\\Data\\Tables.pak";
-				ZipFile.CreateFromDirectory(directory, tablesPath, CompressionLevel.Optimal,
-					true);
-				isTablesZipped = true;
-			}
-			
-			if (directory.Contains("Localization") && !isLocalizationzipped)
-			{
-				var localizationDirectories = Directory.GetDirectories(directory);
+        // Copy the data folder and zip it
+        var directories = Directory.GetDirectories(RepoPath);
+        var isDatazipped = false;
+        var isLocalizationzipped = false;
+        var isTablesZipped = false;
+        foreach (var directory in directories)
+        {
+            if (directory.Contains("Data") && !isDatazipped)
+            {
+                var dataPath = modPath + "\\Data\\Data.pak";
+                ZipFile.CreateFromDirectory(directory, dataPath, CompressionLevel.Optimal,
+                    false);
+                isDatazipped = true;
+            }
 
-				if (localizationDirectories.Length == 0)
-				{
-					MessageBox.Show("The localization folder is empty", "Warning", MessageBoxButton.OK,
-						MessageBoxImage.Warning);
-					return;
-				}
-				
-				foreach (var localizationDirectory in localizationDirectories)
-				{
-					var localizationPath = modPath + "\\Localization\\" + Path.GetFileName(localizationDirectory) + "_xml.pak";
-					ZipFile.CreateFromDirectory(localizationDirectory, localizationPath,
-						CompressionLevel.Optimal, false);
-				}
-				isLocalizationzipped = true;
-			}
+            if (directory.Contains("Libs") && !isTablesZipped)
+            {
+                var tablesPath = modPath + "\\Data\\Tables.pak";
+                ZipFile.CreateFromDirectory(directory, tablesPath, CompressionLevel.Optimal,
+                    true);
+                isTablesZipped = true;
+            }
 
-			if (isDatazipped && isLocalizationzipped && isTablesZipped)
-				break;
-		}
+            if (directory.Contains("Localization") && !isLocalizationzipped)
+            {
+                var localizationDirectories = Directory.GetDirectories(directory);
 
-		if (!isDatazipped)
-		{
-			MessageBox.Show("The data folder is missing", "Warning", MessageBoxButton.OK,
-				MessageBoxImage.Warning);
-			return;
-		}
-		
-		if (!isTablesZipped)
-		{
-			MessageBox.Show("The tables folder is missing", "Warning", MessageBoxButton.OK,
-				MessageBoxImage.Warning);
-			return;
-		}
-		
-		if (!isLocalizationzipped)
-		{
-			MessageBox.Show("The localization folder is missing", "Warning", MessageBoxButton.OK,
-				MessageBoxImage.Warning);
-			return;
-		}
+                if (localizationDirectories.Length == 0)
+                {
+                    MessageBox.Show("The localization folder is empty", "Warning", MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    return;
+                }
 
-		//Create the mod.manifest file
-		WriteModManifest();
+                foreach (var localizationDirectory in localizationDirectories)
+                {
+                    var localizationPath = modPath + "\\Localization\\" + Path.GetFileName(localizationDirectory) + "_xml.pak";
+                    ZipFile.CreateFromDirectory(localizationDirectory, localizationPath,
+                        CompressionLevel.Optimal, false);
+                }
 
-		// MessageBox the user that the mod folder has been created and the location of it
-		MessageBox.Show("The mod folder has been created at " + modPath, "Success", MessageBoxButton.OK,
-			MessageBoxImage.Information);
-		Application.Current.Shutdown();
-	}
+                isLocalizationzipped = true;
+            }
 
-	private void WriteModManifest()
-	{
-		XmlWriterSettings settings = new()
-		{
-			Indent = true,
-			IndentChars = "\t",
-			NewLineOnAttributes = true
-		};
+            if (isDatazipped && isLocalizationzipped && isTablesZipped)
+                break;
+        }
 
-		using XmlWriter writer = XmlWriter.Create(GamePath + "\\Mods\\" + ModName + "\\mod.manifest", settings);
+        if (!isDatazipped)
+        {
+            MessageBox.Show("The data folder is missing", "Warning", MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+            return;
+        }
 
-		writer.WriteStartDocument();
-		writer.WriteStartElement("kcd_mod"); // kcd_mod
-		writer.WriteStartElement("info"); // info
-		writer.WriteStartElement("name"); // name
-		writer.WriteValue(ModName);
-		writer.WriteEndElement(); // /name
-		writer.WriteStartElement("modid"); // modid
-		writer.WriteValue(ModName.Replace(" ", "").ToLower());
-		writer.WriteEndElement(); // /modid
-		writer.WriteStartElement("description"); // description
-		writer.WriteValue("A mod for Kingdom Come: Deliverance");
-		writer.WriteEndElement(); // /description
-		writer.WriteStartElement("author"); // author
-		writer.WriteValue("Antstar609");
-		writer.WriteEndElement(); // /author
-		writer.WriteStartElement("version"); // version
-		writer.WriteValue(ModVersion);
-		writer.WriteEndElement(); // /version
-		writer.WriteStartElement("created_on"); // created_on
-		writer.WriteValue(DateTime.Now.ToString("dd.MM.yyyy"));
-		writer.WriteEndElement(); // /created_on
-		writer.WriteStartElement("modifies_level"); // modifies_level
-		writer.WriteValue(IsMapModified.ToLower());
-		writer.WriteEndElement(); // /modifies_level
-		writer.WriteEndElement(); // /info
-		writer.WriteEndElement(); // /kcd_mod
-		writer.WriteEndDocument();
-	}
+        if (!isTablesZipped)
+        {
+            MessageBox.Show("The tables folder is missing", "Warning", MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+            return;
+        }
 
-	private void RepoBrowsePath_Button_Click(object _sender, RoutedEventArgs _e)
-	{
-		CommonOpenFileDialog openFileDialog = new()
-		{
-			InitialDirectory = "c:\\",
-			RestoreDirectory = true,
-			IsFolderPicker = true
-		};
+        if (!isLocalizationzipped)
+        {
+            MessageBox.Show("The localization folder is missing", "Warning", MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+            return;
+        }
 
-		if (openFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
-		{
-			// if in the folder there is a mod.manifest file and a modding_eula.txt file, then it's the right folder
-			var files = Directory.GetFiles(openFileDialog.FileName);
-			var isRepository = false;
-			if (files.Any(file => file.Contains("ModRepository.txt")))
-			{
-				isRepository = true;
-				RepoPath = openFileDialog.FileName;
-			}
+        //Create the mod.manifest file
+        WriteModManifest();
 
-			if (!isRepository)
-			{
-				MessageBox.Show("The selected folder is not a valid repository", "Warning", MessageBoxButton.OK,
-					MessageBoxImage.Warning);
-			}
-		}
-	}
+        // MessageBox the user that the mod folder has been created and the location of it
+        MessageBox.Show("The mod folder has been created at " + modPath, "Success", MessageBoxButton.OK,
+            MessageBoxImage.Information);
+        Application.Current.Shutdown();
+    }
 
-	private void GameBrowsePath_Button_Click(object _sender, RoutedEventArgs _e)
-	{
-		CommonOpenFileDialog openFileDialog = new()
-		{
-			InitialDirectory = "c:\\",
-			RestoreDirectory = true,
-			IsFolderPicker = true
-		};
+    private void WriteModManifest()
+    {
+        XmlWriterSettings settings = new()
+        {
+            Indent = true,
+            IndentChars = "\t",
+            NewLineOnAttributes = true
+        };
 
-		if (openFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
-		{
-			// if in the folder there is a mod.manifest file and a modding_eula.txt file, then it's the right folder
-			var files = Directory.GetFiles(openFileDialog.FileName);
-			var isGame = false;
-			if (files.Any(file => file.Contains("kcd.log")))
-			{
-				isGame = true;
-				GamePath = openFileDialog.FileName;
-			}
+        using XmlWriter writer = XmlWriter.Create(GamePath + "\\Mods\\" + ModName + "\\mod.manifest", settings);
 
-			if (!isGame)
-			{
-				MessageBox.Show("The selected folder is not a valid game folder", "Warning", MessageBoxButton.OK,
-					MessageBoxImage.Warning);
-			}
-		}
-	}
+        writer.WriteStartDocument();
+        writer.WriteStartElement("kcd_mod"); // kcd_mod
+        writer.WriteStartElement("info"); // info
+        writer.WriteStartElement("name"); // name
+        writer.WriteValue(ModName);
+        writer.WriteEndElement(); // /name
+        writer.WriteStartElement("modid"); // modid
+        writer.WriteValue(ModName.Replace(" ", "").ToLower());
+        writer.WriteEndElement(); // /modid
+        writer.WriteStartElement("description"); // description
+        writer.WriteValue("A mod for Kingdom Come: Deliverance");
+        writer.WriteEndElement(); // /description
+        writer.WriteStartElement("author"); // author
+        writer.WriteValue("Antstar609");
+        writer.WriteEndElement(); // /author
+        writer.WriteStartElement("version"); // version
+        writer.WriteValue(ModVersion);
+        writer.WriteEndElement(); // /version
+        writer.WriteStartElement("created_on"); // created_on
+        writer.WriteValue(DateTime.Now.ToString("dd.MM.yyyy"));
+        writer.WriteEndElement(); // /created_on
+        writer.WriteStartElement("modifies_level"); // modifies_level
+        writer.WriteValue(IsMapModified.ToLower());
+        writer.WriteEndElement(); // /modifies_level
+        writer.WriteEndElement(); // /info
+        writer.WriteEndElement(); // /kcd_mod
+        writer.WriteEndDocument();
+    }
 
-	private void Run_Button_Click(object _sender, RoutedEventArgs _e)
-	{
-		if (!string.IsNullOrEmpty(ModName) && !string.IsNullOrEmpty(RepoPath) &&
-		    !string.IsNullOrEmpty(GamePath) && !string.IsNullOrEmpty(ModVersion))
-		{
-			//check if the mod already exists and if i can access it (if it's not in use)
-			var modPath = GamePath + "\\Mods\\" + ModName;
-			if (Directory.Exists(modPath))
-			{
-				try
-				{
-					Directory.Delete(modPath, true);
-				}
-				catch (Exception)
-				{
-					MessageBox.Show("The mod folder is in use", "Warning", MessageBoxButton.OK,
-						MessageBoxImage.Warning);
-					return;
-				}
-			}
+    private void RepoBrowsePath_Button_Click(object _sender, RoutedEventArgs _e)
+    {
+        CommonOpenFileDialog openFileDialog = new()
+        {
+            InitialDirectory = "c:\\",
+            RestoreDirectory = true,
+            IsFolderPicker = true
+        };
 
-			MakeModFolder();
-		}
-		else
-		{
-			MessageBox.Show("Please fill all the fields", "Warning", MessageBoxButton.OK,
-				MessageBoxImage.Warning);
-		}
-	}
+        if (openFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
+        {
+            // if in the folder there is a mod.manifest file and a modding_eula.txt file, then it's the right folder
+            var files = Directory.GetFiles(openFileDialog.FileName);
+            var isRepository = false;
+            if (files.Any(file => file.Contains("ModRepository.txt")))
+            {
+                isRepository = true;
+                RepoPath = openFileDialog.FileName;
+            }
 
-	private string _modName = "More Bandit Camps";
+            if (!isRepository)
+            {
+                MessageBox.Show("The selected folder is not a valid repository", "Warning", MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+            }
+        }
+    }
 
-	public string ModName
-	{
-		get => _modName;
+    private void GameBrowsePath_Button_Click(object _sender, RoutedEventArgs _e)
+    {
+        CommonOpenFileDialog openFileDialog = new()
+        {
+            InitialDirectory = "c:\\",
+            RestoreDirectory = true,
+            IsFolderPicker = true
+        };
 
-		set
-		{
-			if (_modName != value)
-			{
-				_modName = value;
-				OnPropertyChanged();
-			}
-		}
-	}
+        if (openFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
+        {
+            // if in the folder there is a mod.manifest file and a modding_eula.txt file, then it's the right folder
+            var files = Directory.GetFiles(openFileDialog.FileName);
+            var isGame = false;
+            if (files.Any(file => file.Contains("kcd.log")))
+            {
+                isGame = true;
+                GamePath = openFileDialog.FileName;
+                SetJsonData();
+            }
 
-	private string _repoPath = "";
+            if (!isGame)
+            {
+                MessageBox.Show("The selected folder is not a valid game folder", "Warning", MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+            }
+        }
+    }
 
-	public string RepoPath
-	{
-		get => _repoPath;
+    private void Run_Button_Click(object _sender, RoutedEventArgs _e)
+    {
+        if (!string.IsNullOrEmpty(ModName) && !string.IsNullOrEmpty(RepoPath) &&
+            !string.IsNullOrEmpty(GamePath) && !string.IsNullOrEmpty(ModVersion))
+        {
+            //check if the mod already exists and if i can access it (if it's not in use)
+            var modPath = GamePath + "\\Mods\\" + ModName;
+            if (Directory.Exists(modPath))
+            {
+                try
+                {
+                    Directory.Delete(modPath, true);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("The mod folder is in use", "Warning", MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    return;
+                }
+            }
 
-		set
-		{
-			if (_repoPath != value)
-			{
-				_repoPath = value;
-				OnPropertyChanged();
-			}
-		}
-	}
+            MakeModFolder();
+            SetJsonData();
+        }
+        else
+        {
+            MessageBox.Show("Please fill all the fields", "Warning", MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+        }
+    }
 
-	private string _gamePath = "";
+    private string _modName = "";
 
-	public string GamePath
-	{
-		get => _gamePath;
+    public string ModName
+    {
+        get => _modName;
 
-		set
-		{
-			if (_gamePath != value)
-			{
-				_gamePath = value;
-				OnPropertyChanged();
-			}
-		}
-	}
+        set
+        {
+            if (_modName != value)
+            {
+                _modName = value;
+                OnPropertyChanged();
+            }
+        }
+    }
 
-	private string _modVersion = "0.1";
+    private string _repoPath = "";
 
-	public string ModVersion
-	{
-		get => _modVersion;
-		set
-		{
-			if (_modVersion != value)
-			{
-				_modVersion = value;
-				OnPropertyChanged();
-			}
-		}
-	}
+    public string RepoPath
+    {
+        get => _repoPath;
 
-	private string _isMapModified = "False";
+        set
+        {
+            if (_repoPath != value)
+            {
+                _repoPath = value;
+                OnPropertyChanged();
+            }
+        }
+    }
 
-	public string IsMapModified
-	{
-		get => _isMapModified;
+    private string _gamePath = "";
 
-		set
-		{
-			if (_isMapModified != value)
-			{
-				_isMapModified = value;
-				OnPropertyChanged();
-			}
-		}
-	}
+    public string GamePath
+    {
+        get => _gamePath;
 
-	public event PropertyChangedEventHandler? PropertyChanged;
+        set
+        {
+            if (_gamePath != value)
+            {
+                _gamePath = value;
+                OnPropertyChanged();
+            }
+        }
+    }
 
-	private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-	{
-		PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-	}
+    private string _modVersion = "0.1";
 
-	private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
-	{
-		Regex regex = new Regex("[^0-9.]+");
-		e.Handled = regex.IsMatch(e.Text);
-	}
+    public string ModVersion
+    {
+        get => _modVersion;
+        set
+        {
+            if (_modVersion != value)
+            {
+                _modVersion = value;
+                OnPropertyChanged();
+            }
+        }
+    }
 
-	private void NonSpecialCharValidationTextBox(object sender, TextCompositionEventArgs e)
-	{
-		Regex regex = new Regex("[^a-zA-Z0-9_]+");
-		e.Handled = regex.IsMatch(e.Text);
-	}
+    private string _isMapModified = "False";
+
+    public string IsMapModified
+    {
+        get => _isMapModified;
+
+        set
+        {
+            if (_isMapModified != value)
+            {
+                _isMapModified = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+    {
+        Regex regex = new Regex("[^0-9.]+");
+        e.Handled = regex.IsMatch(e.Text);
+    }
+
+    private void NonSpecialCharValidationTextBox(object sender, TextCompositionEventArgs e)
+    {
+        Regex regex = new Regex("[^a-zA-Z0-9_]+");
+        e.Handled = regex.IsMatch(e.Text);
+    }
 }

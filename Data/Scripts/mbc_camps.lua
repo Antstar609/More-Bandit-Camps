@@ -8,7 +8,6 @@ MBCCamps = {
 	spawnedCamp = nil,
 
 	locations = {
-		test = { x = 526, y = 3560, z = 27 },
 		uzhitz = { x = 3504.877, y = 3766.421, z = 161.006 },
 		forest = { x = 1933.638, y = 1941.377, z = 135.456 },
 		vranik = { x = 540.977, y = 418.813, z = 178.359 },
@@ -30,7 +29,6 @@ MBCCamps = {
 		tents = {
 			"Objects/structures/tent_cuman/tent_cuman_small_v1.cgf",
 			"Objects/structures/tent_cuman/tent_cuman_v6.cgf",
-			"Objects/structures/tent/tent.cgf",
 		},
 		crates = {
 			"Objects/props/crates/crate_long.cgf",
@@ -73,60 +71,53 @@ function MBCCamps:SpawnMeshes(_locationName, _position)
 
 	local tentPosition, tentOrientation, cratePosition, crateOrientation = { x = 0, y = 0, z = 0 }
 
-	if (_locationName == "test") then
-		tentPosition = { x = 525, y = 3563, z = 27 }
-		tentOrientation = { x = 0, y = 360, z = 0 }
+	if (_locationName == "uzhitz") then
+		tentPosition = { x = 3502.112, y = 3769.713, z = 161.194 }
+		tentOrientation = { x = -180, y = 90, z = 0 }
 
-		cratePosition = { x = 523, y = 3559, z = 27 }
-		crateOrientation = { x = 10, y = 10, z = 0 }
-
-	elseif (_locationName == "uzhitz") then
-		tentPosition = { x = 3504.877, y = 3766.421, z = 161.006 }
-		tentOrientation = { x = 0, y = 0, z = 0 }
-
-		cratePosition = { x = 3504.877, y = 3766.421, z = 161.006 }
-		crateOrientation = { x = 0, y = 0, z = 0 }
+		cratePosition = { x = 3504.768, y = 3764.011, z = 160.973 }
+		crateOrientation = { x = 0, y = 180, z = 0 }
 
 	elseif (_locationName == "forest") then
-		tentPosition = { x = 1933.638, y = 1941.377, z = 135.456 }
-		tentOrientation = { x = 0, y = 0, z = 0 }
+		tentPosition = { x = 1930.720, y = 1937.801, z = 135.244 }
+		tentOrientation = { x = -90, y = -90, z = 0 }
 
-		cratePosition = { x = 1933.638, y = 1941.377, z = 135.456 }
+		cratePosition = { x = 1937.023, y = 1942.195, z = 135.417 }
 		crateOrientation = { x = 0, y = 0, z = 0 }
 
 	elseif (_locationName == "vranik") then
-		tentPosition = { x = 540.977, y = 418.813, z = 178.359 }
+		tentPosition = { x = 545.557, y = 418.847, z = 178.358 }
 		tentOrientation = { x = 0, y = 0, z = 0 }
 
-		cratePosition = { x = 540.977, y = 418.813, z = 178.359 }
+		cratePosition = { x = 537.403, y = 418.863, z = 178.327 }
 		crateOrientation = { x = 0, y = 0, z = 0 }
 
 	elseif (_locationName == "forest2") then
-		tentPosition = { x = 493.028, y = 2234.995, z = 54.999 }
-		tentOrientation = { x = 0, y = 0, z = 0 }
+		tentPosition = { x = 495.614, y = 2238.912, z = 54.428 }
+		tentOrientation = { x = 90, y = 180, z = 0 }
 
-		cratePosition = { x = 493.028, y = 2234.995, z = 54.999 }
-		crateOrientation = { x = 0, y = 0, z = 0 }
+		cratePosition = { x = 492.917, y = 2231.626, z = 55.269 }
+		crateOrientation = { x = 0, y = 90, z = 0 }
 
 	elseif (_locationName == "forest3") then
-		tentPosition = { x = 1918.524, y = 3379.129, z = 103.369 }
+		tentPosition = { x = 1923.351, y = 3378.986, z = 103.114 }
 		tentOrientation = { x = 0, y = 0, z = 0 }
 
-		cratePosition = { x = 1918.524, y = 3379.129, z = 103.369 }
-		crateOrientation = { x = 0, y = 0, z = 0 }
+		cratePosition = { x = 1915.387, y = 3377.863, z = 102.900 }
+		crateOrientation = { x = 90, y = 90, z = 0 }
 
 	elseif (_locationName == "idk") then
-		tentPosition = { x = 3393.676, y = 2375.124, z = 161.180 }
+		tentPosition = { x = 3398.261, y = 2375.103, z = 161.531 }
 		tentOrientation = { x = 0, y = 0, z = 0 }
 
-		cratePosition = { x = 3393.676, y = 2375.124, z = 161.180 }
+		cratePosition = { x = 3389.742, y = 2375.127, z = 160.950 }
 		crateOrientation = { x = 0, y = 0, z = 0 }
 
 	elseif (_locationName == "lastone") then
-		tentPosition = { x = 3348.984, y = 332.899, z = 78.839 }
-		tentOrientation = { x = 0, y = 0, z = 0 }
+		tentPosition = { x = 3347.824, y = 327.979, z = 78.853 }
+		tentOrientation = { x = 0, y = -180, z = 0 }
 
-		cratePosition = { x = 3348.984, y = 332.899, z = 78.839 }
+		cratePosition = { x = 3345.148, y = 331.763, z = 78.904 }
 		crateOrientation = { x = 0, y = 0, z = 0 }
 	end
 

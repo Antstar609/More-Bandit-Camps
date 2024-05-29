@@ -21,7 +21,7 @@ function MBCMain:sceneInitListener(_actionName, _eventName, _eventArgs)
 		MBCQuest:InitQuest()
 
 		--for locationName in pairs(MBCCamps.locations) do
-		--	MBCCamps:SpawnCamp(locationName, "none", false)
+		--	MBCCamps:SpawnCamp(locationName, 1, false)
 		--end
 	end
 end

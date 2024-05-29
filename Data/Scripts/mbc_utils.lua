@@ -26,12 +26,14 @@ System.AddCCommand(MBCMain.prefix .. 'Loc', 'MBCUtils:PrintLoc()', "Prints the p
 --- Teleports the player to the given position
 --- @param _xyz string Position to teleport to (x y z) or camp name (test)
 function MBCUtils:Teleport(_xyz)
+	-- Teleport to npc
 	if (_xyz == "npc") then
 		local pos = { x = MBCQuest.npcPosition.x, y = MBCQuest.npcPosition.y + 2, z = MBCQuest.npcPosition.z }
 		player:SetWorldPos(pos)
 		return
 	end
-
+	
+	-- Teleport to camp
 	if (_xyz == "camp") then
 		if (MBCQuest.spawnedCamp.name == "") then
 			MBCUtils:LogOnScreen("No camp spawned")
@@ -43,6 +45,15 @@ function MBCUtils:Teleport(_xyz)
 		end
 	end
 
+	-- Teleport to camp by name
+	for campName, campPos in pairs(MBCCamps.locations) do
+		if (_xyz == campName) then
+			player:SetWorldPos(campPos)
+			return
+		end
+	end
+	
+	-- Teleport to the given position
 	local function SplitStringToCoordinates(_string)
 		local coordinates = { "x", "y", "z" }
 		local result = {}

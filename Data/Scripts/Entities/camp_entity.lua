@@ -21,8 +21,8 @@ MBCCampEntity = {
 	name = "",
 	difficulty = 0,
 
-	spawnRadius = 5,
-	despawnRadius = 20,
+	spawnRadius = 60,
+	despawnRadius = 100,
 
 	meshes = {},
 	tagpoint = nil,

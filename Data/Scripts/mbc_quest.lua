@@ -37,7 +37,6 @@ function MBCQuest:InitQuest()
 			MBCUtils:Log("Camp removed")
 
 			-- Spawn a new camp
-			--TODO: Difficulty is not set correctly
 			MBCCamps:SpawnCamp(self.spawnedCamp.name, self.spawnedCamp.difficulty, true)
 		end
 	end

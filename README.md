@@ -1,4 +1,7 @@
-# Kingdom Come: Deliverance - More Bandit Camps Mod - v1.0.1
+![](https://github.com/user-attachments/assets/194a05f5-17e7-4206-8adf-3745f891314c)
+
+More Bandit Camps v1.0.1
+========================
 
 This mod for *Kingdom Come: Deliverance* introduces new bandit camps across the map for players to discover and destroy. Each destroyed camp yields rewards, enhancing the gameplay experience.
 
@@ -31,4 +34,8 @@ After installing the mod, a quest will appear. You'll need to speak with the NPC
     - [benjaminfoo](https://github.com/benjaminfoo) for the [KCD Coding Guide](https://github.com/benjaminfoo/kcd_coding_guide) and EntityTemplate [How to Lua](https://www.nexusmods.com/kingdomcomedeliverance/mods/1344).
     - machinegod420 for the amazing mod [Cuman War](https://www.nexusmods.com/kingdomcomedeliverance/mods/1101), which inspired me and helped me understand how to create a mod.
     - Othiden for the [Cheat](https://www.nexusmods.com/kingdomcomedeliverance/mods/106) mod, which greatly helped me debug my mod and saved me a lot of time.
-- Special thanks to my school, *Creajeux*, for giving me the opportunity to create this mod.
+- Special thanks to my school, *Creajeux*, for giving me the opportunity to create this mod.!
+
+## Screenshots
+![](https://github.com/user-attachments/assets/c7c8ea6a-b53e-4e8f-a29e-8acf832b4c27)
+![](https://github.com/user-attachments/assets/495a4d1b-bf69-4f3e-92b1-aca3d737de25)

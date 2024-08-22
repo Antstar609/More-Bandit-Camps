@@ -72,8 +72,9 @@ System.AddCCommand(MBCMain.prefix .. 'Teleport', 'MBCUtils:Teleport(%line)', "Te
 
 --- Shows the intro banner from startup (temporary)
 function MBCUtils:ShowTextbox()
-	local message = "<font color='#ff8b00' size='28'>More Bandit Camps</font>" .. "\n"
-			.. "<font color='#333333' size='20'>Antstar609</font>"
+	local message = "<font color='#ff8b00' size='28'>".. MBCMain.name .. "</font>" .. "\n"
+			.. "<font color='#333333' size='20'>Antstar609</font>" .. "\n"
+			.. "<font color='#333333' size='20'>" .. "v" .. MBCMain.version .. "</font>"
 
 	Game.ShowTutorial(message, 3, false, true);
 end

@@ -3,9 +3,9 @@
 --- @field version string Version of the mod
 --- @field prefix string Prefix for the console commands
 MBCMain = {
-	name = "MoreBanditCamps",
-	version = "0.1",
-	prefix = '',
+	name = "More Bandit Camps",
+	version = "1.0.1",
+	prefix = 'mbc_',
 }
 
 -- Listener for the scene init event
@@ -19,10 +19,6 @@ function MBCMain:sceneInitListener(_actionName, _eventName, _eventArgs)
 		MBCUtils:Log(self.name .. " loaded " .. "(v" .. self.version .. ")")
 		MBCUtils:ShowTextbox()
 		MBCQuest:InitQuest()
-
-		--for locationName in pairs(MBCCamps.locations) do
-		--	MBCCamps:SpawnCamp(locationName, 1, false)
-		--end
 	end
 end
 

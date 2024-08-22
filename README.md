@@ -1,4 +1,4 @@
-# Kingdom Come: Deliverance - More Bandit Camps Mod
+# Kingdom Come: Deliverance - More Bandit Camps Mod - v1.0.1
 
 This mod for *Kingdom Come: Deliverance* introduces new bandit camps across the map for players to discover and destroy. Each destroyed camp yields rewards, enhancing the gameplay experience.
 

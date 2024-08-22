@@ -15,7 +15,7 @@ The mod is available in the following languages:
 
 ## Installation
 
-1. Download the latest release on GitHub or from this [link](https://www.nexusmods.com/kingdomcomedeliverance/mods/1701).
+1. Download the latest release on GitHub or from [Nexus Mods](https://www.nexusmods.com/kingdomcomedeliverance/mods/1701).
 2. Unzip the folder and place it in the `Mods` folder of your game directory (create it if it doesn’t exist).
 3. Launch the game.
 

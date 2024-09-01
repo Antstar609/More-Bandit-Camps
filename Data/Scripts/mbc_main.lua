@@ -4,8 +4,9 @@
 --- @field prefix string Prefix for the console commands
 MBCMain = {
 	name = "More Bandit Camps",
-	version = "1.0.1",
+	version = "1.0.2",
 	prefix = 'mbc_',
+	debug = false
 }
 
 -- Listener for the scene init event

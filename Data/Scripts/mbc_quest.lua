@@ -34,10 +34,14 @@ function MBCQuest:InitQuest()
 
 			-- Remove the old camp entity to prevent the tagpoint from being duplicated
 			System.RemoveEntity(System.GetEntityIdByName("MBCCamp"))
-			MBCUtils:Log("Camp removed")
+			System.RemoveEntity(System.GetEntityIdByName("tagpoint"))
+
+			if (MBCMain.debug == true) then
+				MBCUtils:Log("Camp removed")
+			end
 
 			-- Spawn a new camp
-			MBCCamps:SpawnCamp(self.spawnedCamp.name, self.spawnedCamp.difficulty, true)
+			MBCCamps:SpawnCamp(self.spawnedCamp.name, self.spawnedCamp.difficulty)
 		end
 	end
 
@@ -143,7 +147,7 @@ function MBCQuest:RandomCamp()
 	local difficulty = MBCCamps.difficulty[math.random(2, #MBCCamps.difficulty)]
 
 	-- Spawn the camp
-	MBCCamps:SpawnCamp(location, difficulty, false)
+	MBCCamps:SpawnCamp(location, difficulty)
 
 	return location, difficulty
 end

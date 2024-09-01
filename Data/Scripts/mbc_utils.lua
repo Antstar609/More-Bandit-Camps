@@ -15,6 +15,13 @@ function MBCUtils:LogOnScreen(_message, _forceClear, _time)
 	Game.SendInfoText(tostring(_message), _forceClear or false, nil, _time or 3)
 end
 
+--- Dump Entity
+--- @param _entityName string Name of the entity in the game
+function MBCUtils:DumpEntity(_entityName)
+	dump(System.GetEntityByName(_entityName))
+end
+System.AddCCommand(MBCMain.prefix .. 'dumpEntity', 'MBCUtils:DumpEntity(%line)', "Dump the entity")
+
 --- Prints the player's location to the console and the screen
 function MBCUtils:PrintLoc()
 	local pos = player:GetWorldPos()

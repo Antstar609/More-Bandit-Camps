@@ -40,7 +40,7 @@ MBCCamps = {
 --- Spawn a camp entity at the given location with the given difficulty
 --- @param _locationName string Name of the location
 --- @param _difficulty string Difficulty of the camp (default: easy)
-function MBCCamps:SpawnCamp(_locationName, _difficulty, _isWithoutTagpoint)
+function MBCCamps:SpawnCamp(_locationName, _difficulty)
 	local spawnParams = {
 		class = "MBCCampEntity",
 		name = "MBCCamp",
@@ -52,16 +52,12 @@ function MBCCamps:SpawnCamp(_locationName, _difficulty, _isWithoutTagpoint)
 	camp.difficulty = self.difficulty[_difficulty] or self.difficulty[2]
 	self.spawnedCamp = camp
 
-	MBCUtils:Log("Camp spawned at " .. camp.name .. " with " .. camp.difficulty .. " enemies")
+	if (MBCMain.debug == true) then
+		MBCUtils:Log("Camp spawned at " .. camp.name .. " with " .. camp.difficulty .. " enemies")
+	end
 
 	self:SpawnMeshes(_locationName, self.locations[_locationName])
-
-	if (not _isWithoutTagpoint) then
-		self:SpawnTagPoint(self.locations[_locationName])
-		MBCUtils:Log("Spawned camp with tagpoint")
-	else
-		MBCUtils:Log("Spawned camp without tagpoint")
-	end
+	self:SpawnTagPoint(self.locations[_locationName])
 end
 
 --- Spawn all meshes for the camp entity

@@ -60,6 +60,7 @@ function MBCQuest:RestartQuest()
 		QuestSystem.StartObjective("q_morebanditcamps", "o_talk", false)
 	end
 end
+System.AddCCommand(MBCMain.prefix .. 'reset', 'MBCQuest:RestartQuest()', "Reset the quest")
 
 --- Interact with the NPC to progress the quest
 function MBCQuest:NCPInteract()
@@ -90,7 +91,7 @@ function MBCQuest:QuestSequence()
 		end
 	end
 end
-System.AddCCommand(MBCMain.prefix .. 'NextObjective', 'MBCQuest:QuestSequence()', "Pass to the next objective of the quest")
+System.AddCCommand(MBCMain.prefix .. 'nextObjective', 'MBCQuest:QuestSequence()', "Pass to the next objective of the quest")
 
 --- Talk to the NPC sequence
 function MBCQuest:Talk()

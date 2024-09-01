@@ -21,7 +21,7 @@ function MBCUtils:PrintLoc()
 	self:Log(string.format("{ x = %.3f, y = %.3f, z = %.3f }", pos.x, pos.y, pos.z))
 	self:LogOnScreen(Vec2Str(pos), true, 10)
 end
-System.AddCCommand(MBCMain.prefix .. 'Loc', 'MBCUtils:PrintLoc()', "Prints the player's location")
+System.AddCCommand(MBCMain.prefix .. 'loc', 'MBCUtils:PrintLoc()', "Prints the player's location")
 
 --- Teleports the player to the given position
 --- @param _xyz string Position to teleport to (x y z) or camp name (test)
@@ -68,7 +68,7 @@ function MBCUtils:Teleport(_xyz)
 	self:LogOnScreen("Teleported to " .. pos.x .. ", " .. pos.y .. ", " .. pos.z, true, 5)
 	player:SetWorldPos(pos)
 end
-System.AddCCommand(MBCMain.prefix .. 'Teleport', 'MBCUtils:Teleport(%line)', "Teleports the player to the given position")
+System.AddCCommand(MBCMain.prefix .. 'teleport', 'MBCUtils:Teleport(%line)', "Teleports the player to the given position")
 
 --- Shows the intro banner from startup (temporary)
 function MBCUtils:ShowTextbox()
@@ -78,4 +78,4 @@ function MBCUtils:ShowTextbox()
 
 	Game.ShowTutorial(message, 3, false, true);
 end
-System.AddCCommand(MBCMain.prefix .. 'ShowText', 'MBCUtils:ShowText()', "Shows the intro banner from startup")
+System.AddCCommand(MBCMain.prefix .. 'showText', 'MBCUtils:ShowText()', "Shows the intro banner from startup")

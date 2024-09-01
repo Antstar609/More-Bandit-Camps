@@ -123,7 +123,7 @@ function MBCSoul:SpawnEntityByType(_entityType, _position, _numberOfEntities, _o
 
 	return entities
 end
-System.AddCCommand(MBCMain.prefix .. 'SpawnEntityByType', 'MBCSoul:SpawnEntityByType(%line)', "")
+System.AddCCommand(MBCMain.prefix .. 'spawnEntityByType', 'MBCSoul:SpawnEntityByType(%line)', "")
 
 --- Spawn an entity with the given line number at the given position or at the player position
 --- @param _lineNumber number Line number of the entity in the xml file
@@ -150,7 +150,7 @@ function MBCSoul:SpawnEntityByLine(_lineNumber, _position)
 	entity.lootable = true
 	entity.lootIsLegal = true
 end
-System.AddCCommand(MBCMain.prefix .. 'SpawnEntityByLine', 'MBCSoul:SpawnEntityByLine(%line)', "")
+System.AddCCommand(MBCMain.prefix .. 'spawnEntityByLine', 'MBCSoul:SpawnEntityByLine(%line)', "")
 
 --- Spawn a wandering villager at the player position
 function MBCSoul:SpawnWanderingGuard()
@@ -168,7 +168,7 @@ function MBCSoul:SpawnWanderingGuard()
 	local entity = System.SpawnEntity(spawnParams)
 	entity.AI.invulnerable = true
 end
-System.AddCCommand(MBCMain.prefix .. 'SpawnWanderingGuard', 'MBCSoul:SpawnWanderingGuard()', "Spawn a wandering guard")
+System.AddCCommand(MBCMain.prefix .. 'spawnWanderingGuard', 'MBCSoul:SpawnWanderingGuard()', "Spawn a wandering guard")
 
 --- Spawn the commander
 --- @param _position table Position of the entity (x, y, z)

@@ -146,7 +146,7 @@ function MBCCamps:SpawnTagPoint(_position)
 		name = "tagpoint",
 		position = { x = _position.x, y = _position.y, z = _position.z },
 		properties = {
-			sharedSoulGuid = "00000000-6666-0000-9999-000000000000",
+			sharedSoulGuid = "4d92924c-5841-6dfe-3a20-4adfad0cfe97",
 			fileModel = "none",
 		},
 	}

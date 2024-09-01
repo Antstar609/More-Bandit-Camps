@@ -45,4 +45,4 @@ function MBCDatabase:PrintDatabase(_databaseName)
 		end
 	end
 end
-System.AddCCommand(MBCMain.prefix .. 'PrintDatabase', 'MBCDatabase:PrintDatabase(%line)', "Print a database")
+System.AddCCommand(MBCMain.prefix .. 'printDatabase', 'MBCDatabase:PrintDatabase(%line)', "Print a database")

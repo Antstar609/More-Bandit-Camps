@@ -1,4 +1,4 @@
-# More Bandit Camps v1.0.2
+# More Bandit Camps
 
 ![Mod Banner](https://github.com/user-attachments/assets/194a05f5-17e7-4206-8adf-3745f891314c)
 

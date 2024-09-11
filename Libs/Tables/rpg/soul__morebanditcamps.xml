@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<database name="hammerheart">
+	<table name="soul__morebanditcamps" version="1">
+		<header>
+			<column name="activity_0" type="character varying"/>
+			<column name="activity_1" type="character varying"/>
+			<column name="activity_2" type="character varying"/>
+			<column name="activity_3" type="character varying"/>
+			<column name="activity_4" type="character varying"/>
+			<column name="activity_5" type="character varying"/>
+			<column name="activity_6" type="character varying"/>
+			<column name="activity_7" type="character varying"/>
+			<column name="activity_8" type="character varying"/>
+			<column name="agi" type="integer"/>
+			<column name="ai_body_id" type="uuid"/>
+			<column name="barter" type="integer"/>
+			<column name="brain_id" type="uuid"/>
+			<column name="character_beard_brightness" type="real"/>
+			<column name="character_beard_color" type="integer"/>
+			<column name="character_beard_hue" type="real"/>
+			<column name="character_beard_id" type="uuid"/>
+			<column name="character_beard_saturation" type="real"/>
+			<column name="character_body_id" type="uuid"/>
+			<column name="character_eyes_color" type="integer"/>
+			<column name="character_eyes_occlusion_strength" type="real"/>
+			<column name="character_hair_brightness" type="real"/>
+			<column name="character_hair_color" type="integer"/>
+			<column name="character_hair_hue" type="real"/>
+			<column name="character_hair_id" type="uuid"/>
+			<column name="character_hair_saturation" type="real"/>
+			<column name="character_head_brightness" type="real"/>
+			<column name="character_head_color" type="integer"/>
+			<column name="character_head_hue" type="real"/>
+			<column name="character_head_id" type="uuid"/>
+			<column name="character_head_saturation" type="real"/>
+			<column name="character_proportion" type="integer"/>
+			<column name="character_scale" type="real"/>
+			<column name="character_skin_brightness" type="real"/>
+			<column name="character_skin_color" type="integer"/>
+			<column name="character_skin_hue" type="real"/>
+			<column name="character_skin_saturation" type="real"/>
+			<column name="charisma" type="integer"/>
+			<column name="combat_level" type="integer"/>
+			<column name="computer_name" type="character varying"/>
+			<column name="courage" type="integer"/>
+			<column name="digestion_multiplier" type="real"/>
+			<column name="enable_perk_point_gain" type="boolean"/>
+			<column name="faction" type="integer"/>
+			<column name="hearing" type="integer"/>
+			<column name="initial_clothing_dirt" type="real"/>
+			<column name="initial_clothing_preset_id" type="uuid"/>
+			<column name="initial_weapon_preset_id" type="uuid"/>
+			<column name="inventory_id" type="uuid"/>
+			<column name="level_name" type="character varying"/>
+			<column name="reputation" type="real"/>
+			<column name="shadiness" type="real"/>
+			<column name="skald_character_id" type="integer"/>
+			<column name="social_class_id" type="integer"/>
+			<column name="soul_archetype_id" type="integer"/>
+			<column name="soul_class_id" type="integer"/>
+			<column name="soul_id" type="uuid"/>
+			<column name="soul_name" type="character varying"/>
+			<column name="soul_vip_class_id" type="integer"/>
+			<column name="spc" type="integer"/>
+			<column name="str" type="integer"/>
+			<column name="time_0" type="character varying"/>
+			<column name="time_1" type="character varying"/>
+			<column name="time_2" type="character varying"/>
+			<column name="time_3" type="character varying"/>
+			<column name="time_4" type="character varying"/>
+			<column name="time_5" type="character varying"/>
+			<column name="time_6" type="character varying"/>
+			<column name="time_7" type="character varying"/>
+			<column name="time_8" type="character varying"/>
+			<column name="timestamp" type="character varying"/>
+			<column name="vision" type="integer"/>
+			<column name="vit" type="integer"/>
+			<column name="xp_multiplier" type="real"/>
+		</header>
+		<rows>
+			<row activity_0="dummyWait" activity_1="" activity_2="" activity_3="" activity_4="" activity_5=""
+				 activity_6="" activity_7="" activity_8="" agi="0" ai_body_id="00000000-0000-0000-0000-000000000000"
+				 barter="0" brain_id="00000000-0000-0000-0000-000000000000" character_beard_brightness="1"
+				 character_beard_color="8421504" character_beard_hue="0" character_beard_id=""
+				 character_beard_saturation="1" character_body_id="00000000-0000-0000-0000-000000000000"
+				 character_eyes_color="8421504" character_eyes_occlusion_strength="0" character_hair_brightness="1"
+				 character_hair_color="8421504" character_hair_hue="0" character_hair_id=""
+				 character_hair_saturation="1" character_head_brightness="1" character_head_color="8421504"
+				 character_head_hue="0" character_head_id="00000000-0000-0000-0000-000000000000"
+				 character_head_saturation="1" character_proportion="0" character_scale="0"
+				 character_skin_brightness="1" character_skin_color="8421504" character_skin_hue="0"
+				 character_skin_saturation="1" charisma="0" combat_level="1" computer_name="" courage="0"
+				 digestion_multiplier="0" enable_perk_point_gain="" faction="" hearing="2" initial_clothing_dirt="0"
+				 initial_clothing_preset_id="00000000-0000-0000-0000-000000000000"
+				 initial_weapon_preset_id="00000000-0000-0000-0000-000000000000" inventory_id=""
+				 level_name="rataje" reputation="0" shadiness="0" skald_character_id="598" social_class_id=""
+				 soul_archetype_id="0" soul_class_id="" soul_id="1b036f85-f939-4ec6-89a3-0229a87fafaf"
+				 soul_name="mbc_tagpoint" soul_vip_class_id="0" spc="0" str="2" time_0="0:00" time_1="" time_2=""
+				 time_3="" time_4="" time_5="" time_6="" time_7="" time_8="" timestamp="" vision="8"
+				 vit="0" xp_multiplier="0"/>
+		</rows>
+	</table>
+</database>

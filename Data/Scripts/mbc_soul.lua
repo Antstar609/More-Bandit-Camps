@@ -110,6 +110,7 @@ function MBC_Soul:SpawnEntityByType(_entityType, _position, _numberOfEntities, _
 			orientation = player:GetWorldPos(),
 			properties = {
 				sharedSoulGuid = soul[randomNumber].id,
+				bSaved_by_game = 0,
 			},
 		}
 
@@ -173,10 +174,10 @@ System.AddCCommand(MBC_Main.prefix .. 'spawnWanderingGuard', 'MBC_Soul:SpawnWand
 --- Spawn the commander
 --- @param _position table Position of the entity (x, y, z)
 --- @param _orientation table Orientation of the entity (x, y, z)
-function MBC_Soul:SpawnMarechal(_position, _orientation)
+function MBC_Soul:SpawnQuestNPC(_position, _orientation)
 	local spawnParams = {
 		class = "NPC",
-		name = "marechal",
+		name = "QuestNPC",
 		position = _position,
 		orientation = _orientation,
 		properties = {
@@ -185,12 +186,12 @@ function MBC_Soul:SpawnMarechal(_position, _orientation)
 		},
 	}
 	local entity = System.SpawnEntity(spawnParams)
-	self:SetMarechalAttributes(entity)
+	self:SetQuestNPCAttributes(entity)
 end
 
---- Set the marechal attributes
+--- Set the QuestNPC attributes
 --- @param _entity table Entity to set the attributes
-function MBC_Soul:SetMarechalAttributes(_entity)
+function MBC_Soul:SetQuestNPCAttributes(_entity)
 	_entity.AI.invulnerable = true
 	_entity.lootable = false
 

@@ -78,13 +78,3 @@ function MBC_Utils:Teleport(_xyz)
 	player:SetWorldPos(pos)
 end
 System.AddCCommand(MBC_Main.prefix .. 'teleport', 'MBC_Utils:Teleport(%line)', "Teleports the player to the given position")
-
---- Shows the intro banner from startup (temporary)
-function MBC_Utils:ShowTextbox()
-	local message = "<font color='#ff8b00' size='28'>" .. MBC_Main.name .. "</font>" .. "\n"
-			.. "<font color='#333333' size='20'>Antstar609</font>" .. "\n"
-			.. "<font color='#333333' size='20'>" .. "v" .. MBC_Main.version .. "</font>"
-
-	Game.ShowTutorial(message, 3, false, true);
-end
-System.AddCCommand(MBC_Main.prefix .. 'showText', 'MBC_Utils:ShowText()', "Shows the intro banner from startup")

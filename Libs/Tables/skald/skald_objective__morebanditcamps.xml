@@ -10,9 +10,9 @@
 			<column name="skald_element_id" type="integer"/>
 		</header>
 		<rows>
-			<row is_save="0" localmap_location_id="" objective_id="1" objective_type_id="0" quest_id="999999999" skald_element_id="6666661"/>
-			<row is_save="0" localmap_location_id="" objective_id="2" objective_type_id="0" quest_id="999999999" skald_element_id="6666662"/>
-			<row is_save="0" localmap_location_id="" objective_id="3" objective_type_id="0" quest_id="999999999" skald_element_id="6666663"/>
+			<row is_save="0" localmap_location_id="" objective_id="1" objective_type_id="0" quest_id="666666666" skald_element_id="6666661"/>
+			<row is_save="0" localmap_location_id="" objective_id="2" objective_type_id="0" quest_id="666666666" skald_element_id="6666662"/>
+			<row is_save="0" localmap_location_id="" objective_id="3" objective_type_id="0" quest_id="666666666" skald_element_id="6666663"/>
 		</rows>
 	</table>
 </database>

@@ -20,7 +20,7 @@
 		</header>
 		<rows>
 			<row comment="" computer_name="" counter="1" group="New" is_activated="True"
-				 is_progress_visible="True" long_desc="" pos1="" pos2="" pos3="" quest_id="999999999"
+				 is_progress_visible="True" long_desc="" pos1="" pos2="" pos3="" quest_id="666666666"
 				 quest_name="q_morebanditcamps" quest_type_id="2" smart_object="" timestamp=""/>
 		</rows>
 	</table>

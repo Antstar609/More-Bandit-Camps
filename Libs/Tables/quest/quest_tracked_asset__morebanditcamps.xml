@@ -12,9 +12,9 @@
 			<column name="user_id" type="integer"/>
 		</header>
 		<rows>
-			<row count="1" map_asset_id="" objective_id="1" on_map="True" pos="" quest_asset_id="1" quest_id="999999999" user_id="0"/>
-			<row count="1" map_asset_id="" objective_id="2" on_map="True" pos="" quest_asset_id="2" quest_id="999999999" user_id="0"/>
-			<row count="1" map_asset_id="" objective_id="3" on_map="True" pos="" quest_asset_id="1" quest_id="999999999" user_id="0"/>
+			<row count="1" map_asset_id="" objective_id="1" on_map="True" pos="" quest_asset_id="10" quest_id="666666666" user_id="0"/>
+			<row count="1" map_asset_id="" objective_id="2" on_map="True" pos="" quest_asset_id="20" quest_id="666666666" user_id="0"/>
+			<row count="1" map_asset_id="" objective_id="3" on_map="True" pos="" quest_asset_id="10" quest_id="666666666" user_id="0"/>
 		</rows>
 	</table>
 </database>

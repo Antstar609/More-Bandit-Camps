@@ -16,6 +16,11 @@ MBC_Quest = {
 
 --- Start the quest
 function MBC_Quest:InitQuest()
+	--Remove the old entity to maintain compatibility with the previous version
+	if (System.GetEntityByName("marechal") ~= nil) then
+		System.RemoveEntity(System.GetEntityIdByName("marechal"))
+	end
+	
 	if (System.GetEntityByName("QuestNPC") == nil) then
 		-- spawn npc
 		MBC_Soul:SpawnQuestNPC(self.npcPosition, { x = 0, y = 0, z = 90 })

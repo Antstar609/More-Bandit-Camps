@@ -9,8 +9,8 @@
 			<column name="soul_id" type="uuid"/>
 		</header>
 		<rows>
-			<row quest_asset_id="1" quest_id="999999999" soul_class_id="0" soul_faction_id="" soul_id="48e0f0d5-27f4-ab1c-8ed4-887830e828a7"/>
-			<row quest_asset_id="2" quest_id="999999999" soul_class_id="0" soul_faction_id="" soul_id="1b036f85-f939-4ec6-89a3-0229a87fafaf"/>
+			<row quest_asset_id="10" quest_id="666666666" soul_class_id="0" soul_faction_id="" soul_id="48e0f0d5-27f4-ab1c-8ed4-887830e828a7"/>
+			<row quest_asset_id="20" quest_id="666666666" soul_class_id="0" soul_faction_id="" soul_id="1b036f85-f939-4ec6-89a3-0229a87fafaf"/>
 		</rows>
 	</table>
 </database>

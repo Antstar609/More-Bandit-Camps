@@ -16,16 +16,16 @@ MBC_Quest = {
 
 --- Start the quest
 function MBC_Quest:InitQuest()
-	if (System.GetEntityByName("marechal") == nil) then
+	if (System.GetEntityByName("QuestNPC") == nil) then
 		-- spawn npc
-		MBC_Soul:SpawnMarechal(self.npcPosition, { x = 0, y = 0, z = 90 })
+		MBC_Soul:SpawnQuestNPC(self.npcPosition, { x = 0, y = 0, z = 90 })
 		-- reset and activate the quest
 		QuestSystem.ResetQuest("q_morebanditcamps")
 		--QuestSystem.ActivateQuest("q_morebanditcamps", false)
 	else
 		-- remove the old npc and spawn a new one to prevent the entity from being faded when the player is far away
-		System.RemoveEntity(System.GetEntityIdByName("marechal"))
-		MBC_Soul:SpawnMarechal(self.npcPosition, { x = 0, y = 0, z = 90 })
+		System.RemoveEntity(System.GetEntityIdByName("QuestNPC"))
+		MBC_Soul:SpawnQuestNPC(self.npcPosition, { x = 0, y = 0, z = 90 })
 	end
 
 	-- if there already is a camp spawned, remove it and reset the quest to avoid the tagpoint not showing up
@@ -34,7 +34,7 @@ function MBC_Quest:InitQuest()
 
 			-- Remove the old camp entity to prevent the tagpoint from being duplicated
 			System.RemoveEntity(System.GetEntityIdByName("MBCCamp"))
-			System.RemoveEntity(System.GetEntityIdByName("tagpoint"))
+			System.RemoveEntity(System.GetEntityIdByName("Tagpoint"))
 
 			MBC_Utils:Log("Camp removed")
 

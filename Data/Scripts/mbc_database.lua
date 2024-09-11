@@ -1,12 +1,12 @@
---- @class MBCDatabase Used to get data from any database (.xml files) in the game
-MBCDatabase = {}
+--- @class MBC_Database Used to get data from any database (.xml files) in the game
+MBC_Database = {}
 
 --- Get a database from the game
 --- @param _tableName string Name of the database
 --- @return table Database data
-function MBCDatabase:GetDatabase(_tableName)
+function MBC_Database:GetDatabase(_tableName)
 	if (not Database.LoadTable(_tableName)) then
-		MBCUtils:Log("No database found")
+		MBC_Utils:Log("No database found")
 		return nil
 	end
 
@@ -31,7 +31,7 @@ end
 
 --- Print a database to the console
 --- @param _databaseName string Name of the database
-function MBCDatabase:PrintDatabase(_databaseName)
+function MBC_Database:PrintDatabase(_databaseName)
 	local database = self:GetDatabase(_databaseName)
 
 	if (database == nil) then
@@ -39,10 +39,10 @@ function MBCDatabase:PrintDatabase(_databaseName)
 	end
 
 	for i, data in ipairs(database) do
-		MBCUtils:Log("Row " .. i .. ":")
+		MBC_Utils:Log("Row " .. i .. ":")
 		for columnName, columnValue in pairs(data) do
-			MBCUtils:Log("\t" .. columnName .. ": " .. tostring(columnValue))
+			MBC_Utils:Log("\t" .. columnName .. ": " .. tostring(columnValue))
 		end
 	end
 end
-System.AddCCommand(MBCMain.prefix .. 'printDatabase', 'MBCDatabase:PrintDatabase(%line)', "Print a database")
+System.AddCCommand(MBC_Main.prefix .. 'printDatabase', 'MBC_Database:PrintDatabase(%line)', "Print a database")

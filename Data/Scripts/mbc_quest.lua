@@ -1,6 +1,6 @@
----@class MBCQuest Quest manager
+---@class MBC_Quest Quest manager
 ---@field npcPosition table Position of the NPC (x, y, z)
-MBCQuest = {
+MBC_Quest = {
 	npcPosition = { x = 983.452, y = 1554.807, z = 25.205 },
 	spawnedCamp = {
 		name = "",
@@ -15,17 +15,17 @@ MBCQuest = {
 }
 
 --- Start the quest
-function MBCQuest:InitQuest()
+function MBC_Quest:InitQuest()
 	if (System.GetEntityByName("marechal") == nil) then
 		-- spawn npc
-		MBCSoul:SpawnMarechal(self.npcPosition, { x = 0, y = 0, z = 90 })
+		MBC_Soul:SpawnMarechal(self.npcPosition, { x = 0, y = 0, z = 90 })
 		-- reset and activate the quest
 		QuestSystem.ResetQuest("q_morebanditcamps")
 		--QuestSystem.ActivateQuest("q_morebanditcamps", false)
 	else
 		-- remove the old npc and spawn a new one to prevent the entity from being faded when the player is far away
 		System.RemoveEntity(System.GetEntityIdByName("marechal"))
-		MBCSoul:SpawnMarechal(self.npcPosition, { x = 0, y = 0, z = 90 })
+		MBC_Soul:SpawnMarechal(self.npcPosition, { x = 0, y = 0, z = 90 })
 	end
 
 	-- if there already is a camp spawned, remove it and reset the quest to avoid the tagpoint not showing up
@@ -36,12 +36,10 @@ function MBCQuest:InitQuest()
 			System.RemoveEntity(System.GetEntityIdByName("MBCCamp"))
 			System.RemoveEntity(System.GetEntityIdByName("tagpoint"))
 
-			if (MBCMain.debug == true) then
-				MBCUtils:Log("Camp removed")
-			end
+			MBC_Utils:Log("Camp removed")
 
 			-- Spawn a new camp
-			MBCCamps:SpawnCamp(self.spawnedCamp.name, self.spawnedCamp.difficulty)
+			MBC_Camps:SpawnCamp(self.spawnedCamp.name, self.spawnedCamp.difficulty)
 		end
 	end
 
@@ -53,7 +51,7 @@ function MBCQuest:InitQuest()
 end
 
 --- Restart the quest
-function MBCQuest:RestartQuest()
+function MBC_Quest:RestartQuest()
 	-- reset and activate the quest, no need to spawn a new npc its already there
 	QuestSystem.ResetQuest("q_morebanditcamps")
 	--QuestSystem.ActivateQuest("q_morebanditcamps", false)
@@ -64,27 +62,27 @@ function MBCQuest:RestartQuest()
 		QuestSystem.StartObjective("q_morebanditcamps", "o_talk", false)
 	end
 end
-System.AddCCommand(MBCMain.prefix .. 'reset', 'MBCQuest:RestartQuest()', "Reset the quest")
+System.AddCCommand(MBC_Main.prefix .. 'reset', 'MBC_Quest:RestartQuest()', "Reset the quest")
 
 --- Interact with the NPC to progress the quest
-function MBCQuest:NCPInteract()
+function MBC_Quest:NCPInteract()
 	-- self doesn't work here
-	MBCQuest:DialogueSequence()
+	MBC_Quest:DialogueSequence()
 end
 
-function MBCQuest:DialogueSequence()
+function MBC_Quest:DialogueSequence()
 	if (QuestSystem.IsQuestStarted("q_morebanditcamps")) then
 		if (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_talk")) then
-			MBCQuest:Talk()
+			MBC_Quest:Talk()
 		elseif (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_destroycamp")) then
-			MBCUtils:LogOnScreen("@ui_text_npc_waiting")
+			MBC_Utils:LogOnScreen("@ui_text_npc_waiting")
 		elseif (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_reward")) then
-			MBCQuest:Reward()
+			MBC_Quest:Reward()
 		end
 	end
 end
 
-function MBCQuest:QuestSequence()
+function MBC_Quest:QuestSequence()
 	if (QuestSystem.IsQuestStarted("q_morebanditcamps")) then
 		if (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_talk")) then
 			self:Talk()
@@ -95,34 +93,34 @@ function MBCQuest:QuestSequence()
 		end
 	end
 end
-System.AddCCommand(MBCMain.prefix .. 'nextObjective', 'MBCQuest:QuestSequence()', "Pass to the next objective of the quest")
+System.AddCCommand(MBC_Main.prefix .. 'nextObjective', 'MBC_Quest:QuestSequence()', "Pass to the next objective of the quest")
 
 --- Talk to the NPC sequence
-function MBCQuest:Talk()
+function MBC_Quest:Talk()
 	if (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_talk")) then
 
-		self.spawnedCamp.name, self.spawnedCamp.difficulty = MBCQuest:RandomCamp()
+		self.spawnedCamp.name, self.spawnedCamp.difficulty = MBC_Quest:RandomCamp()
 
 		QuestSystem.CompleteObjective("q_morebanditcamps", "o_talk", false)
 		QuestSystem.StartObjective("q_morebanditcamps", "o_destroycamp", false)
 
-		MBCUtils:LogOnScreen("@ui_text_npc_location")
+		MBC_Utils:LogOnScreen("@ui_text_npc_location")
 	end
 end
 
 --- Destroy the camp sequence
-function MBCQuest:DestroyCamp()
+function MBC_Quest:DestroyCamp()
 	if (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_destroycamp")) then
 
 		QuestSystem.CompleteObjective("q_morebanditcamps", "o_destroycamp", false)
 		QuestSystem.StartObjective("q_morebanditcamps", "o_reward", false)
 
-		MBCUtils:LogOnScreen("@ui_text_npc_destroyed")
+		MBC_Utils:LogOnScreen("@ui_text_npc_destroyed")
 	end
 end
 
 --- Reward sequence
-function MBCQuest:Reward()
+function MBC_Quest:Reward()
 	if (not QuestSystem.IsObjectiveCompleted("q_morebanditcamps", "o_reward")) then
 
 		local reward = self.difficultyRewards[self.spawnedCamp.difficulty] or 0
@@ -130,24 +128,24 @@ function MBCQuest:Reward()
 
 		QuestSystem.CompleteObjective("q_morebanditcamps", "o_reward", false)
 
-		MBCQuest:RestartQuest()
+		MBC_Quest:RestartQuest()
 	end
 end
 
-function MBCQuest:RandomCamp()
+function MBC_Quest:RandomCamp()
 
 	-- Location
 	local keys = {}
-	for key in pairs(MBCCamps.locations) do
+	for key in pairs(MBC_Camps.locations) do
 		table.insert(keys, key)
 	end
 	local location = keys[math.random(2, #keys)]
 
 	-- Difficulty
-	local difficulty = MBCCamps.difficulty[math.random(2, #MBCCamps.difficulty)]
+	local difficulty = MBC_Camps.difficulty[math.random(2, #MBC_Camps.difficulty)]
 
 	-- Spawn the camp
-	MBCCamps:SpawnCamp(location, difficulty)
+	MBC_Camps:SpawnCamp(location, difficulty)
 
 	return location, difficulty
 end

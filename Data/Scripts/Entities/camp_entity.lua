@@ -36,11 +36,11 @@ MBCCampEntity = {
 
 -- this is called when the player loads a save state - use this for restoring values when a game gets loaded
 function MBCCampEntity:OnLoad(tbl)
-	--MBCUtils:Log("MBCCampEntity - OnLoad")
-	
+	--MBC_Utils:Log("MBCCampEntity - OnLoad")
+
 	-- Retrieve the camp name and difficulty from the save state
-	MBCQuest.spawnedCamp.name = tbl.name
-	MBCQuest.spawnedCamp.difficulty = tbl.difficulty
+	MBC_Quest.spawnedCamp.name = tbl.name
+	MBC_Quest.spawnedCamp.difficulty = tbl.difficulty
 end
 
 -- this is called once, use this for initializing stuff
@@ -53,13 +53,13 @@ end
 
 -- this is called once, use this for initializing stuff
 function MBCCampEntity:OnReset()
-	--MBCUtils:Log("MBCCampEntity - OnReset")
+	--MBC_Utils:Log("MBCCampEntity - OnReset")
 	self:Activate(1)
 end
 
 -- this is called every frame given the entity has been spawned
 function MBCCampEntity.Client:OnUpdate()
-	--MBCUtils:Log("MBCCampEntity - OnUpdate")
+	--MBC_Utils:Log("MBCCampEntity - OnUpdate")
 	if (not self.isEntitiesSpawned) then
 		self:CreateCamp()
 	else
@@ -73,7 +73,7 @@ function MBCCampEntity.Client:OnUpdate()
 
 	if (self.isDefeated == true) then
 		-- validate the quest sequence
-		MBCQuest:DestroyCamp()
+		MBC_Quest:DestroyCamp()
 		-- check if the player is outside the despawn radius then destroy the camp
 		self:DestroyCamp()
 	end
@@ -85,9 +85,9 @@ function MBCCampEntity:CreateCamp()
 	local distance = player:GetDistance(self.id)
 	if (distance <= self.spawnRadius) then
 		if (not self.isFirstEntitiesSpawning) then
-			self.bandits = MBCSoul:SpawnEntityByType("event_spawn_bandit", self:GetWorldPos(), self.difficulty, 3)
+			self.bandits = MBC_Soul:SpawnEntityByType("event_spawn_bandit", self:GetWorldPos(), self.difficulty, 3)
 			self.isFirstEntitiesSpawning = true
-			--MBCUtils:LogOnScreen("INITIAL SPAWN: " .. self.name .. " spawned with " .. self.difficulty .. " bandits")
+			--MBC_Utils:LogOnScreen("INITIAL SPAWN: " .. self.name .. " spawned with " .. self.difficulty .. " bandits")
 		else
 			self:RespawnEntities(self:GetWorldPos())
 		end
@@ -105,7 +105,7 @@ function MBCCampEntity:CheckCampStatus()
 
 	if (next(self.bandits) == nil) then
 		self.isDefeated = true
-		--MBCUtils:LogOnScreen(self.name .. " defeated")
+		--MBC_Utils:LogOnScreen(self.name .. " defeated")
 	end
 end
 
@@ -135,7 +135,7 @@ function MBCCampEntity:RespawnEntities(_position)
 		-- replace the old entity with the new one
 		self.bandits[i] = entity
 	end
-	--MBCUtils:LogOnScreen(self.name .. " spawned with " .. #self.bandits .. " bandits")
+	--MBC_Utils:LogOnScreen(self.name .. " spawned with " .. #self.bandits .. " bandits")
 end
 
 --- Despawn the camp if the player is outside the despawn radius
@@ -147,7 +147,7 @@ function MBCCampEntity:DespawnEntities()
 				System.RemoveEntity(bandit.id)
 			end
 		end
-		--MBCUtils:LogOnScreen(self.name .. " despawned")
+		--MBC_Utils:LogOnScreen(self.name .. " despawned")
 		self.isEntitiesSpawned = false
 	end
 end
@@ -165,23 +165,23 @@ function MBCCampEntity:DestroyCamp()
 			System.RemoveEntity(self.tagpoint.id)
 		end
 		System.RemoveEntity(self.id)
-		--MBCUtils:LogOnScreen(self.name .. " destroyed")
+		--MBC_Utils:LogOnScreen(self.name .. " destroyed")
 	end
 end
 
 -- this is called when the player saves or updates a save state - storing values for your entities
 function MBCCampEntity:OnPropertyChange()
-	--MBCUtils:Log("MBCCampEntity - opc ")
+	--MBC_Utils:Log("MBCCampEntity - opc ")
 	self:OnReset()
 end
 
 function MBCCampEntity:OnAction(action, activation, value)
-	--MBCUtils:Log("MBCCampEntity - OnAction ")
+	--MBC_Utils:Log("MBCCampEntity - OnAction ")
 end
 
 -- this is called when the player saves or updates a save state - storing values for your entities
 function MBCCampEntity:OnSave(tbl)
-	--MBCUtils:Log("MBCCampEntity - OnSave ")
+	--MBC_Utils:Log("MBCCampEntity - OnSave ")
 	tbl.name = self.name
 	tbl.difficulty = self.difficulty
 end

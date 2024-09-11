@@ -1,10 +1,10 @@
---- @class MBCCamps Manage camps entities
+--- @class MBC_Camps Manage camps entities
 --- @field locations table List of different spawning locations
 --- @field difficulty table List of different difficulties
 --- @field meshes table List of spawned meshes
---- @field meshesFilePath table List of file paths for the meshes
+--- @field modelsFilePath table List of file paths for the meshes
 --- @field tagpoint table Tag point for the camp entity
-MBCCamps = {
+MBC_Camps = {
 	spawnedCamp = nil,
 
 	locations = {
@@ -24,7 +24,7 @@ MBCCamps = {
 		4, --hard
 	},
 
-	meshesFilePath = {
+	modelsFilePath = {
 		fireplace = "Objects/buildings/refugee_camp/fireplace.cgf",
 		tents = {
 			"Objects/structures/tent_cuman/tent_cuman_small_v1.cgf",
@@ -40,7 +40,7 @@ MBCCamps = {
 --- Spawn a camp entity at the given location with the given difficulty
 --- @param _locationName string Name of the location
 --- @param _difficulty string Difficulty of the camp (default: easy)
-function MBCCamps:SpawnCamp(_locationName, _difficulty)
+function MBC_Camps:SpawnCamp(_locationName, _difficulty)
 	local spawnParams = {
 		class = "MBCCampEntity",
 		name = "MBCCamp",
@@ -49,105 +49,99 @@ function MBCCamps:SpawnCamp(_locationName, _difficulty)
 	local camp = System.SpawnEntity(spawnParams)
 	camp.name = _locationName
 
-	camp.difficulty = self.difficulty[_difficulty] or self.difficulty[2]
+	camp.difficulty = self.difficulty[_difficulty] or self.difficulty[3]
 	self.spawnedCamp = camp
 
-	if (MBCMain.debug == true) then
-		MBCUtils:Log("Camp spawned at " .. camp.name .. " with " .. camp.difficulty .. " enemies")
-	end
+	MBC_Utils:Log("Camp spawned at " .. camp.name .. " with " .. camp.difficulty .. " enemies")
 
-	self:SpawnMeshes(_locationName, self.locations[_locationName])
+	self:SpawnModels(_locationName, self.locations[_locationName])
 	self:SpawnTagPoint(self.locations[_locationName])
 end
 
 --- Spawn all meshes for the camp entity
 --- @param _locationName string Name of the camp entity
 --- @param _position table Position of the camp entity (x, y, z)
-function MBCCamps:SpawnMeshes(_locationName, _position)
+function MBC_Camps:SpawnModels(_locationName, _position)
 
-	local tentPosition, tentOrientation, cratePosition, crateOrientation = { x = 0, y = 0, z = 0 }
+	local tent, crate = { x = 0, y = 0, z = 0 }
 
 	if (_locationName == "uzhitz") then
-		tentPosition = { x = 3502.112, y = 3769.713, z = 161.194 }
-		tentOrientation = { x = -180, y = 90, z = 0 }
-
-		cratePosition = { x = 3504.768, y = 3764.011, z = 160.973 }
-		crateOrientation = { x = 0, y = 180, z = 0 }
+		crate = { position = { x = 3505.997, y = 3764.233, z = 160.900 }, orientation = { x = 0.000, y = -0.000, z = 0.478 } }
+		tent = { position = { x = 3506.176, y = 3770.788, z = 160.891 }, orientation = { x = 0.000, y = 0.000, z = -0.264 } }
 
 	elseif (_locationName == "forest") then
-		tentPosition = { x = 1930.720, y = 1937.801, z = 135.244 }
-		tentOrientation = { x = -90, y = -90, z = 0 }
-
-		cratePosition = { x = 1937.023, y = 1942.195, z = 135.417 }
-		crateOrientation = { x = 0, y = 0, z = 0 }
+		crate = { position = { x = 1932.694, y = 1938.647, z = 135.280 }, orientation = { x = 0.000, y = -0.000, z = 3.054 } }
+		tent = { position = { x = 1936.807, y = 1939.924, z = 135.198 }, orientation = { x = 0.000, y = 0.000, z = -2.002 } }
 
 	elseif (_locationName == "vranik") then
-		tentPosition = { x = 545.557, y = 418.847, z = 178.358 }
-		tentOrientation = { x = 0, y = 0, z = 0 }
-
-		cratePosition = { x = 537.403, y = 418.863, z = 178.327 }
-		crateOrientation = { x = 0, y = 0, z = 0 }
+		crate = { position = { x = 538.727, y = 417.104, z = 178.445 }, orientation = { x = 0.000, y = -0.000, z = 2.181 } }
+		tent = { position = { x = 544.495, y = 421.721, z = 178.178 }, orientation = { x = 0.000, y = 0.000, z = -0.902 } }
 
 	elseif (_locationName == "forest2") then
-		tentPosition = { x = 495.614, y = 2238.912, z = 54.428 }
-		tentOrientation = { x = 90, y = 180, z = 0 }
-
-		cratePosition = { x = 492.917, y = 2231.626, z = 55.269 }
-		crateOrientation = { x = 0, y = 90, z = 0 }
+		crate = { position = { x = 495.311, y = 2233.110, z = 54.963 }, orientation = { x = 0.000, y = 0.000, z = -2.280 } }
+		tent = { position = { x = 496.265, y = 2238.323, z = 54.454 }, orientation = { x = 0.000, y = 0.000, z = -0.829 } }
 
 	elseif (_locationName == "forest3") then
-		tentPosition = { x = 1923.351, y = 3378.986, z = 103.114 }
-		tentOrientation = { x = 0, y = 0, z = 0 }
-
-		cratePosition = { x = 1915.387, y = 3377.863, z = 102.900 }
-		crateOrientation = { x = 90, y = 90, z = 0 }
+		crate = { position = { x = 1916.330, y = 3377.803, z = 103.060 }, orientation = { x = 0.000, y = -0.000, z = 2.133 } }
+		tent = { position = { x = 1921.661, y = 3375.754, z = 103.338 }, orientation = { x = 0.000, y = 0.000, z = -2.438 } }
 
 	elseif (_locationName == "idk") then
-		tentPosition = { x = 3398.261, y = 2375.103, z = 161.531 }
-		tentOrientation = { x = 0, y = 0, z = 0 }
-
-		cratePosition = { x = 3389.742, y = 2375.127, z = 160.950 }
-		crateOrientation = { x = 0, y = 0, z = 0 }
+		crate = { position = { x = 3392.077, y = 2378.869, z = 161.347 }, orientation = { x = 0.000, y = 0.000, z = -2.786 } }
+		tent = { position = { x = 3393.050, y = 2371.457, z = 161.028 }, orientation = { x = 0.000, y = -0.000, z = 2.942 } }
 
 	elseif (_locationName == "lastone") then
-		tentPosition = { x = 3347.824, y = 327.979, z = 78.853 }
-		tentOrientation = { x = 0, y = -180, z = 0 }
-
-		cratePosition = { x = 3345.148, y = 331.763, z = 78.904 }
-		crateOrientation = { x = 0, y = 0, z = 0 }
+		crate = { position = { x = 3392.077, y = 2378.869, z = 161.347 }, orientation = { x = 0.000, y = 0.000, z = -2.786 } }
+		tent = { position = { x = 3393.050, y = 2371.457, z = 161.028 }, orientation = { x = 0.000, y = -0.000, z = 2.942 } }
 	end
 
 	-- fireplace
-	local fireplace = System.SpawnEntity({ class = "BasicEntity", name = "fireplace", position = _position, properties = { bSaved_by_game = 0 } })
-	fireplace:LoadObject(0, self.meshesFilePath.fireplace)
-	table.insert(self.spawnedCamp.meshes, fireplace)
+	self:SpawnModelEntity("fireplace", _position, { x = 0, y = -0, z = 0 }, self.modelsFilePath.fireplace)
 
 	-- tents
-	local tent = System.SpawnEntity({ class = "BasicEntity", name = "tent", position = tentPosition, orientation = tentOrientation, properties = { bSaved_by_game = 0 } })
-	local randomTent = math.random(1, #self.meshesFilePath.tents)
-	tent:LoadObject(0, self.meshesFilePath.tents[randomTent])
-	table.insert(self.spawnedCamp.meshes, tent)
+	local randomTent = math.random(1, #self.modelsFilePath.tents)
+	self:SpawnModelEntity("tent", tent.position, tent.orientation, self.modelsFilePath.tents[randomTent])
 
 	-- crates
-	local crate = System.SpawnEntity({ class = "BasicEntity", name = "crate", position = cratePosition, orientation = crateOrientation, properties = { bSaved_by_game = 0 } })
-	local randomCrate = math.random(1, #self.meshesFilePath.crates)
-	crate:LoadObject(0, self.meshesFilePath.crates[randomCrate])
-	table.insert(self.spawnedCamp.meshes, crate)
+	local randomCrate = math.random(1, #self.modelsFilePath.crates)
+	self:SpawnModelEntity("crate", crate.position, crate.orientation, self.modelsFilePath.crates[randomCrate])
+end
+
+--- Helper function to spawn a model entity
+--- @param _name string Name of the entity
+--- @param _position table Position of the entity (x, y, z)
+--- @param _orientation table Orientation of the entity (x, y, z)
+--- @param _modelPath string Path to the model file
+function MBC_Camps:SpawnModelEntity(_name, _position, _orientation, _modelPath)
+	local entity = System.SpawnEntity({
+		class = "BasicEntity",
+		name = _name,
+		position = _position,
+		properties = {
+			bSaved_by_game = 0,
+			object_Model = _modelPath
+		}
+	})
+	entity:SetAngles(_orientation)
+	entity:SetFlags(ENTITY_FLAG_RAIN_OCCLUDER, 1)
+	entity:SetFlags(ENTITY_FLAG_CASTSHADOW, 1)
+	table.insert(self.spawnedCamp.meshes, entity)
+	return entity
 end
 
 --- Spawn an invisible npc to use it as a tag point for the camp entity
-function MBCCamps:SpawnTagPoint(_position)
+--- @param _position table Position of the tag point (x, y, z)
+function MBC_Camps:SpawnTagPoint(_position)
 	local spawnParams = {
 		class = "NPC",
 		name = "tagpoint",
-		position = { x = _position.x, y = _position.y, z = _position.z },
+		position = _position,
 		properties = {
-			sharedSoulGuid = "4d92924c-5841-6dfe-3a20-4adfad0cfe97",
-			fileModel = "none",
+			sharedSoulGuid = "1b036f85-f939-4ec6-89a3-0229a87fafaf",
+			fileModel = "none"
 		},
 	}
 	local entity = System.SpawnEntity(spawnParams)
-	entity.AI.invulnerable = false
+	entity.AI.invulnerable = true
 	entity.lootable = false
 	entity.lootIsLegal = false
 	self.spawnedCamp.tagpoint = entity

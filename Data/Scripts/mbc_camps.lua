@@ -133,7 +133,7 @@ end
 function MBC_Camps:SpawnTagPoint(_position)
 	local spawnParams = {
 		class = "NPC",
-		name = "tagpoint",
+		name = "Tagpoint",
 		position = _position,
 		properties = {
 			sharedSoulGuid = "1b036f85-f939-4ec6-89a3-0229a87fafaf",

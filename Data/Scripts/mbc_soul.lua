@@ -194,8 +194,8 @@ end
 --- @param _entity table Entity to set the attributes
 function MBC_Soul:SetQuestNPCAttributes(_entity)
 	_entity:SetViewDistUnlimited()
-	_entity.AI.invulnerable = true
-	_entity.lootable = false
+	-- invincible
+	_entity.soul:AddBuff("a218af80-b2a5-11ed-afa1-0242ac120002")
 
 	_entity.GetActions = function(user, firstFast)
 		local output = {}
@@ -219,8 +219,14 @@ function MBC_Soul:SpawnTagPoint(_position)
 	}
 	local entity = System.SpawnEntity(spawnParams)
 	entity:Activate(0)
-	entity.AI.invulnerable = "false"
-	entity.lootable = "false"
-	entity.lootIsLegal = "false"
+	-- invincible
+	entity.soul:AddBuff("a218af80-b2a5-11ed-afa1-0242ac120002")
+
+	-- to remove the ability to pick it
+	entity.GetActions = function(user, firstFast)
+		local output = {}
+		return output
+	end
+	
 	MBC_Camps.spawnedCamp.tagpoint = entity
 end

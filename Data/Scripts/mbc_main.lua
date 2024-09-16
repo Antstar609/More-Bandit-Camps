@@ -4,7 +4,7 @@
 --- @field prefix string Prefix for the console commands
 MBC_Main = {
 	name = "More Bandit Camps",
-	version = "1.2.2",
+	version = "1.2.3",
 	prefix = 'mbc_',
 	debugLog = false
 }

@@ -43,25 +43,6 @@ function MBC_Quest:InitQuest()
 		MBC_Utils:Log("Camp models respawned")
 	end
 
-	local npcStatus = ""
-	-- if the QuestNPC is not present spawn it
-	if (System.GetEntityByName("QuestNPC") == nil) then
-		MBC_Soul:SpawnQuestNPC(self.npcPosition, { x = 0, y = 0, z = 90 })
-		npcStatus = npcStatus .. "missing, respawned"
-	else
-		npcStatus = npcStatus .. "spawned"
-	end
-
-	-- if  the QuestNPC is dead remove it and respawn it
-	if (System.GetEntityByName("QuestNPC"):IsDead()) then
-		System.RemoveEntity(System.GetEntityIdByName("QuestNPC"))
-		MBC_Soul:SpawnQuestNPC(self.npcPosition, { x = 0, y = 0, z = 90 })
-		npcStatus = npcStatus .. ", dead, respawned"
-	else
-		npcStatus = npcStatus .. ", alive"
-	end
-	MBC_Utils:Log("NPC status: " .. npcStatus)
-
 	-- set the attributes of the npc
 	MBC_Soul:SetQuestNPCAttributes(System.GetEntityByName("QuestNPC"))
 end

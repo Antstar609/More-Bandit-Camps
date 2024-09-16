@@ -183,15 +183,17 @@ function MBC_Soul:SpawnQuestNPC(_position, _orientation)
 		properties = {
 			sharedSoulGuid = "48e0f0d5-27f4-ab1c-8ed4-887830e828a7",
 			bSaved_by_game = 1,
+			Saved_by_game = 1
 		},
 	}
 	local entity = System.SpawnEntity(spawnParams)
 	self:SetQuestNPCAttributes(entity)
 end
 
---- Set the QuestNPC attributes
+--- Set the attributes of the quest npc
 --- @param _entity table Entity to set the attributes
 function MBC_Soul:SetQuestNPCAttributes(_entity)
+	_entity:SetViewDistUnlimited()
 	_entity.AI.invulnerable = true
 	_entity.lootable = false
 
@@ -200,4 +202,25 @@ function MBC_Soul:SetQuestNPCAttributes(_entity)
 		AddInteractorAction(output, firstFast, Action():hint("@ui_hud_talk"):action("use"):func(MBC_Quest.NCPInteract):interaction(inr_talk))
 		return output
 	end
-end 
+end
+
+--- Spawn an invisible npc to use it as a tag point for the camp entity
+--- @param _position table Position of the tag point (x, y, z)
+function MBC_Soul:SpawnTagPoint(_position)
+	local spawnParams = {
+		class = "NPC",
+		name = "Tagpoint",
+		position = _position,
+		properties = {
+			sharedSoulGuid = "1b036f85-f939-4ec6-89a3-0229a87fafaf",
+			bSaved_by_game = 1,
+			Saved_by_game = 1
+		},
+	}
+	local entity = System.SpawnEntity(spawnParams)
+	entity:Activate(0)
+	entity.AI.invulnerable = "false"
+	entity.lootable = "false"
+	entity.lootIsLegal = "false"
+	MBC_Camps.spawnedCamp.tagpoint = entity
+end

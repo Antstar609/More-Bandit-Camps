@@ -45,6 +45,10 @@ function MBC_Camps:SpawnCamp(_locationName, _difficulty)
 		class = "MBCCampEntity",
 		name = "MBCCamp",
 		position = self.locations[_locationName],
+		properties = {
+			bSaved_by_game = 1,
+			Saved_by_game = 1
+		}
 	}
 	local camp = System.SpawnEntity(spawnParams)
 	camp.name = _locationName
@@ -55,7 +59,7 @@ function MBC_Camps:SpawnCamp(_locationName, _difficulty)
 	MBC_Utils:Log("Camp spawned at " .. camp.name .. " with " .. camp.difficulty .. " enemies")
 
 	self:SpawnModels(_locationName, self.locations[_locationName])
-	self:SpawnTagPoint(self.locations[_locationName])
+	MBC_Soul:SpawnTagPoint(self.locations[_locationName])
 end
 
 --- Spawn all meshes for the camp entity
@@ -98,15 +102,15 @@ function MBC_Camps:SpawnModels(_locationName, _position)
 	self:SpawnModelEntity("fireplace", _position, { x = 0, y = -0, z = 0 }, self.modelsFilePath.fireplace)
 
 	-- tents
-	local randomTent = math.random(1, #self.modelsFilePath.tents)
-	self:SpawnModelEntity("tent", tent.position, tent.orientation, self.modelsFilePath.tents[randomTent])
+	local random = math.random(1, #self.modelsFilePath.tents)
+	self:SpawnModelEntity("tent", tent.position, tent.orientation, self.modelsFilePath.tents[random])
 
 	-- crates
-	local randomCrate = math.random(1, #self.modelsFilePath.crates)
-	self:SpawnModelEntity("crate", crate.position, crate.orientation, self.modelsFilePath.crates[randomCrate])
+	random = math.random(1, #self.modelsFilePath.crates)
+	self:SpawnModelEntity("crate", crate.position, crate.orientation, self.modelsFilePath.crates[random])
 end
 
---- Helper function to spawn a model entity
+--- Helper function to spawn a model entity and store it in the list
 --- @param _name string Name of the entity
 --- @param _position table Position of the entity (x, y, z)
 --- @param _orientation table Orientation of the entity (x, y, z)
@@ -118,31 +122,16 @@ function MBC_Camps:SpawnModelEntity(_name, _position, _orientation, _modelPath)
 		position = _position,
 		properties = {
 			bSaved_by_game = 0,
+			Saved_by_game = 0,
 			object_Model = _modelPath
 		}
 	})
+	entity:PhysicalizeThis()
+	entity:SetViewDistUnlimited()
 	entity:SetAngles(_orientation)
 	entity:SetFlags(ENTITY_FLAG_RAIN_OCCLUDER, 1)
 	entity:SetFlags(ENTITY_FLAG_CASTSHADOW, 1)
-	table.insert(self.spawnedCamp.meshes, entity)
-	return entity
-end
-
---- Spawn an invisible npc to use it as a tag point for the camp entity
---- @param _position table Position of the tag point (x, y, z)
-function MBC_Camps:SpawnTagPoint(_position)
-	local spawnParams = {
-		class = "NPC",
-		name = "Tagpoint",
-		position = _position,
-		properties = {
-			sharedSoulGuid = "1b036f85-f939-4ec6-89a3-0229a87fafaf",
-			fileModel = "none"
-		},
-	}
-	local entity = System.SpawnEntity(spawnParams)
-	entity.AI.invulnerable = true
-	entity.lootable = false
-	entity.lootIsLegal = false
-	self.spawnedCamp.tagpoint = entity
+	
+	local spawnedCamp = System.GetEntityByName("MBCCamp")
+	table.insert(spawnedCamp.meshes, entity)
 end

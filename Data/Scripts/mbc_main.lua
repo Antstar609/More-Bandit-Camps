@@ -6,7 +6,7 @@ MBC_Main = {
 	name = "More Bandit Camps",
 	version = "1.2.0",
 	prefix = 'mbc_',
-	debug = false
+	debugLog = false
 }
 
 -- Listener for the scene init event
@@ -17,7 +17,7 @@ function MBC_Main:sceneInitListener(_actionName, _eventName, _eventArgs)
 
 	if (_actionName == "sys_loadingimagescreen") and (_eventName == "OnEnd") then
 		-- When the scene is loaded
-		MBC_Utils:Log(self.name .. " loaded " .. "(v" .. self.version .. ")")
+		System.LogAlways("$5[" .. self.name .. "] " .. self.name .. " loaded " .. "(v" .. self.version .. ")")
 		MBC_Main:Intro()
 		MBC_Quest:InitQuest()
 	end
@@ -44,11 +44,13 @@ System.AddCCommand(MBC_Main.prefix .. 'intro', 'MBC_Main:Intro()', "Shows the in
 function MBC_Main:Uninstall()
 	if (System.GetEntityByName("MBCCamp") ~= nil) then
 		MBCCampEntity:DestroyCamp()
+		System.RemoveEntity(System.GetEntityIdByName("MBCCamp"))
 	end
-	System.RemoveEntity(System.GetEntityIdByName("MBCCamp"))
+	if (System.GetEntityByName("Tagpoint") ~= nil) then
+		System.RemoveEntity(System.GetEntityIdByName("Tagpoint"))
+	end
 	System.RemoveEntity(System.GetEntityIdByName("QuestNPC"))
-	System.RemoveEntity(System.GetEntityIdByName("Tagpoint"))
 	QuestSystem.CancelQuest("q_morebanditcamps", 1)
-	MBC_Utils:LogOnScreen(self.name + " uninstalled")
+	MBC_Utils:LogOnScreen(self.name .. " uninstalled")
 end
 System.AddCCommand(MBC_Main.prefix .. 'uninstall', 'MBC_Main:Uninstall()', "Uninstall the mod")

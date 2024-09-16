@@ -4,7 +4,7 @@ MBC_Utils = {}
 --- Logs a message to the console
 --- @param _message string Message to log
 function MBC_Utils:Log(_message)
-	if (MBC_Main.debug == true) then
+	if (MBC_Main.debugLog == true) then
 		System.LogAlways("$5[" .. MBC_Main.name .. "] " .. tostring(_message))
 	end
 end

@@ -4,7 +4,7 @@
 --- @field prefix string Prefix for the console commands
 MBC_Main = {
 	name = "More Bandit Camps",
-	version = "1.1.0",
+	version = "1.2.0",
 	prefix = 'mbc_',
 	debug = false
 }
@@ -49,6 +49,6 @@ function MBC_Main:Uninstall()
 	System.RemoveEntity(System.GetEntityIdByName("QuestNPC"))
 	System.RemoveEntity(System.GetEntityIdByName("Tagpoint"))
 	QuestSystem.CancelQuest("q_morebanditcamps", 1)
-	MBC_Utils:LogOnScreen("More Bandit Camps uninstalled")
+	MBC_Utils:LogOnScreen(self.name + " uninstalled")
 end
 System.AddCCommand(MBC_Main.prefix .. 'uninstall', 'MBC_Main:Uninstall()', "Uninstall the mod")

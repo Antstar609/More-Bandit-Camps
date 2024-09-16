@@ -78,3 +78,27 @@ function MBC_Utils:Teleport(_xyz)
 	player:SetWorldPos(pos)
 end
 System.AddCCommand(MBC_Main.prefix .. 'teleport', 'MBC_Utils:Teleport(%line)', "Teleports the player to the given position")
+
+function MBC_Utils:TagpointStatus()
+	local tagpoint = System.GetEntityByName("Tagpoint")
+	if (tagpoint == nil) then
+		self:Log("Tagpoint not found")
+		return
+	end
+
+	local pos = tagpoint:GetWorldPos()
+	self:Log("Tagpoint position: " .. Vec2Str(pos))
+end
+System.AddCCommand(MBC_Main.prefix .. 'tagpoint', 'MBC_Utils:TagpointStatus()', "Get the tagpoint status")
+
+function MBC_Utils:CampStatus()
+	local camp = System.GetEntityByName("MBCCampEntity")
+	if (camp == nil) then
+		self:Log("Camp not found")
+		return
+	end
+
+	local pos = camp:GetWorldPos()
+	self:Log("Camp position: " .. Vec2Str(pos))
+end
+System.AddCCommand(MBC_Main.prefix .. 'camp', 'MBC_Utils:CampStatus()', "Get the camp status")

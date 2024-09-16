@@ -27,6 +27,9 @@ function MBC_Quest:InitQuest()
 		
 		MBC_Soul:SpawnQuestNPC(self.npcPosition, { x = 0, y = 0, z = 90 })
 		
+		-- reset the quest to remove it from the failed quest if the user used the mbc_uninstall command
+		QuestSystem.ResetQuest("q_morebanditcamps")
+		
 		QuestSystem.StartQuest("q_morebanditcamps")
 		QuestSystem.StartObjective("q_morebanditcamps", "o_talk", false)
 	else

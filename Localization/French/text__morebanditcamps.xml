@@ -32,4 +32,8 @@
 		<Cell>ui_text_npc_destroyed</Cell>
 		<Cell>Vous avez détruit le camp.</Cell>
 	</Row>
+	<Row>
+		<Cell>@mbc_tagpoint</Cell>
+		<Cell>_</Cell>
+	</Row>
 </Table>

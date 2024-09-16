@@ -95,8 +95,8 @@
 				 initial_weapon_preset_id="00000000-0000-0000-0000-000000000000" inventory_id=""
 				 level_name="rataje" reputation="0" shadiness="0" skald_character_id="598" social_class_id=""
 				 soul_archetype_id="0" soul_class_id="" soul_id="1b036f85-f939-4ec6-89a3-0229a87fafaf"
-				 soul_name="mbc_tagpoint" soul_vip_class_id="0" spc="0" str="2" time_0="0:00" time_1="" time_2=""
-				 time_3="" time_4="" time_5="" time_6="" time_7="" time_8="" timestamp="" vision="8"
+				 soul_name="mbc_tagpoint" soul_vip_class_id="0" spc="0" str="0" time_0="0:00" time_1="" time_2=""
+				 time_3="" time_4="" time_5="" time_6="" time_7="" time_8="" timestamp="" vision="0"
 				 vit="0" xp_multiplier="0"/>
 		</rows>
 	</table>

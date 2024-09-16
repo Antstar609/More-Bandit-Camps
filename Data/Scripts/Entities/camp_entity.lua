@@ -175,7 +175,7 @@ function MBCCampEntity:DestroyCamp()
 	if (self.tagpoint ~= nil) then
 		System.RemoveEntity(self.tagpoint.id)
 	end
-	System.RemoveEntity(self.id)
+	System.RemoveEntity(System.GetEntityIdByName("MBCCamp"))
 	--MBC_Utils:LogOnScreen(self.name .. " destroyed")
 end
 

@@ -45,6 +45,13 @@ function MBC_Quest:InitQuest()
 			MBC_Utils:Log("NPC missing, spawned")
 		end
 
+		-- if  the QuestNPC is dead remove it and respawn it
+		if (System.GetEntityByName("QuestNPC"):IsDead()) then
+			System.RemoveEntity(System.GetEntityIdByName("QuestNPC"))
+			MBC_Soul:SpawnQuestNPC(self.npcPosition, { x = 0, y = 0, z = 90 })
+			MBC_Utils:Log("NPC is dead, respawned")
+		end
+
 		-- set the attributes of the npc
 		MBC_Soul:SetQuestNPCAttributes(System.GetEntityByName("QuestNPC"))
 	end

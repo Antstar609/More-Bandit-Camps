@@ -20,38 +20,33 @@ function MBC_Quest:InitQuest()
 	if (System.GetEntityByName("marechal") ~= nil) then
 		System.RemoveEntity(System.GetEntityIdByName("marechal"))
 	end
-	
-	if (System.GetEntityByName("QuestNPC") == nil) then
-		-- spawn npc
-		MBC_Soul:SpawnQuestNPC(self.npcPosition, { x = 0, y = 0, z = 90 })
-		-- reset and activate the quest
-		QuestSystem.ResetQuest("q_morebanditcamps")
-		--QuestSystem.ActivateQuest("q_morebanditcamps", false)
-	else
-		-- remove the old npc and spawn a new one to prevent the entity from being faded when the player is far away
-		System.RemoveEntity(System.GetEntityIdByName("QuestNPC"))
-		MBC_Soul:SpawnQuestNPC(self.npcPosition, { x = 0, y = 0, z = 90 })
-	end
 
-	-- if there already is a camp spawned, remove it and reset the quest to avoid the tagpoint not showing up
-	if (QuestSystem.IsObjectiveStarted("q_morebanditcamps", "o_destroycamp")) then
-		if (System.GetEntityByName("MBCCamp") ~= nil) then
-
-			-- Remove the old camp entity to prevent the tagpoint from being duplicated
-			System.RemoveEntity(System.GetEntityIdByName("MBCCamp"))
-			System.RemoveEntity(System.GetEntityIdByName("Tagpoint"))
-
-			MBC_Utils:Log("Camp removed")
-
-			-- Spawn a new camp
-			MBC_Camps:SpawnCamp(self.spawnedCamp.name, self.spawnedCamp.difficulty)
-		end
-	end
-
-	-- if the quest is not started, start it and start the objective talk
+	-- if the quest is not started, spawn the npc and start the quest
 	if (not QuestSystem.IsQuestStarted("q_morebanditcamps")) then
+		MBC_Utils:Log("Quest not started")
+		
+		MBC_Soul:SpawnQuestNPC(self.npcPosition, { x = 0, y = 0, z = 90 })
+		
 		QuestSystem.StartQuest("q_morebanditcamps")
 		QuestSystem.StartObjective("q_morebanditcamps", "o_talk", false)
+	else
+		-- if the quest is already started
+		MBC_Utils:Log("Quest already started")
+		
+		-- if there is a camp spawned respawn the models
+		if (System.GetEntityByName("MBCCamp")) then
+			MBC_Camps:SpawnModels(self.spawnedCamp.name, MBC_Camps.locations[self.spawnedCamp.name])
+			MBC_Utils:Log("Camp models respawned")
+		end
+		
+		-- if the QuestNPC is not present spawn it
+		if (System.GetEntityByName("QuestNPC") == nil) then
+			MBC_Soul:SpawnQuestNPC(self.npcPosition, { x = 0, y = 0, z = 90 })
+			MBC_Utils:Log("NPC missing, spawned")
+		end
+
+		-- set the attributes of the npc
+		MBC_Soul:SetQuestNPCAttributes(System.GetEntityByName("QuestNPC"))
 	end
 end
 

@@ -65,9 +65,11 @@ end
 --- Spawn all meshes for the camp entity
 --- @param _locationName string Name of the camp entity
 --- @param _position table Position of the camp entity (x, y, z)
+--- @return boolean True if the models are spawned, false otherwise
 function MBC_Camps:SpawnModels(_locationName, _position)
 
-	local tent, crate = { x = 0, y = 0, z = 0 }
+	local tent = { x = 0, y = 0, z = 0 }
+	local crate = { x = 0, y = 0, z = 0 }
 
 	if (_locationName == "uzhitz") then
 		crate = { position = { x = 3505.997, y = 3764.233, z = 160.900 }, orientation = { x = 0.000, y = -0.000, z = 0.478 } }
@@ -96,6 +98,9 @@ function MBC_Camps:SpawnModels(_locationName, _position)
 	elseif (_locationName == "lastone") then
 		crate = { position = { x = 3392.077, y = 2378.869, z = 161.347 }, orientation = { x = 0.000, y = 0.000, z = -2.786 } }
 		tent = { position = { x = 3393.050, y = 2371.457, z = 161.028 }, orientation = { x = 0.000, y = -0.000, z = 2.942 } }
+	else
+		MBC_Utils:Log("No location found")
+		return false
 	end
 
 	-- fireplace
@@ -108,6 +113,8 @@ function MBC_Camps:SpawnModels(_locationName, _position)
 	-- crates
 	random = math.random(1, #self.modelsFilePath.crates)
 	self:SpawnModelEntity("crate", crate.position, crate.orientation, self.modelsFilePath.crates[random])
+
+	return true
 end
 
 --- Helper function to spawn a model entity and store it in the list
@@ -131,7 +138,7 @@ function MBC_Camps:SpawnModelEntity(_name, _position, _orientation, _modelPath)
 	entity:SetAngles(_orientation)
 	entity:SetFlags(ENTITY_FLAG_RAIN_OCCLUDER, 1)
 	entity:SetFlags(ENTITY_FLAG_CASTSHADOW, 1)
-	
+
 	local spawnedCamp = System.GetEntityByName("MBCCamp")
 	table.insert(spawnedCamp.meshes, entity)
 end

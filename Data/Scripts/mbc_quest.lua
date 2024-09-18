@@ -39,8 +39,11 @@ function MBC_Quest:InitQuest()
 
 	-- if there is a camp spawned respawn the models
 	if (System.GetEntityByName("MBCCamp")) then
-		MBC_Camps:SpawnModels(self.spawnedCamp.name, MBC_Camps.locations[self.spawnedCamp.name])
-		MBC_Utils:Log("Camp models respawned")
+		if (MBC_Camps:SpawnModels(self.spawnedCamp.name, MBC_Camps.locations[self.spawnedCamp.name])) then
+			MBC_Utils:Log("Camp models respawned")
+		else
+			MBC_Utils:Log("Camp models not respawned")
+		end
 	end
 
 	-- set the attributes of the npc

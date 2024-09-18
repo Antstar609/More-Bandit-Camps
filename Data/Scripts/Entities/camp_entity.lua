@@ -132,7 +132,7 @@ function MBCCampEntity:RespawnEntities(_position)
 
 		local spawnParams = {
 			class = bandit.class,
-			name = "bandit_" .. i,
+			name = "mbc_bandit_" .. i,
 			position = newPos,
 			orientation = _position,
 			properties = {

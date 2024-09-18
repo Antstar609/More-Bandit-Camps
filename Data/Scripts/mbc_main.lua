@@ -92,6 +92,7 @@ function MBC_Main:Repair()
 	MBC_Utils:Log("Cleaning entities and repairing the mod")
 
 	local allEntities = System.GetEntities()
+	local hasRepairedSomething = false
 	local tagpointCount = 0
 	local campCount = 0
 	local npcCount = 0
@@ -100,6 +101,7 @@ function MBC_Main:Repair()
 		if (entity:GetName() == "MBCCamp") then
 			campCount = campCount + 1
 			if (campCount > 1) then
+				hasRepairedSomething = true
 				System.RemoveEntity(allEntities[i].id)
 				MBC_Utils:Log("Entity removed: " .. entity:GetName())
 			end
@@ -107,6 +109,7 @@ function MBC_Main:Repair()
 		if (entity:GetName() == "Tagpoint") then
 			tagpointCount = tagpointCount + 1
 			if (tagpointCount > 1) then
+				hasRepairedSomething = true
 				System.RemoveEntity(allEntities[i].id)
 				MBC_Utils:Log("Entity removed: " .. entity:GetName())
 			end
@@ -114,21 +117,28 @@ function MBC_Main:Repair()
 		if (entity:GetName() == "QuestNPC") then
 			npcCount = npcCount + 1
 			if (npcCount > 1) then
+				hasRepairedSomething = true
 				System.RemoveEntity(allEntities[i].id)
 				MBC_Utils:Log("Entity removed: " .. entity:GetName())
 			end
 		end
 		if (string.find(entity:GetName(), "event_spawn_bandit") and not string.find(entity:GetName(), "mbc_")) then
+			hasRepairedSomething = true
 			System.RemoveEntity(allEntities[i].id)
 			MBC_Utils:Log("Entity removed: " .. entity:GetName())
 		end
 		if (string.sub(entity:GetName(), 1, 7) == "bandit_" and entity:GetName() ~= "bandit_all") then
+			hasRepairedSomething = true
 			System.RemoveEntity(allEntities[i].id)
 			MBC_Utils:Log("Entity removed: " .. entity:GetName())
 		end
 	end
 
-	MBC_Utils:LogOnScreen("Entities cleaned, mod repaired")
+	if (hasRepairedSomething == true) then
+		MBC_Utils:LogOnScreen("Entities cleaned, mod repaired")
+	else
+		MBC_Utils:LogOnScreen("Nothing to repair")
+	end
 end
 System.AddCCommand(MBC_Main.prefix .. 'repair', 'MBC_Main:Repair()', "Cleans the entities and repair the mod")
 
@@ -140,6 +150,7 @@ function MBC_Main:RunModDiagnostics()
 	local tagpointCount = 0
 	local campCount = 0
 	local npcCount = 0
+	local banditSpawned = false
 	local oldEntities = false
 
 	for _, entity in ipairs(allEntities) do
@@ -157,6 +168,7 @@ function MBC_Main:RunModDiagnostics()
 			MBC_Utils:Log("QuestNPC : " .. Vec2Str(pos))
 		end
 		if (string.find(entity:GetName(), "mbc_")) then
+			banditSpawned = true
 			local banditsStatus = ""
 			if (entity:IsDead()) then
 				banditsStatus = " (dead)"
@@ -167,16 +179,18 @@ function MBC_Main:RunModDiagnostics()
 		end
 		if (string.find(entity:GetName(), "event_spawn_bandit") and not string.find(entity:GetName(), "mbc_")) then
 			oldEntities = true
-			MBC_Utils:Log("Entity : " .. entity:GetName() .. " : " .. Vec2Str(pos))
+			MBC_Utils:Log("Old Entity : " .. entity:GetName() .. " : " .. Vec2Str(pos))
 		end
 		if (string.sub(entity:GetName(), 1, 7) == "bandit_" and entity:GetName() ~= "bandit_all") then
 			oldEntities = true
-			MBC_Utils:Log("Entity : " .. entity:GetName() .. " : " .. Vec2Str(pos))
+			MBC_Utils:Log("Old Entity : " .. entity:GetName() .. " : " .. Vec2Str(pos))
 		end
 	end
 
 	if (campCount > 1 or tagpointCount > 1 or npcCount > 1 or oldEntities == true) then
 		MBC_Utils:LogOnScreen("Something went wrong with the mod, please use the `mbc_repair` command, save and reload the save", true, 10)
+	elseif (campCount <= 0 and tagpointCount <= 0 and npcCount <= 0 and oldEntities == false and banditSpawned == false) then
+		MBC_Utils:LogOnScreen("Mod uninstalled", true, 5)
 	else
 		MBC_Utils:LogOnScreen("Mod is working fine", true, 5)
 	end

@@ -14,6 +14,7 @@ end
 --- @param _forceClear boolean Force clear the screen (default: false)
 --- @param _time number Time in seconds to show the message (default: 3)
 function MBC_Utils:LogOnScreen(_message, _forceClear, _time)
+	self:Log(_message)
 	Game.SendInfoText(tostring(_message), _forceClear or false, nil, _time or 3)
 end
 
@@ -45,7 +46,7 @@ function MBC_Utils:Teleport(_xyz)
 	-- Teleport to camp
 	if (_xyz == "camp") then
 		if (MBC_Quest.spawnedCamp.name == "") then
-			MBC_Utils:LogOnScreen("No camp spawned")
+			self:LogOnScreen("No camp spawned")
 			return
 		else
 			local pos = MBC_Camps.locations[MBC_Quest.spawnedCamp.name]
@@ -79,26 +80,13 @@ function MBC_Utils:Teleport(_xyz)
 end
 System.AddCCommand(MBC_Main.prefix .. 'teleport', 'MBC_Utils:Teleport(%line)', "Teleports the player to the given position")
 
-function MBC_Utils:TagpointStatus()
-	local tagpoint = System.GetEntityByName("Tagpoint")
-	if (tagpoint == nil) then
-		self:Log("Tagpoint not found")
-		return
+--- Kills all bandits spawned
+function MBC_Utils:KillAllBandits()
+	local allEntities = System.GetEntities()
+	for _, entity in ipairs(allEntities) do
+		if (string.find(entity:GetName(), "mbc_")) then
+			entity.soul:DealDamage(9999, 9999)
+		end
 	end
-
-	local pos = tagpoint:GetWorldPos()
-	self:Log("Tagpoint position: " .. Vec2Str(pos))
 end
-System.AddCCommand(MBC_Main.prefix .. 'tagpoint', 'MBC_Utils:TagpointStatus()', "Get the tagpoint status")
-
-function MBC_Utils:CampStatus()
-	local camp = System.GetEntityByName("MBCCampEntity")
-	if (camp == nil) then
-		self:Log("Camp not found")
-		return
-	end
-
-	local pos = camp:GetWorldPos()
-	self:Log("Camp position: " .. Vec2Str(pos))
-end
-System.AddCCommand(MBC_Main.prefix .. 'camp', 'MBC_Utils:CampStatus()', "Get the camp status")
+System.AddCCommand(MBC_Main.prefix .. 'killAllBandits', 'MBC_Utils:KillAllBandits()', "Kill all bandits spawned")

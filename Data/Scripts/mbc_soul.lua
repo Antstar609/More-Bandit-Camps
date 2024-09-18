@@ -105,7 +105,7 @@ function MBC_Soul:SpawnEntityByType(_entityType, _position, _numberOfEntities, _
 
 		local spawnParams = {
 			class = self:GetGender(soul[randomNumber].archetype_id),
-			name = soul[randomNumber].name .. "_" .. soul[randomNumber].row,
+			name = "mbc_" .. soul[randomNumber].name .. "_" .. soul[randomNumber].row,
 			position = _position or player:GetWorldPos(),
 			orientation = player:GetWorldPos(),
 			properties = {

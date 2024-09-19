@@ -4,7 +4,7 @@
 --- @field prefix string Prefix for the console commands
 MBC_Main = {
 	name = "More Bandit Camps",
-	version = "1.3.1",
+	version = "1.3.2",
 	prefix = 'mbc_',
 	debugLog = true
 }
@@ -35,7 +35,7 @@ function MBC_Main:Intro()
 			.. "To remove the mod :\n"
 			.. "<font color='#ff0000'>DO NOT delete it directly from the folder.\n</font>"
 			.. "Instead, use the <font color='#0000ff'>'mbc_uninstall'</font> command first to properly remove it."
-			.. "\n\nIf you have any issue with the mod, use <font color='#0000ff'>'mbc_runModDiagnostics'</font>\nto check if the mod is working fine."
+			.. "\n\nIf you have any issue with the mod, use <font color='#0000ff'>'mbc_runModDiagnostic'</font>\nto check if the mod is working fine."
 			.. "</font>"
 
 	Game.ShowTutorial(message, 20, false, true);
@@ -143,7 +143,7 @@ end
 System.AddCCommand(MBC_Main.prefix .. 'repair', 'MBC_Main:Repair()', "Cleans the entities and repair the mod")
 
 --- Runs a diagnostic to check if the mod is working fine
-function MBC_Main:RunModDiagnostics()
+function MBC_Main:RunModDiagnostic()
 	MBC_Utils:Log("Running diagnostics")
 
 	local allEntities = System.GetEntities()
@@ -195,4 +195,4 @@ function MBC_Main:RunModDiagnostics()
 		MBC_Utils:LogOnScreen("Mod is working fine", true, 5)
 	end
 end
-System.AddCCommand(MBC_Main.prefix .. 'runModDiagnostics', 'MBC_Main:RunModDiagnostics()', "Runs a diagnostic to check if the mod is working fine")
+System.AddCCommand(MBC_Main.prefix .. 'runModDiagnostic', 'MBC_Main:RunModDiagnostic()', "Runs a diagnostic to check if the mod is working fine")

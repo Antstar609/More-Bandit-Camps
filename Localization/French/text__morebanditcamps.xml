@@ -33,6 +33,10 @@
 		<Cell>Vous avez détruit le camp.</Cell>
 	</Row>
 	<Row>
+		<Cell>ui_text_camp_respawn</Cell>
+		<Cell>Les bandits se sont regroupés après que vous ayez quitté la zone. Revenez et tuez les autres pour terminer la mission.</Cell>
+	</Row>
+	<Row>
 		<Cell>@mbc_tagpoint</Cell>
 		<Cell>_</Cell>
 	</Row>

@@ -72,6 +72,7 @@ function MBCCampEntity.Client:OnUpdate()
 			-- check if the player is outside the despawn radius then despawn the camp
 			if (distance >= self.despawnRadius) then
 				self:DespawnEntities()
+				MBC_Utils:LogOnScreen("@ui_text_camp_respawn", false, 6)
 			end
 			-- check if the camp is defeated
 			self:CheckCampStatus()
@@ -98,7 +99,7 @@ function MBCCampEntity:CreateCamp()
 	if (not self.isFirstEntitiesSpawning) then
 		self.bandits = MBC_Soul:SpawnEntityByType("event_spawn_bandit", self:GetWorldPos(), self.difficulty, 3)
 		self.isFirstEntitiesSpawning = true
-		MBC_Utils:Log("INITIAL SPAWN: " .. self.name .. " spawned with " .. self.difficulty .. " bandits")
+		--MBC_Utils:Log("INITIAL SPAWN: " .. self.name .. " spawned with " .. self.difficulty .. " bandits")
 	else
 		self:RespawnEntities(self:GetWorldPos())
 	end
@@ -110,7 +111,7 @@ function MBCCampEntity:CheckCampStatus()
 	for i, bandit in pairs(self.bandits) do
 		if (bandit:IsDead()) then
 			table.remove(self.bandits, i)
-			MBC_Utils:Log("Bandit removed (CheckCampStatus)")
+			--MBC_Utils:Log("Bandit removed (CheckCampStatus)")
 		end
 	end
 
@@ -147,7 +148,7 @@ function MBCCampEntity:RespawnEntities(_position)
 		-- replace the old entity with the new one
 		self.bandits[i] = entity
 	end
-	MBC_Utils:Log(self.name .. " spawned with " .. #self.bandits .. " bandits")
+	--MBC_Utils:Log(self.name .. " spawned with " .. #self.bandits .. " bandits")
 end
 
 --- Despawn the camp if the player is outside the despawn radius
@@ -155,7 +156,7 @@ function MBCCampEntity:DespawnEntities()
 	for _, bandit in pairs(self.bandits) do
 		if (not bandit:IsDead()) then
 			System.RemoveEntity(bandit.id)
-			MBC_Utils:Log("Bandit removed (DespawnEntities)")
+			--MBC_Utils:Log("Bandit removed (DespawnEntities)")
 		end
 	end
 	--MBC_Utils:LogOnScreen(self.name .. " despawned")

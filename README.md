@@ -25,13 +25,32 @@ The mod is available in the following languages:
 
 After installing the mod, a quest will appear. Speak with the NPC, who will provide the location of the camp. After destroying the camp, return to the NPC to claim your reward. 🎯
 
-## ⚠️ Issues
+## 🗑️ Uninstallation
 
-**Can’t complete the quest because there are missing enemies in the camp?**
-- Just leave and come back; they will reappear.
+To safely remove the mod without corrupting your save:
 
-**No marker for the quest on the map?**
-- Untracking and tracking it again should fix the issue (only works from version 1.0.2).
+Open the console in-game and type the command: `mbc_uninstall`
+
+This will ensure that all mod-related elements are properly removed from the game world.  
+After using the command, exit the game and delete the mod folder from your `Mods` directory.
+
+<font color=red>Failing to use the uninstall command before removing the mod may result in save corruption!</font>
+
+## 🔧 Mod Diagnostics and Repair
+
+To ensure that the mod is functioning properly or to fix any potential issues, two new commands have been added:
+
+- `mbc_runModDiagnostic`: This command checks if the mod is working correctly and notifies the player if it needs to be repaired.
+- `mbc_repair`: If the mod is found to have issues, use this command to automatically repair the mod and resolve any problems.
+
+It is recommended to run the diagnostic command if you experience any issues, and use the repair command if prompted.
+
+## 📋️ Commands
+
+- `mbc_intro`: Displays the introduction banner.
+- `mbc_runModDiagnostic`: Analyzes the mod for any potential issues.
+- `mbc_repair`: Fixes any issues related to the mod.
+- `mbc_uninstall`: Removes all elements associated with the mod.
 
 ## 💬 Acknowledgments
 

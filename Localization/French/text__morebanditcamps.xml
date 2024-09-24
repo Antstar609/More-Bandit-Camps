@@ -40,4 +40,28 @@
 		<Cell>@mbc_tagpoint</Cell>
 		<Cell>_</Cell>
 	</Row>
+	<Row>
+		<Cell>iu_text_modDiagnostic_error</Cell>
+		<Cell>Quelque chose s'est mal passé avec le mod, veuillez utiliser la commande `mbc_repair`, sauvegardez et rechargez la sauvegarde.</Cell>
+	</Row>
+	<Row>
+		<Cell>iu_text_modDiagnostic_uninstalled</Cell>
+		<Cell>Mod désinstallé.</Cell>
+	</Row>
+	<Row>
+		<Cell>iu_text_modDiagnostic_clear</Cell>
+		<Cell>Le mod fonctionne bien.</Cell>
+	</Row>
+	<Row>
+		<Cell>iu_text_repair_clean</Cell>
+		<Cell>Entités nettoyées, mod réparé.</Cell>
+	</Row>
+	<Row>
+		<Cell>iu_text_repair_skip</Cell>
+		<Cell>Rien à réparer.</Cell>
+	</Row>
+	<Row>
+		<Cell>iu_text_uninstall_success</Cell>
+		<Cell> désinstallé, vous pouvez maintenant supprimer le mod en toute sécurité du dossier.</Cell>
+	</Row>
 </Table>

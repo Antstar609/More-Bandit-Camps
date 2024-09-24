@@ -4,7 +4,7 @@
 --- @field prefix string Prefix for the console commands
 MBC_Main = {
 	name = "More Bandit Camps",
-	version = "1.3.2",
+	version = "1.4.0",
 	prefix = 'mbc_',
 	debugLog = true
 }
@@ -83,7 +83,7 @@ function MBC_Main:Uninstall()
 	end
 
 	QuestSystem.CancelQuest("q_morebanditcamps", 1)
-	MBC_Utils:LogOnScreen(self.name .. " uninstalled, you can now safely remove the mod from the folder")
+	MBC_Utils:LogOnScreen(self.name .. "@iu_text_uninstall_success")
 end
 System.AddCCommand(MBC_Main.prefix .. 'uninstall', 'MBC_Main:Uninstall()', "Uninstalls the mod")
 
@@ -135,9 +135,9 @@ function MBC_Main:Repair()
 	end
 
 	if (hasRepairedSomething == true) then
-		MBC_Utils:LogOnScreen("Entities cleaned, mod repaired")
+		MBC_Utils:LogOnScreen("@iu_text_repair_clean")
 	else
-		MBC_Utils:LogOnScreen("Nothing to repair")
+		MBC_Utils:LogOnScreen("@iu_text_repair_skip")
 	end
 end
 System.AddCCommand(MBC_Main.prefix .. 'repair', 'MBC_Main:Repair()', "Cleans the entities and repair the mod")
@@ -188,11 +188,11 @@ function MBC_Main:RunModDiagnostic()
 	end
 
 	if (campCount > 1 or tagpointCount > 1 or npcCount > 1 or oldEntities == true) then
-		MBC_Utils:LogOnScreen("Something went wrong with the mod, please use the `mbc_repair` command, save and reload the save", true, 10)
+		MBC_Utils:LogOnScreen("@iu_text_modDiagnostic_error", true, 10)
 	elseif (campCount <= 0 and tagpointCount <= 0 and npcCount <= 0 and oldEntities == false and banditSpawned == false) then
-		MBC_Utils:LogOnScreen("Mod uninstalled", true, 5)
+		MBC_Utils:LogOnScreen("@iu_text_modDiagnostic_uninstalled", true, 5)
 	else
-		MBC_Utils:LogOnScreen("Mod is working fine", true, 5)
+		MBC_Utils:LogOnScreen("@iu_text_modDiagnostic_clear", true, 5)
 	end
 end
 System.AddCCommand(MBC_Main.prefix .. 'runModDiagnostic', 'MBC_Main:RunModDiagnostic()', "Runs a diagnostic to check if the mod is working fine")

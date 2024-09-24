@@ -40,4 +40,28 @@
 		<Cell>@mbc_tagpoint</Cell>
 		<Cell>_</Cell>
 	</Row>
+	<Row>
+		<Cell>iu_text_modDiagnostic_error</Cell>
+		<Cell>Something went wrong with the mod, please use the `mbc_repair` command, save and reload the save.</Cell>
+	</Row>
+	<Row>
+		<Cell>iu_text_modDiagnostic_uninstalled</Cell>
+		<Cell>Mod uninstalled.</Cell>
+	</Row>
+	<Row>
+		<Cell>iu_text_modDiagnostic_clear</Cell>
+		<Cell>Mod is working fine.</Cell>
+	</Row>
+	<Row>
+		<Cell>iu_text_repair_clean</Cell>
+		<Cell>Entities cleaned, mod repaired.</Cell>
+	</Row>
+	<Row>
+		<Cell>iu_text_repair_skip</Cell>
+		<Cell>Nothing to repair.</Cell>
+	</Row>
+	<Row>
+		<Cell>iu_text_uninstall_success</Cell>
+		<Cell> uninstalled, you can now safely remove the mod from the folder.</Cell>
+	</Row>
 </Table>

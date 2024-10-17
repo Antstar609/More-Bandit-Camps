@@ -8,9 +8,9 @@ MBC_Quest = {
 	},
 	difficultyRewards = {
 		0, -- none
-		1000, -- easy
-		2000, -- medium
-		3000 -- hard
+		150, -- easy
+		250, -- medium
+		350 -- hard
 	}
 }
 

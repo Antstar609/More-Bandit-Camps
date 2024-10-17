@@ -4,7 +4,7 @@
 --- @field prefix string Prefix for the console commands
 MBC_Main = {
 	name = "More Bandit Camps",
-	version = "1.4.0",
+	version = "1.4.1",
 	prefix = 'mbc_',
 	debugLog = true
 }
@@ -18,7 +18,7 @@ function MBC_Main:sceneInitListener(_actionName, _eventName, _eventArgs)
 	if (_actionName == "sys_loadingimagescreen") and (_eventName == "OnEnd") then
 		-- When the scene is loaded
 		System.LogAlways("$5[" .. self.name .. "] " .. self.name .. " loaded " .. "(v" .. self.version .. ")")
-		MBC_Main:Intro()
+		--MBC_Main:Intro()
 		MBC_Quest:InitQuest()
 	end
 end

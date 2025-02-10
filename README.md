@@ -4,6 +4,9 @@
 
 This mod for *Kingdom Come: Deliverance* introduces new bandit camps across the map for players to discover and destroy. Each destroyed camp yields rewards, enhancing the gameplay experience.
 
+[![GitHub release](https://img.shields.io/github/release/Antstar609/More-Bandit-Camps.svg)](https://github.com/Antstar609/More-Bandit-Camps/releases/latest)
+[![Github All Releases](https://img.shields.io/github/downloads/Antstar609/More-Bandit-Camps/total.svg)](https://github.com/Antstar609/More-Bandit-Camps/releases/latest)
+
 ## ✨ Features
 
 - 🏕️ **7 new bandit camps** scattered around the map.
